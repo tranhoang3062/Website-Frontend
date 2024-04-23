@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminLayoutComponent } from './admin/layouts/admin-layout/admin-layout.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'admin',
         pathMatch: 'full',
     }, {
-        path: '',
-        component: AdminLayoutComponent,
+        path: 'admin',
+        component: AdminComponent,
         children: [{
             path: '',
-            loadChildren: () => import('./admin/layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+            loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
         }]
     }
 ];
@@ -24,9 +24,7 @@ const routes: Routes = [
     imports: [
         CommonModule,
         BrowserModule,
-        RouterModule.forRoot(routes, {
-            useHash: true
-        })
+        RouterModule.forRoot(routes)
     ],
     exports: [
     ],

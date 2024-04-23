@@ -8,11 +8,11 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/users', title: 'User',  icon:'person', class: '' },
-    { path: '/categories', title: 'Category',  icon:'category', class: '' },
-    { path: '/products', title: 'Product',  icon:'inventory', class: '' },
+    { path: '/admin/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/admin/user-profile', title: 'User Profile',  icon:'person', class: '' },
+    { path: '/admin/users', title: 'User',  icon:'person', class: '' },
+    { path: '/admin/categories', title: 'Category',  icon:'category', class: '' },
+    { path: '/admin/products', title: 'Product',  icon:'inventory', class: '' },
     // { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },

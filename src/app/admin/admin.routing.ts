@@ -1,18 +1,23 @@
 import { Routes } from '@angular/router';
 
-import { DashboardComponent } from '../../module/dashboard/dashboard.component';
-import { UserProfileComponent } from '../../module/user-profile/user-profile.component';
-import { TableListComponent } from '../../module/table-list/table-list.component';
-import { TypographyComponent } from '../../module/typography/typography.component';
-import { IconsComponent } from '../../module/icons/icons.component';
-import { MapsComponent } from '../../module/maps/maps.component';
-import { NotificationsComponent } from '../../module/notifications/notifications.component';
-import { UpgradeComponent } from '../../module/upgrade/upgrade.component';
+import { DashboardComponent } from './module/dashboard/dashboard.component';
+import { UserProfileComponent } from './module/user-profile/user-profile.component';
+import { TableListComponent } from './module/table-list/table-list.component';
+import { TypographyComponent } from './module/typography/typography.component';
+import { IconsComponent } from './module/icons/icons.component';
+import { MapsComponent } from './module/maps/maps.component';
+import { NotificationsComponent } from './module/notifications/notifications.component';
+import { UpgradeComponent } from './module/upgrade/upgrade.component';
 import { UsersComponent } from 'app/admin/module/users/users.component';
 import { CategoriesComponent } from 'app/admin/module/categories/categories.component';
 import { ProductsComponent } from 'app/admin/module/products/products.component';
 
-export const AdminLayoutRoutes: Routes = [
+export const AdminRoutes: Routes = [
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'user-profile', component: UserProfileComponent },
+    { path: 'users', component: UsersComponent },
+    { path: 'categories', component: CategoriesComponent },
+    { path: 'products', component: ProductsComponent },
     // {
     //   path: '',
     //   children: [ {
@@ -55,11 +60,6 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'users',   component: UsersComponent },
-    { path: 'categories',   component: CategoriesComponent },
-    { path: 'products',   component: ProductsComponent },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
