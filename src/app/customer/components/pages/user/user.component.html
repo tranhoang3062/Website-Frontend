@@ -1,0 +1,402 @@
+<main class="user-component">
+  <div>
+    <div class="banner-top position-relative">
+      <p class="position-absolute w-100 text-center text-light">
+        <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+        <span class="px-3">/</span>
+        <span>Tài khoản</span>
+      </p>
+    </div>
+    <div class="container-fluid px-5 mb-5">
+      <div class="row mt-2">
+        <div class="col-3">
+          <div class="d-flex p-3">
+            <span class="d-block mx-2 thumbnail-user">
+              <a href="{{ user.thumbnail }}" target="_blank"><img src="{{ user.thumbnail }}" class="w-100 h-100 rounded-circle" alt=""></a>
+            </span>
+            <p class="d-flex flex-column p-0 m-0">
+              <b>{{ user.fullname }}</b>
+              <button type="button" class="btn p-0 m-0 bg-transparent border-0 text-secondary"><fa-icon [icon]="faPen" class="mr-1"></fa-icon><span>Sửa hồ sơ</span></button>
+            </p>
+          </div>
+          <div class="">
+            <ul class="nav nav-tabs d-flex flex-column" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a (click)="handleRoute('account')" class="nav-link text-dark border-0" [ngClass]="{'active': paramKey === 'account'}" id="profileuser-tab" data-toggle="tab" href="#profileuser" role="tab" aria-controls="profileuser" (aria-selected)="paramKey === 'account'">
+                  <fa-icon class="mr-2" [icon]="faUser"></fa-icon>
+                  <span>Tài khoản của tôi</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a (click)="handleRoute('purchase')" class="nav-link text-dark border-0" [ngClass]="{'active': paramKey === 'purchase'}" id="orderuser-tab" data-toggle="tab" href="#orderuser" role="tab" aria-controls="orderuser" (aria-selected)="paramKey === 'purchase'">
+                  <fa-icon class="mr-2" [icon]="faCalendarMinus"></fa-icon>
+                  <span>Đơn mua</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade" [ngClass]="{'show active': paramKey === 'account'}" id="profileuser" role="tabpanel" aria-labelledby="profileuser-tab">
+              <div class="bg-white p-3 px-4">
+                <div class="border-bottom border-1 mb-3">
+                  <h5>Hồ Sơ Của Tôi</h5>
+                  <p class="text-dark">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+                </div>
+                <div class="">
+                  <form action="" [formGroup]="dataForm" class="mt-4" (submit)="handleSubmit()">
+                    <div class="row">
+                      <div class="col-8">
+                        <div class="form-group d-flex align-items-start">
+                          <label class="col-3 p-0" for="fullname-inp">Họ và tên:</label>
+                          <div class="w-100">
+                            <input type="text" formControlName="fullname" id="fullname-inp" placeholder="Họ và tên" class="form-control rounded-0">
+                            <div class="box-message" *ngIf="f.fullname.invalid && (f.fullname.dirty || f.fullname.touched)">
+                              <div *ngIf="f.fullname.errors">
+                                <span class="small text-danger">Trường này không được để rỗng!</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group d-flex align-items-start">
+                          <label class="col-3 p-0" for="email-inp">Email:</label>
+                          <span>{{ encodeValue(user.email, 'top', 3) }}</span>
+                          <!-- <input type="text" name="email" id="email-inp" placeholder="Email" class="form-control rounded-0"> -->
+                        </div>
+                        <div class="form-group d-flex align-items-start">
+                          <label class="col-3 p-0" for="phone-inp">Số điện thoại:</label>
+                          <span>{{ encodeValue(user.phone, 'top', 6) }}</span>
+                          <!-- <input type="text" name="phone" id="phone-inp" placeholder="Số điện thoại" class="form-control rounded-0"> -->
+                        </div>
+                        <div class="form-group d-flex align-items-start">
+                          <label class="col-3 p-0" for="gender-inp">Giới tính:</label>
+                          <div *ngFor="let item of radioInputs" class="d-inline">
+                            <input type="radio" formControlName="gender" id="{{item.name}}" value="{{item.value}}" [checked]="item.checked">
+                            <label class="mx-2 p-0 mb-0" for="{{item.name}}">{{item.name}}</label>
+                          </div>
+                        </div>
+                        <div class="form-group d-flex align-items-start">
+                          <label class="col-3 p-0" for="birthday-inp">Ngày sinh:</label>
+                          <input type="date" formControlName="birthday" id="birthday-inp" class="form-control rounded-0">
+                        </div>
+                        <div class="form-group d-flex align-items-start">
+                          <label class="col-3 p-0" for="address-text">Địa chỉ:</label>
+                          <textarea formControlName="address" id="address-text" cols="30" rows="3" placeholder="Địa chỉ" class="form-control rounded-0"></textarea>
+                        </div>
+                        <div class="form-group d-flex align-items-start">
+                          <label class="col-3 p-0"></label>
+                          <button type="submit" class="btn btn-danger rounded-0 px-4">Lưu</button>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group mx-auto text-center mt-4 border-left border-1">
+                          <label for="upload-file" class="file-lable btn p-0 m-0 rounded-circle">
+                            <img class="w-100 h-100 rounded-circle" src="{{ urlImg }}" alt="">
+                          </label>
+                          <input (change)="selectFile($event)" class="file-input position-relative d-block mx-auto mt-3" type="file" name="upload-file" id="upload-file">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{'show active': paramKey === 'purchase'}" id="orderuser" role="tabpanel" aria-labelledby="orderuser-tab">
+              <div class="box-purchase">
+                <ul class="nav nav-tabs w-100 bg-white" id="myTab2" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link border-0 text-dark py-3 active" id="tatca-tab" data-toggle="tab" href="#tatca" role="tab" aria-controls="tatca" aria-selected="true">Tất cả</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link border-0 text-dark py-3" id="chuanbihang-tab" data-toggle="tab" href="#chuanbihang" role="tab" aria-controls="chuanbihang" aria-selected="false">Chuẩn bị hàng</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link border-0 text-dark py-3" id="vanchuyen-tab" data-toggle="tab" href="#vanchuyen" role="tab" aria-controls="vanchuyen" aria-selected="false">Vận chuyển</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link border-0 text-dark py-3" id="chogiaohang-tab" data-toggle="tab" href="#chogiaohang" role="tab" aria-controls="chogiaohang" aria-selected="false">Chờ giao hàng</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link border-0 text-dark py-3" id="hoanthanh-tab" data-toggle="tab" href="#hoanthanh" role="tab" aria-controls="hoanthanh" aria-selected="false">Hoàn thành</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link border-0 text-dark py-3" id="dahuy-tab" data-toggle="tab" href="#dahuy" role="tab" aria-controls="dahuy" aria-selected="false">Đã hủy</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link border-0 text-dark py-3" id="trahanghoantien-tab" data-toggle="tab" href="#trahanghoantien" role="tab" aria-controls="trahanghoantien" aria-selected="false">Trả hàng/Hoàn tiền</a>
+                  </li>
+                </ul>
+                <div class="tab-content mt-3" id="myTab2Content">
+                  <div class="tab-pane fade bg-white show active" id="tatca" role="tabpanel" aria-labelledby="tatca-tab">
+                    <div *ngIf="listAllOrder.length === 0" class="d-flex align-items-center justify-content-center">
+                      <div class="p-5 m-5 text-center">
+                        <span>
+                          <img width="150px" src="assets/images/banner-order.png" alt="">
+                        </span>
+                        <h5 class="text-dark mt-3">Chưa có đơn hàng</h5>
+                      </div>
+                    </div>
+                    <div *ngIf="listAllOrder.length !== 0" id="accordionAll">
+                      <div *ngFor="let order of listAllOrder; index as i" class="card">
+                        <div class="card-header" id="listAllOrder{{ order.id }}">
+                          <h5 class="mb-0 d-flex">
+                            <button class="btn-show btn btn-link w-100" data-toggle="collapse" [attr.data-target]="'#collapseAll'+order.id" aria-expanded="false" [attr.aria-controls]="'collapseAll'+order.id">
+                              <div class="d-flex align-items-center text-dark w-100">
+                                <p class="p-0 m-0"><b>Đơn hàng: {{ order.id }}</b></p>
+                                <p class="p-0 m-0 ml-5"><b>Sản phẩm: </b><span>{{ order.orderDetails.length }}</span></p>
+                                <p class="p-0 m-0 ml-5"><b>Tổng tiền: </b><span>{{ order.total_amount|currency:' ':'code':'1.0-0' }}<sup>đ</sup></span></p>
+                                <p class="p-0 m-0 ml-auto"><fa-icon [icon]="faClock"></fa-icon><span class="ml-1">{{ order.create_at|date:'dd/MM/yyyy' }}</span></p>
+                              </div>
+                            </button>
+                            <button type="button" class="btn btn-danger ml-3">{{ order.status == 1 ? "Chuẩn bị hàng" : order.status == 2 ? "Vận chuyển" : order.status == 3 ? "Chờ giao hàng" : order.status == 4 ? "Hoàn thành" : order.status == 5 ? "Đã hủy" : "Trả hàng/Hoàn tiền" }}</button>
+                          </h5>
+                        </div>
+
+                        <div id="collapseAll{{ order.id }}" class="collapse" [attr.aria-labelledby]="'listAllOrder'+order.id" data-parent="#accordionAll">
+                          <div class="card-body">
+                            <div *ngFor="let item of order.orderDetails; index as i" class="item d-flex border-bottom border-1 py-2">
+                              <span class="d-block mr-2">
+                                <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]">
+                                  <img src="{{ item.resourcesProduct[0] }}" width="80px" class="" alt="">
+                                </a>
+                              </span>
+                              <div class="text-dark">
+                                <p class="p-0 m-0">
+                                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark text-decoration-none">{{ item.nameProduct }}<span class="small" *ngIf="item.choose !== ''">({{ item.choose.select }})</span></a>
+                                </p>
+                                <span class="d-block text-secondary">{{ item.nameBrand }}</span>
+                                <span>x{{ item.quantity }}</span>
+                              </div>
+                              <div class="d-flex align-items-center ml-auto">
+                                <span class="text-danger">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade bg-white" id="chuanbihang" role="tabpanel" aria-labelledby="chuanbihang-tab">
+                    <div *ngIf="listOrderStatus1.length === 0" class="d-flex align-items-center justify-content-center">
+                      <div class="p-5 m-5 text-center">
+                        <span>
+                          <img width="150px" src="assets/images/banner-order.png" alt="">
+                        </span>
+                        <h5 class="text-dark mt-3">Chưa có đơn hàng</h5>
+                      </div>
+                    </div>
+                    <div *ngIf="listOrderStatus1.length !== 0" id="accordionOne">
+                      <div *ngFor="let order of listOrderStatus1; index as i" class="card">
+                        <div class="card-header" id="listOrderStatus1{{ order.id }}">
+                          <h5 class="mb-0 d-flex">
+                            <button class="btn-show btn btn-link w-100" data-toggle="collapse" [attr.data-target]="'#collapseOne'+order.id" aria-expanded="false" [attr.aria-controls]="'collapseOne'+order.id">
+                              <div class="d-flex align-items-center text-dark w-100">
+                                <p class="p-0 m-0"><b>Đơn hàng: {{ order.id }}</b></p>
+                                <p class="p-0 m-0 ml-5"><b>Sản phẩm: </b><span>{{ order.orderDetails.length }}</span></p>
+                                <p class="p-0 m-0 ml-5"><b>Tổng tiền: </b><span>{{ order.total_amount|currency:' ':'code':'1.0-0' }}<sup>đ</sup></span></p>
+                                <p class="p-0 m-0 ml-auto"><fa-icon [icon]="faClock"></fa-icon><span class="ml-1">{{ order.create_at|date:'dd/MM/yyyy' }}</span></p>
+                              </div>
+                            </button>
+                            <button (click)="handleCancelOrder(order, i)" type="button" class="btn btn-danger ml-3">Hủy đơn</button>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne{{ order.id }}" class="collapse" [attr.aria-labelledby]="'listOrderStatus1'+order.id" data-parent="#accordionOne">
+                          <div class="card-body">
+                            <div *ngFor="let item of order.orderDetails; index as i" class="item d-flex border-bottom border-1 py-2">
+                              <span class="d-block mr-2">
+                                <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]">
+                                  <img src="{{ item.resourcesProduct[0] }}" width="80px" class="" alt="">
+                                </a>
+                              </span>
+                              <div class="text-dark">
+                                <p class="p-0 m-0">
+                                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark text-decoration-none">{{ item.nameProduct }}<span class="small" *ngIf="item.choose !== ''">({{ item.choose.select }})</span></a>
+                                </p>
+                                <span class="d-block text-secondary">{{ item.nameBrand }}</span>
+                                <span>x{{ item.quantity }}</span>
+                              </div>
+                              <div class="d-flex align-items-center ml-auto">
+                                <span class="text-danger">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade bg-white" id="vanchuyen" role="tabpanel" aria-labelledby="vanchuyen-tab">
+                    <div *ngIf="listOrderStatus2.length === 0" class="d-flex align-items-center justify-content-center">
+                      <div class="p-5 m-5 text-center">
+                        <span>
+                          <img width="150px" src="assets/images/banner-order.png" alt="">
+                        </span>
+                        <h5 class="text-dark mt-3">Chưa có đơn hàng</h5>
+                      </div>
+                    </div>
+                    <div *ngIf="listOrderStatus2.length !== 0" id="accordionTwo">
+                      <div *ngFor="let order of listOrderStatus2" class="card">
+                        <div class="card-header" id="listOrderStatus2{{ order.id }}">
+                          <h5 class="mb-0 d-flex">
+                            <button class="btn-show btn btn-link w-100" data-toggle="collapse" [attr.data-target]="'#collapseTwo'+order.id" aria-expanded="false" [attr.aria-controls]="'collapseTwo'+order.id">
+                              <div class="d-flex align-items-center text-dark w-100">
+                                <p class="p-0 m-0"><b>Đơn hàng: {{ order.id }}</b></p>
+                                <p class="p-0 m-0 ml-5"><b>Sản phẩm: </b><span>{{ order.orderDetails.length }}</span></p>
+                                <p class="p-0 m-0 ml-5"><b>Tổng tiền: </b><span>{{ order.total_amount|currency:' ':'code':'1.0-0' }}<sup>đ</sup></span></p>
+                                <p class="p-0 m-0 ml-auto"><fa-icon [icon]="faClock"></fa-icon><span class="ml-1">{{ order.create_at|date:'dd/MM/yyyy' }}</span></p>
+                              </div>
+                            </button>
+                          </h5>
+                        </div>
+
+                        <div id="collapseTwo{{ order.id }}" class="collapse" [attr.aria-labelledby]="'listOrderStatus2'+order.id" data-parent="#accordionTwo">
+                          <div class="card-body">
+                            <div *ngFor="let item of order.orderDetails; index as i" class="item d-flex border-bottom border-1 py-2">
+                              <span class="d-block mr-2">
+                                <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]">
+                                  <img src="{{ item.resourcesProduct[0] }}" width="80px" class="" alt="">
+                                </a>
+                              </span>
+                              <div class="text-dark">
+                                <p class="p-0 m-0">
+                                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark text-decoration-none">{{ item.nameProduct }}<span class="small" *ngIf="item.choose !== ''">({{ item.choose.select }})</span></a>
+                                </p>
+                                <span class="d-block text-secondary">{{ item.nameBrand }}</span>
+                                <span>x{{ item.quantity }}</span>
+                              </div>
+                              <div class="d-flex align-items-center ml-auto">
+                                <span class="text-danger">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade bg-white" id="chogiaohang" role="tabpanel" aria-labelledby="chogiaohang-tab">
+                    <div *ngIf="listOrderStatus3.length === 0" class="d-flex align-items-center justify-content-center">
+                      <div class="p-5 m-5 text-center">
+                        <span>
+                          <img width="150px" src="assets/images/banner-order.png" alt="">
+                        </span>
+                        <h5 class="text-dark mt-3">Chưa có đơn hàng</h5>
+                      </div>
+                    </div>
+                    <div *ngIf="listOrderStatus3.length !== 0" id="accordionThree">
+                      <div *ngFor="let order of listOrderStatus3" class="card">
+                        <div class="card-header" id="listOrderStatus3{{ order.id }}">
+                          <h5 class="mb-0 d-flex">
+                            <button class="btn-show btn btn-link w-100" data-toggle="collapse" [attr.data-target]="'#collapseThree'+order.id" aria-expanded="false" [attr.aria-controls]="'collapseThree'+order.id">
+                              <div class="d-flex align-items-center text-dark w-100">
+                                <p class="p-0 m-0"><b>Đơn hàng: {{ order.id }}</b></p>
+                                <p class="p-0 m-0 ml-5"><b>Sản phẩm: </b><span>{{ order.orderDetails.length }}</span></p>
+                                <p class="p-0 m-0 ml-5"><b>Tổng tiền: </b><span>{{ order.total_amount|currency:' ':'code':'1.0-0' }}<sup>đ</sup></span></p>
+                                <p class="p-0 m-0 ml-auto"><fa-icon [icon]="faClock"></fa-icon><span class="ml-1">{{ order.create_at|date:'dd/MM/yyyy' }}</span></p>
+                              </div>
+                            </button>
+                          </h5>
+                        </div>
+
+                        <div id="collapseThree{{ order.id }}" class="collapse" [attr.aria-labelledby]="'listOrderStatus3'+order.id" data-parent="#accordionThree">
+                          <div class="card-body">
+                            <div *ngFor="let item of order.orderDetails; index as i" class="item d-flex border-bottom border-1 py-2">
+                              <span class="d-block mr-2">
+                                <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]">
+                                  <img src="{{ item.resourcesProduct[0] }}" width="80px" class="" alt="">
+                                </a>
+                              </span>
+                              <div class="text-dark">
+                                <p class="p-0 m-0">
+                                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark text-decoration-none">{{ item.nameProduct }}<span class="small" *ngIf="item.choose !== ''">({{ item.choose.select }})</span></a>
+                                </p>
+                                <span class="d-block text-secondary">{{ item.nameBrand }}</span>
+                                <span>x{{ item.quantity }}</span>
+                              </div>
+                              <div class="d-flex align-items-center ml-auto">
+                                <span class="text-danger">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade bg-white" id="hoanthanh" role="tabpanel" aria-labelledby="hoanthanh-tab">
+                    <div class="d-flex align-items-center justify-content-center">
+                      <div class="p-5 m-5 text-center">
+                        <span>
+                          <img width="150px" src="assets/images/banner-order.png" alt="">
+                        </span>
+                        <h5 class="text-dark mt-3">Chưa có đơn hàng</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade bg-white" id="dahuy" role="tabpanel" aria-labelledby="dahuy-tab">
+                    <div *ngIf="listOrderStatus5.length === 0" class="d-flex align-items-center justify-content-center">
+                      <div class="p-5 m-5 text-center">
+                        <span>
+                          <img width="150px" src="assets/images/banner-order.png" alt="">
+                        </span>
+                        <h5 class="text-dark mt-3">Chưa có đơn hàng</h5>
+                      </div>
+                    </div>
+                    <div *ngIf="listOrderStatus5.length !== 0" id="accordionFive">
+                      <div *ngFor="let order of listOrderStatus5; index as i" class="card">
+                        <div class="card-header" id="listOrderStatus5{{ order.id }}">
+                          <h5 class="mb-0 d-flex">
+                            <button class="btn-show btn btn-link w-100" data-toggle="collapse" [attr.data-target]="'#collapsefive'+order.id" aria-expanded="false" [attr.aria-controls]="'collapsefive'+order.id">
+                              <div class="d-flex align-items-center text-dark w-100">
+                                <p class="p-0 m-0"><b>Đơn hàng: {{ order.id }}</b></p>
+                                <p class="p-0 m-0 ml-5"><b>Sản phẩm: </b><span>{{ order.orderDetails.length }}</span></p>
+                                <p class="p-0 m-0 ml-5"><b>Tổng tiền: </b><span>{{ order.total_amount|currency:' ':'code':'1.0-0' }}<sup>đ</sup></span></p>
+                                <p class="p-0 m-0 ml-auto"><fa-icon [icon]="faClock"></fa-icon><span class="ml-1">{{ order.create_at|date:'dd/MM/yyyy' }}</span></p>
+                              </div>
+                            </button>
+                            <button (click)="handleRepurchase(order, i)" type="button" class="btn btn-danger ml-3">Mua lại</button>
+                          </h5>
+                        </div>
+
+                        <div id="collapsefive{{ order.id }}" class="collapse" [attr.aria-labelledby]="'listOrderStatus5'+order.id" data-parent="#accordionFive">
+                          <div class="card-body">
+                            <div *ngFor="let item of order.orderDetails; index as i" class="item d-flex border-bottom border-1 py-2">
+                              <span class="d-block mr-2">
+                                <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]">
+                                  <img src="{{ item.resourcesProduct[0] }}" width="80px" class="" alt="">
+                                </a>
+                              </span>
+                              <div class="text-dark">
+                                <p class="p-0 m-0">
+                                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark text-decoration-none">{{ item.nameProduct }}<span class="small" *ngIf="item.choose !== ''">({{ item.choose.select }})</span></a>
+                                </p>
+                                <span class="d-block text-secondary">{{ item.nameBrand }}</span>
+                                <span>x{{ item.quantity }}</span>
+                              </div>
+                              <div class="d-flex align-items-center ml-auto">
+                                <span class="text-danger">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade bg-white" id="trahanghoantien" role="tabpanel" aria-labelledby="trahanghoantien-tab">
+                    <div class="d-flex align-items-center justify-content-center">
+                      <div class="p-5 m-5 text-center">
+                        <span>
+                          <img width="150px" src="assets/images/banner-order.png" alt="">
+                        </span>
+                        <h5 class="text-dark mt-3">Chưa có đơn hàng</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

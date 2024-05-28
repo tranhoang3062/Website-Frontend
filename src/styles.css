@@ -1,1 +1,236 @@
 /* You can add global styles to this file, and also import other style files */
+/* @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default'; */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --light: #f6f6f9;
+    --primary: #1976D2;
+    --light-primary: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #363949;
+    --danger: #D32F2F;
+    --light-danger: #FECDD3;
+    --warning: #FBC02D;
+    --light-warning: #FFF2C6;
+    --success: #388E3C;
+    --light-success: #BBF7D0;
+}
+
+.swal-height {
+    height: 80px;
+}
+
+.swal-class2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* *, body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+} */
+
+body {
+    /* background-color: rgb(255, 241, 241); */
+    background-color: #f8f9fa;
+}
+
+.home-component .owl-nav {
+    position: absolute !important;
+    top: 36%;
+    transform: translateY(-36%);
+    height: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.home-component .owl-nav>div {
+    width: 40px;
+    height: 40px;
+    line-height: 35px;
+    font-size: 25px !important;
+}
+
+.home-component .box-content_four .owl-nav>div {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background-color: transparent !important;
+    color: rgb(197, 197, 197);
+}
+
+.home-component .box-content_four .owl-nav>div:hover {
+    color: grey;
+}
+
+.product-component .box-price .ngx-slider .ngx-slider-pointer-min,
+.box-price .ngx-slider .ngx-slider-pointer-max {
+    width: 20px !important;
+    height: 20px !important;
+    top: -9px !important;
+    background: rgb(255, 22, 22) !important;
+}
+
+.product-component .box-price .ngx-slider .ngx-slider-pointer-min:focus-visible,
+.box-price .ngx-slider .ngx-slider-pointer-max:focus-visible {
+    outline: none !important;
+}
+
+.product-component .box-price .ngx-slider .ngx-slider-pointer-min::after,
+.box-price .ngx-slider .ngx-slider-pointer-max::after {
+    top: 6px !important;
+    left: 6px !important;
+    background: #fff !important;
+}
+
+.product-component .box-price .ngx-slider .ngx-slider-selection {
+    background: rgb(255, 22, 22) !important;
+}
+
+.quick-view .modal-content,
+.quick-view .modal-dialog {
+    width: 992px !important;
+    max-width: none !important;
+}
+
+.quick-view .modal-content .modal-header {
+    top: 0;
+    right: 0;
+    z-index: 100;
+}
+
+/* style gallery */
+
+.quick-view .modal-body .left .show {
+    width: 400px;
+    height: 400px;
+}
+
+.quick-view .modal-body .left .small-img {
+    width: 350px;
+    height: 70px;
+    margin-top: 10px;
+    position: relative;
+    left: 25px;
+}
+
+.quick-view .modal-body .left .small-img .icon-left,
+.quick-view .modal-body .left .small-img .icon-right {
+    width: 12px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
+
+.quick-view .modal-body .left .small-img .icon-left {
+    transform: rotate(180deg)
+}
+
+.quick-view .modal-body .left .small-img .icon-right {
+    right: 0;
+}
+
+.quick-view .modal-body .left .small-img .icon-left:hover,
+.quick-view .modal-body .left .small-img .icon-right:hover {
+    opacity: .5;
+}
+
+.quick-view .modal-body .left .small-container {
+    width: 310px;
+    height: 70px;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.quick-view .modal-body .left .small-container div {
+    width: 800%;
+    position: relative;
+}
+
+.quick-view .modal-body .left .small-container .show-small-img {
+    width: 70px;
+    height: 70px;
+    margin-right: 6px;
+    cursor: pointer;
+    float: left;
+}
+
+.quick-view .modal-body .left .small-container .show-small-img:last-of-type {
+    margin-right: 0;
+}
+
+.quick-view .modal-body .right .price {
+    border-bottom: 1px dashed rgb(219, 219, 219);
+}
+
+.content_img {
+    width: 100% !important;
+    /* object-position: center;
+  object-fit: contain; */
+}
+
+.ui-slider-horizontal {
+    height: 4px;
+}
+
+.ui-widget.ui-widget-content {
+    border: none;
+    background-color: #d8e0f3;
+    border-radius: 2px;
+}
+
+.ui-slider-handle.ui-corner-all.ui-state-default {
+    border: none !important;
+    border-radius: 100% !important;
+    width: 20px !important;
+    height: 20px !important;
+    top: -9px !important;
+    background: rgb(255, 22, 22) !important;
+}
+
+.ui-slider-handle.ui-corner-all.ui-state-default::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.ui-widget-header {
+    border: none;
+    background: rgb(255, 22, 22);
+    color: rgb(255, 22, 22);
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active {
+    border: 1px solid rgb(255, 22, 22);
+    background: rgb(255, 22, 22);
+    font-weight: normal;
+    color: #fff;
+}
+
+.ui-slider-handle.ui-corner-all.ui-state-default:focus-visible {
+    outline: rgb(255, 22, 22) auto 1px;
+}

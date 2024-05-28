@@ -1,0 +1,94 @@
+<main class="cart-component">
+  <div>
+    <div class="banner-top position-relative">
+      <p class="position-absolute w-100 text-center text-light">
+        <a href="" class="text-white">Trang chủ</a>
+        <span class="px-3">/</span>
+        <span>Giỏ hàng</span>
+      </p>
+    </div>
+    <div class="container pb-5">
+      <h4>Giỏ hàng của bạn</h4>
+      <div class="my-4">
+        <div class="box-product">
+          <table class="table bg-white d-none d-lg-block">
+            <thead>
+              <tr class="text-center">
+                <th class="">
+                  <input (click)="onChoose($event, true)" type="checkbox" name="" id="" [checked]="productService.checkInChoose(-1, true)">
+                </th>
+                <th class="col-2"><span>Ảnh sản phẩm</span></th>
+                <th class="col-3"><span>Tên sản phẩm</span></th>
+                <th class="col-2"><span>Đơn giá</span></th>
+                <th class="col-2"><span>Số lượng</span></th>
+                <th class="col-2"><span>Thành tiền</span></th>
+                <th class="col-1"><span>Xóa</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataCarts; index as i" class="text-center">
+                <td class="align-middle" scope="row">
+                  <input (click)="onChoose(item.id, false)" type="checkbox" name="choose" id="" [checked]="productService.checkInChoose(item.id)">
+                </td>
+                <td class="align-middle">
+                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="">
+                    <img src="{{ item.resourcesProduct[0] }}" class="w-100" alt="">
+                  </a>
+                </td>
+                <td class="align-middle">
+                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark">{{ item.nameProduct }}<small *ngIf="item.choose !== ''">({{ item.choose.select }})</small></a>
+                </td>
+                <td class="align-middle"><b class="text-danger">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>đ</sup></b></td>
+                <td class="align-middle">
+                  <div class="d-flex">
+                    <button (click)="handleChangeOrder(i, false)" type="button" class="btn border border-1 rounded-0 bg-transparent">-</button>
+                    <button type="button" class="btn border border-1 rounded-0 bg-transparent w-100">{{ defaultData[i].quantity }}</button>
+                    <button (click)="handleChangeOrder(i, true)" type="button" class="btn border border-1 rounded-0 bg-transparent">+</button>
+                  </div>
+                </td>
+                <td class="align-middle"><b class="text-danger">{{ defaultData[i].total_price|currency:' ':'code':'1.0-0' }}<sup>đ</sup></b></td>
+                <td class="align-middle">
+                  <span (click)="deleteOrder(item)" class="text-secondary"><fa-icon [icon]="faTrash"></fa-icon></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-block d-lg-none">
+            <div><input (click)="onChoose($event, true)" type="checkbox" name="" id="" [checked]="productService.checkInChoose(-1, true)"></div>
+            <div *ngFor="let item of dataCarts; index as i" class="item d-flex py-3">
+              <div><input (click)="onChoose(item.id, false)" type="checkbox" name="choose" id="" [checked]="productService.checkInChoose(item.id)"></div>
+              <div class="px-2 box-img">
+                <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]">
+                  <img src="{{ item.resourcesProduct[0] }}" class="w-100" alt="">
+                </a>
+              </div>
+              <div class="px-2">
+                <p class="p-0 m-0"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark">{{ item.nameProduct }}<small *ngIf="item.choose !== ''">({{ item.choose.select }})</small></a></p>
+                <p class="m-0"><span>Giá:</span><b class="text-danger ml-2">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>đ</sup></b></p>
+                <p><span>Tổng:</span><b class="text-danger ml-2">{{ defaultData[i].total_price|currency:' ':'code':'1.0-0' }}<sup>đ</sup></b></p>
+              </div>
+              <div class="ml-auto text-center">
+                <div class="d-flex">
+                  <button (click)="handleChangeOrder(i, false)" type="button" class="btn border border-1 rounded-0 bg-transparent">-</button>
+                  <button type="button" class="btn border border-1 rounded-0 bg-transparent w-100">{{ defaultData[i].quantity }}</button>
+                  <button (click)="handleChangeOrder(i, true)" type="button" class="btn border border-1 rounded-0 bg-transparent">+</button>
+                </div>
+                <a (click)="deleteOrder(item)">Xóa</a>
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end py-2">
+          <span class="mr-2">(Đơn hàng đã chọn: <b class="text-danger">{{ listChoose.length }}</b>)</span>
+          <span class="mr-2">Tổng tiền thanh toán:</span>
+          <b class="text-danger">{{ total_price|currency:' ':'code':'1.0-0' }}<sup>đ</sup></b>
+        </div>
+        <div class="box-button w-100 d-flex justify-content-between flex-column flex-lg-row">
+          <button (click)="onUpdateCart()" type="button" class="btn btn-success py-2 col-12 col-lg-4 mt-3 rounded-0 position-relative"><span>Cập nhật giỏ hàng</span></button>
+          <button (click)="onPay()" type="button" class="btn btn-danger py-2 col-12 col-lg-4 mt-3 rounded-0"><span>Tiến hành thanh toán</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

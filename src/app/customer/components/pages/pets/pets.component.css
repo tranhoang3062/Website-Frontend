@@ -1,0 +1,81 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child {
+  color: rgb(255, 22, 22);
+}
+
+div>h2 {
+  color: rgb(255, 22, 22) !important;
+  font-weight: 600;
+}
+
+.box-pet .item a:hover {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-pet .item span {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.box-pet .item img {
+  height: 240px;
+  object-fit: cover;
+}
+
+.box-pet .item a {
+  color: black;
+  font-weight: 600;
+  transition: all 0.2s linear;
+  text-decoration: none;
+}
+
+.box-pet .item a:hover {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-pet .item img {
+  border-radius: 10px;
+}
+
+.box-pet .item a {
+  color: black;
+  font-weight: 600;
+  transition: all 0.2s linear;
+  text-decoration: none;
+}
+
+.list-cate>ul>li>a {
+  color: rgb(59, 59, 59);
+  font-weight: 500;
+  /* font-size: 18px; */
+  border-radius: 20px;
+  transition: all 0.2s linear;
+}
+
+.list-cate>ul>li>a.active, .list-cate>ul>li>a:hover {
+  color: #f9a529;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.089);
+}
+
+@media (max-width:1199px) {
+  .box-pet .item img {
+    height: 200px;
+  }
+}
+
+@media (max-width:575px) {
+  .box-pet .item img {
+    height: 100%;
+  }
+}

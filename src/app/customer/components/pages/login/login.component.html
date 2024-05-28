@@ -1,0 +1,61 @@
+<main class="login-component">
+  <div>
+    <div class="banner-top position-relative">
+      <p class="position-absolute w-100 text-center text-light">
+        <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+        <span class="px-3">/</span>
+        <span>Đăng nhập</span>
+      </p>
+    </div>
+    <div class="container">
+      <div class="box-form my-5">
+        <form action="" [formGroup]="dataForm" class="p-0 m-0 col-10 mx-auto" (submit)="handleSubmit()">
+          <div class="form-item row bg-white">
+            <div class="col-4 p-0 d-flex align-items-center">
+              <span class="d-block">
+                <img src="assets/images/bg-register1.png" class="w-100" alt="">
+              </span>
+            </div>
+            <div class="col-8">
+              <div class="p-5">
+                <h4 class="text-center text-uppercase pb-4">Đăng nhập</h4>
+                <div *ngIf="error" class="alert alert-danger" role="alert">
+                  <strong>Email hoặc mật khẩu không chính xác!</strong>
+                </div>
+                <div class="form-group">
+                  <input type="text" formControlName="email" id="" placeholder="Email" class="form-control rounded-0" (ngModelChange)="this.error = false">
+                  <div class="box-message" *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+                    <div *ngIf="f.email.errors">
+                      <span class="small text-danger" *ngIf="f.email.errors['required']">Trường này không được để rỗng!</span>
+                      <span class="small text-danger" *ngIf="f.email.errors['email']">Trường này phải là email!</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="password" formControlName="password" id="" placeholder="Mật khẩu" class="form-control rounded-0" (ngModelChange)="this.error = false">
+                  <div class="box-message" *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">
+                    <div *ngIf="f.password.errors">
+                      <span class="small text-danger" *ngIf="f.password.errors['required']">Trường này không được để rỗng!</span>
+                      <span class="small text-danger" *ngIf="!f.password.errors['required'] && f.password.errors['minlength'].actualLength">Mật khẩu ít nhất 6 ký tự</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="my-4 mb-0 text-center text-secondary">
+                  <p>Bạn chưa có tài khoản? <a [routerLink]="['/register']">Đăng ký</a></p>
+                </div>
+                <div class="d-flex justify-content-center pt-0">
+                  <button *ngIf="dataForm.valid" type="submit" class="btn btn-login rounded-0">
+                    <span class="mr-2">Đăng nhập</span>
+                  </button>
+                  <button *ngIf="!dataForm.valid" disabled type="submit" class="btn btn-login rounded-0">
+                    <span class="mr-2">Đăng nhập</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,101 @@
+<div>
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Thú cưng</h4>
+        <span class="small d-block mb-3">Cái loại thú cưng và danh mục sản phẩm.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Thú cưng</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="d-flex align-items-center my-4">
+      <a [routerLink]="['add']" class="btn btn-info mr-3 rounded-0">Thêm mới</a>
+      <div>
+        <form action="">
+          <div class="form-group d-flex p-0 m-0">
+            <input [(ngModel)]="search" type="text" name="q" id="" class="form-control rounded-0" placeholder="Tìm kiếm theo tên">
+            <button (click)="handleRouteLink()" type="button" class="btn btn-success rounded-0"><fa-icon [icon]="faSearch"></fa-icon></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="">Stt</th>
+          <th class="col-1">Mã</th>
+          <th class="col-3">Tên</th>
+          <th class="col-1">Mô tả</th>
+          <th class="col-2">Ảnh</th>
+          <th class="col-2">Loài</th>
+          <th class="col-1">Ngày tạo</th>
+          <th class="col-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataPets | paginate: { itemsPerPage: itemsPage, currentPage: p }; index as i">
+          <td scope="row">{{ i + 1 }}</td>
+          <td>{{ item.code }}</td>
+          <td>{{ item.name }}</td>
+          <td>
+            <button type="button" class="btn rounded-0 border border-1 bg-white" data-toggle="modal" data-target="#exampleModalLong" (click)="showContent(item.description)">
+              Xem
+            </button>
+          </td>
+          <td>
+            <div id="carouselExampleControls{{ item.id }}" class="carousel slide border border-1" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="{{ item.resources[0] }}" class="d-block w-100 mx-auto" alt="...">
+                </div>
+                <div *ngFor="let item of item.resources; index as i" [ngClass]="i == 0 ? 'd-none' : 'carousel-item'">
+                  <img src="{{ item }}" class="d-block w-100 mx-auto" alt="...">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </td>
+          <td>{{ item.petlistName }}</td>
+          <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
+          <td>
+            <a [routerLink]="['edit/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
+            <button type="button" (click)="handleDelete(item.id, i)" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+      <pagination-controls (click)="handlePaginate()" *ngIf="dataPets.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="box-content">
+      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog mx-auto" role="document">
+          <div class="modal-content">
+            <div class="modal-header p-0 position-relative">
+              <button type="button" class="close p-1 px-2" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="h1 p-0 m-0">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div [innerHTML]="content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

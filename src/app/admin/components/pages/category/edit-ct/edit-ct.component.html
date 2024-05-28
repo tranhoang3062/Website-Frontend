@@ -1,0 +1,73 @@
+<div class="w-100">
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Sửa danh mục</h4>
+        <span class="small d-block mb-3">Cái loại thú cưng và danh mục sản phẩm.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <a class="text-white" [routerLink]="['/admin/category']">Danh mục</a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Sửa</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <form action="" [formGroup]="dataForm" class="col-lg-8 col-md-8 col-sm-12 mx-auto mt-4 border border-1 p-4"
+      (submit)="handleSubmit()">
+      <div class="form-group">
+        <label for="name-inp" *ngIf="paramsKey !== 'gtc'"><b>Tên danh mục</b></label>
+        <label for="name-inp" *ngIf="paramsKey === 'gtc'"><b>Tên giống thú cưng</b></label>
+        <input type="text" formControlName="name" id="name-inp" placeholder="Tên danh mục"
+          class="form-control rounded-0" (input)="eventInput()">
+        <div class="box-mesage" *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
+          <div *ngIf="f.name.errors">
+            <span class="small text-danger">Trường này không được để rỗng!</span>
+          </div>
+        </div>
+        <span *ngIf="nameError" class="small text-danger">Tên này đã tồn tại!</span>
+      </div>
+      <div *ngIf="paramsKey == 'dmsp'" class="form-group">
+        <label for="parent_select"><b>Danh mục cha</b></label>
+        <select formControlName="parent_id" id="parent_select" class="form-control">
+        </select>
+        <div class="box-mesage" *ngIf="f.parent_id.invalid && (f.parent_id.dirty || f.parent_id.touched)">
+          <div *ngIf="f.parent_id.errors">
+            <span class="small text-danger">Bạn phải chọn danh mục cha!</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="paramsKey == 'gtc'" class="form-group">
+        <label for="parent_select"><b>Thú cưng</b></label>
+        <select formControlName="category_id" id="pet_select" class="form-control">
+          <option value="" disabled selected>Thú cưng</option>
+          <option *ngFor="let item of dataCategoryParent" value="{{ item.id }}">{{ item.name }}</option>
+        </select>
+        <div class="box-mesage" *ngIf="f.category_id.invalid && (f.category_id.dirty || f.category_id.touched)">
+          <div *ngIf="f.category_id.errors">
+            <span class="small text-danger">Bạn phải chọn loại thú cưng!</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="d-block"><b>Trạng thái</b></label>
+        <div *ngFor="let item of radioInputs" class="d-inline">
+          <input type="radio" formControlName="status" id="{{item.name}}" value="{{item.value}}"
+            [checked]="item.checked"
+            (click)="handleStatus(item.value)"
+          >
+          <label class="mx-2" for="{{item.name}}">{{item.name}}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" formControlName="slug" id="slug-inp" class="d-none" value="">
+      </div>
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="dataForm.valid">Lưu</button>
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="!dataForm.valid" disabled>Lưu</button>
+    </form>
+  </div>
+</div>

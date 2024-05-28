@@ -1,0 +1,158 @@
+<div class="w-100">
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Đơn hàng</h4>
+        <span class="small d-block mb-3">Chào mừng bạn đến với PetShop.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Đơn hàng</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="main-content mt-3">
+    <div class="container">
+      <div>
+        <form action="" class="d-flex align-items-center justify-content-between mb-3">
+          <div class="form-group m-0 w-100 mr-3 position-relative d-flex align-items-center">
+            <select name="key" [(ngModel)]="valueKey" class="form-control rounded-0 position-absolute">
+              <option value="" disabled selected>Tìm kiếm theo</option>
+              <option value="1">Id (Mặc định)</option>
+              <option value="2">Tên khách hàng</option>
+              <option value="3">Trạng thái</option>
+            </select>
+            <input type="text" name="value" [(ngModel)]="valueSearch" placeholder="Tìm kiếm" class="form-control rounded-0">
+            <button (click)="handleSearch()" type="button" class="btn position-absolute rounded-0 bg-transparent btn-info text-dark">
+              <fa-icon [icon]="faSearch"></fa-icon>
+            </button>
+          </div>
+          <button (click)="this.dataOrder = this.dataDefault" type="button" class="btn btn-dark rounded-0">Đặt lại</button>
+        </form>
+      </div>
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Mã đơn hàng</th>
+              <th>Tên khách hàng</th>
+              <th>Ngày đặt hàng</th>
+              <th>Trạng thái</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
+            <tr *ngFor="let item of dataOrder; index as i" class="item-order" title="Chi tiết đơn hàng">
+              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'" scope="row">{{ item.id }}</td>
+              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">{{ item.name }}</td>
+              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">{{ item.create_at|date:"dd/MM/yyyy" }}</td>
+              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">
+                <button class="btn btn-info p-0 px-1">
+                  <span class="small p-0 m-0">{{ item.status == 1 ? "Chuẩn bị hàng" : item.status == 2 ? "Vận chuyển" : item.status == 3 ? "giao hàng" : item.status == 4 ? "Hoàn thành" : item.status == 5 ? "Đã hủy" : 'Trả hàng' }}</span>
+                </button>
+              </td>
+              <td class="btn-event">
+                <button (click)="onUpdateStatus(item, i)" title="Sửa" class="btn btn-light bg-transparent rounded-0"><fa-icon [icon]="faEdit"></fa-icon></button>
+                <button (click)="handleDelete(item, i)" type="button" title="Xóa" class="btn btn-light bg-transparent rounded-0"><fa-icon [icon]="faTrash"></fa-icon></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+          <pagination-controls (click)="handlePaginate()" *ngIf="dataOrder.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="detail-order">
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="p-3">
+                  <div class="box-prd">
+                    <div *ngFor="let item of orderDetail.orderDetails
+                    " class="d-flex align-items-center border border-1 p-2 mb-3">
+                      <span class="d-block col-2">
+                        <img class="w-100" src="{{ item.resourcesProduct ? item.resourcesProduct[0] : '' }}" alt="">
+                      </span>
+                      <div class="w-100">
+                        <h6>{{ item.nameProduct }}<span *ngIf="item.choose !== '' && item.choose" class="small">({{ item.choose.select }})</span></h6>
+                        <p class="p-0 m-0">Số lượng: {{ item.quantity }}</p>
+                        <span>Tổng tiền: <b>{{ item.total_price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></span>
+                      </div>
+                      <span class="d-flex align-items-center">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6 border-1 border-right border-1 border-bottom">
+                      <table class="table">
+                        <thead>
+                          <tr class="text-center">
+                            <th class="border-0" colspan="2">Thông tin khách hàng</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Tên:</th>
+                            <td>{{ orderDetail.name }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Email:</th>
+                            <td>{{ orderDetail.email }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Sđt:</th>
+                            <td>{{ orderDetail.phone }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Địa chỉ:</th>
+                            <td>{{ orderDetail.address }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Lời nhắn:</th>
+                            <td>{{ orderDetail.description }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-6 border-1 border-bottom">
+                      <table class="table">
+                        <thead>
+                          <tr class="text-center">
+                            <th class="border-0" colspan="2">Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Tiền hàng:</th>
+                            <td>{{ orderDetail.total_amount|currency:' ':'code':'1.0-0' }}<sup>đ</sup></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Phí vận chuyển:</th>
+                            <td>0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Mã giảm giá:</th>
+                            <td>0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Tổng tiền:</th>
+                            <td><b class="text-danger">{{ orderDetail.total_amount|currency:' ':'code':'1.0-0' }}<sup>đ</sup></b></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="text-center mx-auto py-3">
+                    <h5 class="p-0 m-0">Trạng thái: <b class="text-danger">{{ orderDetail.status == 1 ? "Chuẩn bị hàng" : orderDetail.status == 2 ? "Vận chuyển" : orderDetail.status == 3 ? "giao hàng" : orderDetail.status == 4 ? "Hoàn thành" : orderDetail.status == 5 ? "Đã hủy" : 'Trả hàng' }}</b></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

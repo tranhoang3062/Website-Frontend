@@ -1,0 +1,45 @@
+<main class="pet-component">
+  <div class="banner-top position-relative">
+    <p class="position-absolute w-100 text-center text-light">
+      <a href="" class="text-white">Trang chủ</a>
+      <span class="px-3">/</span>
+      <span>{{ dataCate[0] ? dataCate[0].name : 'ERROR!' }}</span>
+    </p>
+  </div>
+  <div class="container">
+    <h2 class="text-center">Các giống {{ dataCate[0] ? (dataCate[0].name|lowercase) : 'ERROR!' }} phổ biến tại Việt Nam</h2>
+    <img src="assets/images/bg-title.webp" class="mx-auto d-block" alt="">
+    <div class="list-cate my-4">
+      <ul class="nav nav-tabs border-0 d-flex justify-content-center my-4" id="myTab" role="tablist">
+        <li class="nav-item border-0 mx-2">
+          <a class="nav-link border-0 active" [ngClass]="{'active': this.paramSpecies == 'pho-bien'}" id="home-tab" data-toggle="tab" href="#home" [routerLink]="['/thu-cung/'+paramType+'/pho-bien']" role="tab" aria-controls="home" (aria-selected)="this.paramSpecies == 'pho-bien' ? 'true' : 'false'">
+            <fa-icon [icon]="faPaw" class="mr-1"></fa-icon>
+            <span>Phổ biến</span>
+          </a>
+        </li>
+        <li *ngFor="let item of dataPetlist" class="nav-item border-0 mx-2">
+          <a class="nav-link border-0" [ngClass]="{'active': this.paramSpecies == item.slug}" id="home-tab" data-toggle="tab" href="#home" [routerLink]="['/thu-cung/'+paramType+'/'+item.slug]" role="tab" aria-controls="home" (aria-selected)="this.paramSpecies == item.slug ? 'true' : 'false'">
+            <fa-icon [icon]="faPaw" class="mr-1"></fa-icon>
+            <span>{{ item.name }}</span>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="box-pet">
+            <div class="row">
+              <div *ngFor="let item of listPet" class="item col-lg-3 col-md-4 col-sm-6">
+                <a [routerLink]="['/thu-cung/'+paramType+'/'+item.petlist.slug+'/'+item.slug]" class="text-center">
+                  <span class="d-block">
+                    <img src="{{ item.resources[0] }}" class="w-100" alt="">
+                  </span>
+                  <p class="text-uppercase p-2">{{ item.name }}</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

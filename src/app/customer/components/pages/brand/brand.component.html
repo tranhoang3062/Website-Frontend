@@ -1,0 +1,28 @@
+<main class="brand-component">
+  <div>
+    <div class="banner-top position-relative">
+      <p class="position-absolute w-100 text-center text-light">
+        <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+        <span class="px-3">/</span>
+        <span>Thương hiệu</span>
+      </p>
+    </div>
+    <div class="container-fluid py-4">
+      <h2 class="text-uppercase text-center">CÁC THƯƠNG HIỆU ĐANG ĐƯỢC PHÂN PHỐI BỞI PET Shop</h2>
+      <img src="assets/images/bg-title.webp" class="mx-auto d-block" alt="">
+      <div class="box-brand p-5">
+        <div class="row border border-1">
+          <div *ngFor="let item of dataBrands" class="item col-xl-2 col-lg-3 col-md-4 col-sm-6 p-0">
+            <div class="border border-1 m-2 p-2">
+              <a>
+                <span class="d-block">
+                  <img src="{{ item.thumbnail }}" class="w-100" alt="">
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

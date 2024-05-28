@@ -1,0 +1,66 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child, h2 {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-left>div .item:first-child, .box-right>div>ul .item:first-child {
+  margin-top: 0 !important;
+  padding-top: 20px !important;
+}
+
+.box-left>div .item>div>span, .box-left>div .item>div .box-content {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.box-left>div .item>div .box-content {
+  bottom: -120px;
+}
+
+.box-left>div .item>div .box-content>h5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box-left>div .item>div .box-content .content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box-left>div .item>div .box-content>p:last-child>fa-icon, .box-left>div .item>div .box-content>p:last-child>small:last-child:hover a, .box-left>div .item>div .box-content>h5 a:hover, .box-left>div:last-child>div:last-child a:hover, .box-right>div>ul .item a:hover {
+  color: rgb(255, 78, 78) !important;
+}
+
+.box-left>div .item>div .box-content>p:last-child>small:last-child a {
+  text-decoration: underline;
+}
+
+.box-right>div>ul .item a, .box-left>div .item>div .box-content>h5 a {
+  text-decoration: none !important;
+  transition: all 0.2s linear;
+}
+
+.box-right>div>ul .item a img {
+  border-radius: 10px;
+}
+
+.box-right>div>ul .item {
+  border-bottom: 1px dashed rgb(207, 207, 207);
+}

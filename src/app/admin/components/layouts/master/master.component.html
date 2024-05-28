@@ -1,0 +1,109 @@
+<main>
+  <div class="position-relative">
+    <div class="header-top px-5 text-white position-sticky">
+      <div class="d-flex align-items-center">
+        <span class="d-block"><img src="assets/images/logo.png" class="w-100 rounded-circle" alt=""></span>
+        <span class="ml-2">Pet Shop</span>
+        <span class="d-block h-100 p-3 ml-5" (click)="onNavBar()"><fa-icon [icon]="faBars"></fa-icon></span>
+      </div>
+      <div></div>
+    </div>
+    <div class="main position-relative">
+      <div class="menu-left bg-white position-fixed h-100">
+        <div class="d-flex justify-content-center align-items-center flex-column position-relative">
+          <div class="p-3 text-center position-relative">
+            <span><img src="{{ user.thumbnail }}"  class="rounded-circle" alt=""></span>
+            <p class="mb-1">
+              <a class="text-white dropdown-toggle"  data-toggle="collapse" href="#contentId7" aria-expanded="false" aria-controls="contentId7">
+                {{ user.fullname }}
+              </a>
+            </p>
+          </div>
+        </div>
+        <div class="p-3">
+          <div class="box-acction collapse bg-white w-100" id="contentId7">
+            <ul class="list-unstyled">
+              <!-- <li class="w-100 text-secondary d-flex align-items-center">
+                <span><fa-icon [icon]="faUser"></fa-icon></span>
+                <span class="small m-0 p-0 py-2 ml-2">Thông tin tài khoản</span>
+              </li> -->
+              <li class="w-100 text-secondary d-flex align-items-center" (click)="logout()">
+                <span><fa-icon [icon]="faRightFromBracket"></fa-icon></span>
+                <span class="small m-0 p-0 py-2 ml-2">Đăng xuất</span>
+              </li>
+            </ul>
+          </div>
+          <div class="box-search d-flex align-items-center position-relative">
+            <input type="text" name="" id="" placeholder="Tìm kiếm..." class="form-control">
+            <button class="btn bg-transparent position-absolute"><fa-icon [icon]="faSearch"></fa-icon></button>
+          </div>
+          <hr>
+          <div class="box-pages">
+            <ul class="list-unstyled">
+              <li>
+                <a (click)="resetLocalstorageQuery()" [routerLink]="['/admin']" class="btn text-dark active d-flex justify-content-start py-2">
+                  <span class="d-block pr-3 pl-1"><fa-icon [icon]="faHouse"></fa-icon></span>
+                  <span>Bảng điều khiển</span>
+                </a>
+              </li>
+              <hr class="m-0">
+              <li>
+                <p class="p-0 m-0">
+                  <a class="btn text-dark d-flex justify-content-start align-items-center py-2" data-toggle="collapse" href="#contentId8" aria-expanded="true" aria-controls="contentId8">
+                    <span class="d-block pr-3 pl-1"><fa-icon [icon]="faWindowMaximize"></fa-icon></span>
+                    <span>Pages</span>
+                    <span class="ml-auto small p-0 m-0"><fa-icon [icon]="faAngleDown"></fa-icon></span>
+                  </a>
+                </p>
+                <div class="collapse show" id="contentId8">
+                  <ul class="list-unstyled list-menu">
+                    <li>
+                      <a (click)="resetLocalstorageQuery()" [routerLink]="['category']" class="btn text-secondary d-flex justify-content-start py-2">
+                        <span class="d-block pr-3 pl-1">-</span>
+                        <span>Danh mục</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="resetLocalstorageQuery()" [routerLink]="['pet']" class="btn text-secondary d-flex justify-content-start py-2">
+                        <span class="d-block pr-3 pl-1">-</span>
+                        <span>Thú cưng</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="resetLocalstorageQuery()" [routerLink]="['brand']" class="btn text-secondary d-flex justify-content-start py-2">
+                        <span class="d-block pr-3 pl-1">-</span>
+                        <span>Thương hiệu</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="resetLocalstorageQuery()" [routerLink]="['product']" class="btn text-secondary d-flex justify-content-start py-2">
+                        <span class="d-block pr-3 pl-1">-</span>
+                        <span>Sản phẩm</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="resetLocalstorageQuery()" [routerLink]="['news']" class="btn text-secondary d-flex justify-content-start py-2">
+                        <span class="d-block pr-3 pl-1">-</span>
+                        <span>Tin tức</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="resetLocalstorageQuery()" [routerLink]="['orders']" class="btn text-secondary d-flex justify-content-start py-2">
+                        <span class="d-block pr-3 pl-1">-</span>
+                        <span>Đơn hàng</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right position-relative h-100 bg-light">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  {{ handleStyleActive() }}
+</main>

@@ -1,0 +1,22 @@
+footer {
+  background-image: url('../../../../../assets/images/bg-footer.png');
+  background-repeat: no-repeat;
+}
+
+footer>div>div ul li a {
+  transition: all 0.2s linear;
+}
+
+footer>div>div ul li a:hover {
+  text-decoration: none;
+  color: rgb(255, 22, 22) !important;
+}
+
+@media (max-width: 767px) {
+  footer>div>div:nth-child(2) {
+    display: none !important;
+  }
+  footer>div>div:nth-child(1) img {
+    width: 140px;
+  }
+}

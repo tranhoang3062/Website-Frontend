@@ -1,0 +1,33 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child, .box-product a:hover {
+  color: rgb(255, 22, 22) !important;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+table>tbody>tr>td:last-child>span {
+  cursor: pointer;
+}
+
+.box-product .item>.box-img img {
+  width: 100px !important;
+}
+
+.box-product .item {
+  border-top: 1px dashed rgb(211, 211, 211);
+}
+
+.box-button button {
+  border-radius: 10px;
+}

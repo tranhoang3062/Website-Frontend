@@ -1,0 +1,44 @@
+.header-top {
+  background-image: url('/assets/images/breadcrumb-bg.jpg');
+  background-position: center;
+}
+
+.header-top::before {
+  content:  '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(68, 138, 255, 0.5);
+  z-index: 0;
+}
+
+.form-group select, .form-group button, .form-group input {
+  outline: 0 !important;
+  box-shadow: none !important;
+  right: 0;
+}
+
+.form-group select {
+  width: 160px;
+  left: 0;
+  cursor: pointer;
+}
+
+.form-group input {
+  padding-left: 170px;
+}
+
+.item-order {
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+.item-order:hover {
+  background-color: rgb(224, 224, 224) ;
+}
+
+.btn-event>button:hover {
+  background-color: #fff !important;
+}

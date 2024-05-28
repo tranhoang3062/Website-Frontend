@@ -1,0 +1,190 @@
+@import '/node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css';
+@import '/node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css';
+
+.banner-top>div {
+  background-color: #f4b915;
+}
+
+.box-content_one>div>h1, .box-content_three>div>h1, .box-content_five>div>h1 {
+  color: rgb(255, 22, 22) !important;
+  font-weight: 600;
+}
+
+.box-content_one>div .item>h5>a {
+  text-decoration: none;
+  transition: all 0.2s linear;
+  font-weight: 600;
+}
+
+.box-content_one>div .item>p {
+  font-size: 18px !important;
+}
+
+.box-content_one>div .item>h5>a:hover, .product-elem>p>a:hover {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-content_one>div:last-child>div>span, .box-content_one>div:last-child>div>h5 {
+  cursor: pointer;
+}
+
+.box-content_two {
+  background-color: #f9a529;
+  border-radius: 5px;
+}
+
+.box-content_two>div>h1 {
+  font-weight: 600;
+}
+
+.box-content_two>div>div {
+  border: 3px solid #f9a529;
+}
+
+.product-elem {
+  transition: all 0.2s linear;
+  border-radius: 5px;
+}
+
+.product-elem:hover {
+  box-shadow: 0 0 10px 3px rgb(224, 224, 224);
+  /* opacity: 0.8; */
+}
+
+.product-elem:hover>.list-icon button {
+  transform: rotateY(0);
+}
+
+.product-elem>p>a {
+  text-decoration: none;
+  transition: all 0.2s linear;
+}
+
+.product-elem>.list-icon {
+  top: 30%;
+  right: 0;
+  transform: translateY(-30%);
+}
+
+.product-elem>.list-icon button {
+  box-shadow: none !important;
+  /* background-color: rgb(255, 101, 101); */
+  /* background-color: #ffa2a2; */
+  background-color: rgb(255, 188, 188);
+  transform-origin: right;
+  transform: rotateY(90deg);
+  border-right: none !important;
+  /* color: #343a40; */
+  color: #ffffff;
+}
+
+.product-elem>.list-icon button>fa-icon, .product-elem>.list-icon button {
+  font-size: 20px;
+}
+
+.product-elem>.list-icon button:nth-child(1) {
+  transition: all 0.2s linear;
+}
+
+.product-elem>.list-icon button:nth-child(2) {
+  transition: all 0.3s linear;
+}
+
+.product-elem>.list-icon button:nth-child(3) {
+  transition: all 0.4s linear;
+}
+
+.product-elem>.list-icon button:hover {
+  /* background-color: rgb(255, 65, 65); */
+  background-color: rgb(230, 161, 161) !important;
+}
+
+.box-content_three>.box-product>ul>li>a {
+  color: rgb(59, 59, 59);
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 20px;
+  transition: all 0.2s linear;
+}
+
+.box-content_three>.box-product>ul>li>a.active, .box-content_three>.box-product>ul>li>a:hover {
+  color: #f9a529;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.089);
+}
+
+.box-content_four {
+  background-image: url('../../../../../assets/images/bg-accessories.webp');
+}
+
+.box-content_four>div>h1 {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.box-content_four>div .item>div {
+  border-radius: 10px;
+}
+
+.box-content_four>div .item>div>div>div button {
+  background-color: rgb(255, 22, 22);
+  box-shadow: none;
+}
+
+.box-content_four>div .item>div>div, a {
+  text-align: start;
+  text-decoration: none;
+  transition: all 0.2s linear;
+}
+
+.box-content_four>div .item>div>div a:hover {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-content_five>div .item>div>span, .box-content_five>div .item>div .box-content {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.box-content_five>div .item>div .box-content {
+  bottom: -120px;
+}
+
+.box-content_five>div .item>div .box-content>h5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box-content_five>div .item>div .box-content .content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box-content_five>div .item>div .box-content>p:last-child>fa-icon, .box-content_five>div .item>div .box-content>p:last-child>small:last-child:hover a, .box-content_five>div .item>div .box-content>h5 a:hover, .box-content_five>div:last-child>div:last-child a:hover {
+  color: rgb(255, 78, 78) !important;
+}
+
+.box-content_five>div .item>div .box-content>p:last-child>small:last-child a {
+  text-decoration: underline;
+}
+
+.styleText {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.styleText2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,133 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child {
+  color: rgb(255, 22, 22);
+}
+
+/* gallery */
+
+.left .show {
+  /* width: 500px;
+  height: 500px; */
+  max-width: 600px;
+  border-radius: 10px;
+  overflow: hidden;
+  /* max-height: 500px; */
+}
+
+#show-img {
+  /* object-fit: cover;
+  height: 100%; */
+}
+
+.left .small-img {
+  width: 350px;
+  height: 70px;
+  margin-top: 10px;
+  position: relative;
+  /* left: 25px; */
+  max-width: 500px;
+}
+
+.left .small-img .icon-left, .left .small-img .icon-right {
+  width: 12px;
+  height: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+
+.left .small-img .icon-left { transform: rotate(180deg) }
+
+.left .small-img .icon-right { right: 0; }
+
+.left .small-img .icon-left:hover, .left .small-img .icon-right:hover { opacity: .5; }
+
+.left .small-container {
+  width: 310px;
+  height: 70px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.left .small-container div {
+  width: 800%;
+  position: relative;
+}
+
+.left .small-container .show-small-img {
+  width: 70px;
+  height: 70px;
+  margin-right: 6px;
+  cursor: pointer;
+  float: left;
+  object-fit: cover;
+}
+
+.left .small-container .show-small-img:last-of-type { margin-right: 0; }
+
+/* ------------------ */
+
+.right>div>div a {
+  box-shadow: none !important;
+
+}
+
+.right>div>div {
+  border-bottom: 1px dashed rgb(199, 199, 199);
+}
+
+.right>div>div>p>a {
+  background-color: rgba(128, 128, 128, 0.068);
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-pet .item a:hover {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-pet .item>a>span {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.box-pet .item img {
+  border-radius: 10px;
+  height: 240px;
+  object-fit: cover;
+}
+
+.box-pet .item a {
+  color: black;
+  font-weight: 600;
+  transition: all 0.2s linear;
+  text-decoration: none;
+}
+
+@media (max-width:1199px) {
+  .box-pet .item img {
+    height: 200px;
+  }
+}
+
+@media (max-width:575px) {
+  .box-pet .item img {
+    height: 100%;
+  }
+}

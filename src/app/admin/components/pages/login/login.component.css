@@ -1,0 +1,20 @@
+.sign-form {
+  border-radius: 3px;
+  padding: 50px 50px 30px;
+  box-shadow: -0.083333333in 0.5pc 1.125pc -7px rgba(20, 33, 53, 0.13);
+}
+
+.sign-form input, .sign-form button {
+  outline: none !important;
+  box-shadow: none !important;
+  transition: all 0.1s linear;
+}
+
+.sign-form input:focus {
+  border: 1px solid #333 !important;
+}
+
+.sign-form .btn-submit:hover {
+  background-color: #333;
+  border-color: #333 !important;
+}

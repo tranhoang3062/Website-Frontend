@@ -1,0 +1,108 @@
+.header-top {
+  top: 0;
+  height: 56px !important;
+  background-color: #448aff !important;
+  z-index: 100;
+}
+
+.header-top img {
+  width: 30px !important;
+}
+
+.header-top>div>span:last-child {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  transition: all 0.2s linear;
+}
+
+.header-top>div>span:last-child:hover {
+  cursor: pointer;
+  background-color: rgb(75, 123, 255);
+  border-left: 1px solid rgb(170, 170, 170);
+  border-right: 1px solid rgb(170, 170, 170);
+}
+
+.menu-left {
+  transition: all 0.3s linear;
+  /* transform: translateX(-250px); */
+}
+
+.menu-left>div:first-child {
+  /* background-color: rgb(123, 180, 255); */
+  background-image: url('/assets/images/user-bg.jpg') !important;
+}
+
+.menu-left>div:first-child::before {
+  content:  '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(68, 138, 255, 0.5);
+  z-index: 0;
+}
+
+.menu-left img {
+  width: 50px !important;
+}
+
+.main .menu-left{
+  top: 56px;
+  left: 0;
+  width: 250px !important;
+  height: calc(100vh - 56px) !important;
+  z-index: 1000;
+  background-color: #fff !important;
+}
+
+.box-search>button {
+  right: 0;
+  box-shadow: none !important;
+  border-left: 1px solid rgb(216, 216, 216) !important;
+  transition: all 0.2s linear;
+}
+
+.box-search>button:hover {
+  background-color: rgb(206, 206, 206) !important;
+}
+
+.box-acction ul li {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s linear;
+}
+
+.box-acction ul li:hover {
+  border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.box-pages>ul>li a {
+  box-shadow: none !important;
+  border: none !important;
+  transition: all 0.2s linear;
+}
+
+.box-pages>ul>li>a {
+  background-color: rgb(91, 176, 255) !important;
+  color: #fff !important;
+}
+
+.list-menu li a.active {
+  background-color: grey !important;
+  color: #fff !important;
+}
+/* .box-pages>ul li a:focus, .box-pages>ul li a:active {
+  background-color: grey !important;
+  color: #fff !important;
+} */
+
+.box-pages>ul>li a:hover {
+  background-color: grey !important;
+  color: #fff !important;
+}
+
+.right {
+  margin-left: 250px;
+  transition: all 0.3s linear;
+}

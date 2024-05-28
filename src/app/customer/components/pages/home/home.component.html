@@ -1,0 +1,310 @@
+<main class="home-component">
+  <div class="banner-top">
+    <div class="w-100 d-block d-lg-none p-4"></div>
+    <span class="" >
+      <img src="assets/images/banner-header.webp" alt="" class="w-100">
+    </span>
+  </div>
+  <div class="box-content">
+    <div class="box-content_one container text-center pt-5">
+      <div>
+        <h1 class="text-danger position-relative">Chào mừng bạn đến với Pet Shop</h1>
+        <img src="assets/images/bg-title.webp" alt="">
+        <hr>
+      </div>
+      <div class="row mt-5">
+        <div class="item col-lg-3 col-md-6 col-sm-12">
+          <span class="">
+            <a>
+              <img src="assets/images/welcome_1.webp" alt="">
+            </a>
+          </span>
+          <h5 class="my-3"><a class="text-dark text-decoration-none">Dành cho chó</a></h5>
+          <p class="text-secondary px-2">Chó cưng, đồ chơi cho chó và các sản phẩm chuyên dành cho chó cưng</p>
+        </div>
+        <div class="item col-lg-3 col-md-6 col-sm-12">
+          <span class="">
+            <a>
+              <img src="assets/images/welcome_2.webp" alt="">
+            </a>
+          </span>
+          <h5 class="my-3"><a class="text-dark text-decoration-none">Dành cho mèo</a></h5>
+          <p class="text-secondary px-2">Mèo cưng, đồ chơi cho mèo và các sản phẩm chuyên dành cho mèo cưng</p>
+        </div>
+        <div class="item col-lg-3 col-md-6 col-sm-12">
+          <span class="">
+            <a>
+              <img src="assets/images/welcome_3.webp" alt="">
+            </a>
+          </span>
+          <h5 class="my-3"><a class="text-dark text-decoration-none">Dành cho Hamster</a></h5>
+          <p class="text-secondary px-2">Hamster cưng, đồ chơi cho Hamster và các sản phẩm chuyên dành cho Hamster</p>
+        </div>
+        <div class="item col-lg-3 col-md-6 col-sm-12">
+          <span class="">
+            <a>
+              <img src="assets/images/welcome_4.webp" alt="">
+            </a>
+          </span>
+          <h5 class="my-3"><a class="text-dark text-decoration-none">Dành cho chim</a></h5>
+          <p class="text-secondary px-2">Chim cưng, đồ chơi cho chim và các sản phẩm chuyên dành cho chim cưng</p>
+        </div>
+      </div>
+    </div>
+    <div class="box-content_two container text-center mt-5 px-0">
+      <div class="">
+        <h1 class="text-white py-3">Sản phẩm nổi bật</h1>
+        <div class="bg-white">
+          <owl-carousel-o [options]="customOptions" class="position-relative">
+            <ng-template *ngFor="let item of dataProductOutstand" carouselSlide>
+              <div class="product-elem item m-3 p-2 position-relative bg-white">
+                <span class="d-block py-1">
+                  <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
+                    <img src="{{ item.resources[0] }}" class="w-100" alt="">
+                  </a>
+                </span>
+                <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]" class="text-dark">{{ item.name }}</a></p>
+                <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
+                <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
+                <div class="list-icon position-absolute d-flex flex-column">
+                  <button type="button" (click)="quickView(item.id)" class="btn shadow-none rounded-0 d-none d-lg-block" data-toggle="modal" data-target="#exampleModal" title="Xem nhanh">
+                    <fa-icon [icon]="faEye"></fa-icon>
+                    <!-- <span class="text-white px-1">Xem nhanh</span> -->
+                  </button>
+                  <button (click)="productService.onOrder(item)" type="button" class="btn shadow-none rounded-0 my-1" title="Thêm vào giỏ hàng" id="btnorder{{ item.id }}">
+                    <i class="fa" [ngClass]="{'fa-check text-success': user && productService.checkOrder(item), 'fa-cart-arrow-down': !user || !productService.checkOrder(item)}" aria-hidden="true"></i>
+                    <!-- <span class="text-white px-1">Mua ngay</span> -->
+                  </button>
+                  <button (click)="wishlistService.onWishlist(item.id)" type="button" class="btn shadow-none rounded-0 " title="Yêu thích" id="btnwishlist{{ item.id }}" [ngClass]="{'text-danger': user && wishlistService.isWishlist(item.id)}">
+                    <fa-icon [icon]="faHeart"></fa-icon>
+                    <!-- <span class="text-white px-1">Yêu thích</span> -->
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
+    <div class="banner-index mt-5 pt-5 mb-3">
+      <img src="assets/images/banner_index.webp" alt="" class="w-100">
+    </div>
+    <div class="box-content_three container text-center pt-5">
+      <div>
+        <h1 class="text-danger position-relative">Sản phẩm shop đang bán</h1>
+        <img src="assets/images/bg-title.webp" alt="">
+        <hr>
+      </div>
+      <div class="box-product">
+        <ul class="nav nav-tabs border-0 d-flex justify-content-center my-4" id="myTab" role="tablist">
+          <li (click)="handleEventBoxContentThree(boxThreeData[0])" class="nav-item border-0 mx-2">
+            <a class="nav-link border-0 active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ boxThreeData[0] ? boxThreeData[0].name : '' }}</a>
+          </li>
+          <li (click)="handleEventBoxContentThree(item)" *ngFor="let item of boxThreeData.slice(1,boxThreeData.length)" class="nav-item border-0 mx-2">
+            <a class="nav-link border-0" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">{{ item.name }}</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+              <div *ngFor="let item of boxThreeDataProduct | paginate: { itemsPerPage: itemsPage, currentPage: p }" class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2">
+                <div class="product-elem item p-2 position-relative bg-white">
+                  <span class="d-block py-1">
+                    <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
+                      <img src="{{ item.resources[0] }}" class="w-100" alt="">
+                    </a>
+                  </span>
+                  <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/']" class="text-dark">{{ item.name }}</a></p>
+                  <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
+                  <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
+                  <div class="list-icon position-absolute d-flex flex-column">
+                    <button type="button" (click)="quickView(item.id)" class="btn shadow-none rounded-0 d-none d-lg-block" data-toggle="modal" data-target="#exampleModal" title="Xem nhanh">
+                      <fa-icon [icon]="faEye"></fa-icon>
+                      <!-- <span class="text-white px-1">Xem nhanh</span> -->
+                    </button>
+                    <button (click)="productService.onOrder(item)" type="button" class="btn shadow-none rounded-0 my-1" title="Thêm vào giỏ hàng" id="btnorder{{ item.id }}">
+                      <i class="fa" [ngClass]="{'fa-check text-success': user && productService.checkOrder(item), 'fa-cart-arrow-down': !user || !productService.checkOrder(item)}" aria-hidden="true"></i>
+                      <!-- <span class="text-white px-1">Mua ngay</span> -->
+                    </button>
+                    <button (click)="wishlistService.onWishlist(item.id)" type="button" class="btn shadow-none rounded-0 " title="Yêu thích" id="btnwishlist{{ item.id }}" [ngClass]="{'text-danger': user && wishlistService.isWishlist(item.id)}">
+                      <fa-icon [icon]="faHeart"></fa-icon>
+                      <!-- <span class="text-white px-1">Yêu thích</span> -->
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="py-5 text-center"><a [routerLink]="['san-pham']" class="text-dark h6">
+              <span class="mr-1">Xem thêm sản phẩm</span>
+              <fa-icon [icon]="faArrowRight"></fa-icon>
+            </a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-content_four text-center pt-5 mt-5">
+      <div>
+        <h1 class="text-danger position-relative">Các sản phẩm mới nhất</h1>
+        <img src="assets/images/bg-title.webp" alt="">
+      </div>
+      <div class="container my-5">
+        <div class="row">
+          <owl-carousel-o [options]="customOptions2" class="w-100">
+            <ng-template *ngFor="let item of boxFourDataProduct" carouselSlide>
+              <div class="item">
+                <div class="bg-white d-flex p-4">
+                  <span class="col-4 p-0">
+                    <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
+                      <img src="{{ item.resources[0] }}" class="w-100" alt="">
+                    </a>
+                  </span>
+                  <div class="col-8 ">
+                    <p class="m-0 p-0 styleText"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]" class="text-dark">{{ item.name }}</a></p>
+                    <p *ngIf="item.sale_price !== 0" class="m-0 p-0 mb-3 mt-2"><b class="text-danger">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="small">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
+                    <p *ngIf="item.sale_price === 0" class="m-0 p-0 mb-3 mt-2"><b class="text-danger">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
+                    <div>
+                      <button type="button" (click)="quickView(item.id)" class="btn border-0 shadow-none text-white mr-2" data-toggle="modal" data-target="#exampleModal" title="Xem nhanh"><fa-icon [icon]="faEye"></fa-icon></button>
+                      <button (click)="productService.onOrder(item)" type="button" class="btn border-0 shadow-none text-white" title="Thêm vào giỏ hàng">
+                        <fa-icon [icon]="faCartArrowDown"></fa-icon>
+                        <span class="ml-1">Thêm</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </owl-carousel-o>
+        </div>
+        <p class="py-5 text-center"><a [routerLink]="['san-pham']" class="text-white h6">
+          <span class="mr-1">Xem thêm sản phẩm</span>
+          <fa-icon [icon]="faArrowRight"></fa-icon>
+        </a></p>
+      </div>
+    </div>
+    <div class="box-content_five mt-5">
+      <div class="text-center">
+        <h1 class="text-danger position-relative text-center">Tin thú cưng</h1>
+        <img src="assets/images/bg-title.webp" alt="">
+      </div>
+      <div class="container">
+        <div class="row">
+          <div *ngIf="dataNewspage[0]" class="item col-12 col-lg-6 my-5 py-4">
+            <div class="position-relative">
+              <span class="d-block overflow-hidden">
+                <a [routerLink]="['tin-tuc/'+dataNewspage[0].slug]">
+                  <img src="{{ dataNewspage[0].thumbnail }}" class="w-100" alt="">
+                </a>
+              </span>
+              <div class="box-content position-absolute bg-white mx-3 p-4">
+                <h5 class="py-2"><a [routerLink]="['tin-tuc/'+dataNewspage[0].slug]" class="text-dark"><b>{{ dataNewspage[0].title }}</b></a></h5>
+                <p class="content text-secondary" [innerHTML]="dataNewspage[0].content"></p>
+                  <p class="p-0 m-0 text-dark">
+                    <fa-icon [icon]="faClock" class="mr-2"></fa-icon>
+                    <small class="">{{ dataNewspage[0].create_at|date:'dd/MM/yyyy' }}</small>
+                    <small class="px-2">|</small>
+                    <small><a [routerLink]="['tin-tuc/'+dataNewspage[0].slug]" class="text-dark text-decoration-underline">Xem tiếp</a></small>
+                  </p>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="dataNewspage[1]" class="item col-12 col-lg-6 my-5 py-4">
+            <div class="position-relative">
+              <span class="d-block overflow-hidden">
+                <a [routerLink]="['tin-tuc/'+dataNewspage[1].slug]">
+                  <img src="{{ dataNewspage[1].thumbnail }}" class="w-100" alt="">
+                </a>
+              </span>
+              <div class="box-content position-absolute bg-white mx-3 p-4">
+                <h5 class="py-2"><a [routerLink]="['tin-tuc/'+dataNewspage[1].slug]" class="text-dark"><b>{{ dataNewspage[1].title }}</b></a></h5>
+                <p class="content text-secondary" [innerHTML]="dataNewspage[1].content"></p>
+                  <p class="p-0 m-0 text-dark">
+                    <fa-icon [icon]="faClock" class="mr-2"></fa-icon>
+                    <small class="">{{ dataNewspage[1].create_at|date:'dd/MM/yyyy' }}</small>
+                    <small class="px-2">|</small>
+                    <small><a [routerLink]="['tin-tuc/'+dataNewspage[1].slug]" class="text-dark text-decoration-underline">Xem tiếp</a></small>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-5 my-3 d-flex justify-content-end">
+          <a [routerLink]="['tin-tuc']" class="text-dark">
+            <span class="mr-2">Xem thêm các bài viết</span>
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="box-content_six mb-4 container bg-white">
+      <owl-carousel-o [options]="customOptions3" class="w-100">
+        <ng-template *ngFor="let item of dataBrands" carouselSlide>
+          <div class="item">
+            <img src="{{ item.thumbnail }}" class="w-100" alt="">
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+    <div class="quick-view d-none d-lg-block">
+      <div class="modal fade p-0" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog m-0 mx-auto" role="document">
+          <div class="modal-content mx-auto mt-5 position-relative">
+            <div class="modal-header border-0 p-1 position-absolute">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row p-4">
+                <div class="left col-6">
+                  <div class="show mx-2" href="1.jpg">
+                    <img src="{{ dataQuickview.resources[0] }}" class="w-100 border border-1" id="show-img">
+                  </div>
+                  <div class="small-img">
+                    <img (click)="productService.onImagesInQuickView($event, 'left')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-left" alt="" id="prev-img">
+                    <div class="small-container">
+                      <div id="small-img-roll">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" src="{{ dataQuickview.resources[0] }}" class="show-small-img" alt="now" style="border: 1px solid rgb(149, 27, 37); padding: 2px;">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" *ngFor="let item of dataQuickview.resources.slice(1,dataQuickview.resources.length); index as i" src="{{ item }}" class="show-small-img">
+                      </div>
+                    </div>
+                    <img (click)="productService.onImagesInQuickView($event, 'right')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-right" alt="" id="next-img">
+                  </div>
+                </div>
+                <div class="right col-6">
+                  <div class="mx-2">
+                    <h3 class="" data-dismiss="modal" aria-label="Close"><a [routerLink]="['/san-pham/'+dataQuickview.cateSlug+'/'+dataQuickview.cate1Slug+'/'+dataQuickview.cate2Slug+'/'+dataQuickview.slug]" class="text-dark">{{ dataQuickview.name }}</a></h3>
+                    <div *ngIf="chooseObj.price == ''">
+                      <div *ngIf="dataQuickview.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="dataQuickview.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+                    <div *ngIf="chooseObj.price !== ''">
+                      <div *ngIf="chooseObj.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObj.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ chooseObj.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="chooseObj.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObj.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+
+                    <div *ngIf="dataQuickview.choose !== ''" class="py-3">
+                      <p class="py-0"><span class="text-secondary">Lựa chọn</span></p>
+                      <p class="d-flex p-0 m-0">
+                        <span *ngFor="let item of dataQuickview.choose; index as i" (click)="onChoose(i)" class="btn m-1 d-block border border-1" ngClass="{{ chooseObj.select == item.select ? 'border-danger active' : '' }}">{{ item.select }}</span>
+                      </p>
+                    </div>
+                    <div class="d-flex align-items-center py-3">
+                      <span class="text-secondary mr-3">Số lượng:</span>
+                      <div class="d-flex align-items-center border border-1 border-dark  p-0">
+                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
+                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityElem }}</h5></button>
+                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                      </div>
+                    </div>
+                    <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart()" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>
+                    <a *ngIf="productService.checkOrderChoose(dataQuickview)" [routerLink]="['/gio-hang']" style="opacity: 1;" class="btn btn-danger close text-center w-100 py-2 rounded-0" data-dismiss="modal" aria-label="Close"><h5 class="p-0 m-0 text-uppercase text-white">Xem giỏ hàng</h5></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,92 @@
+<div class="w-100">
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Sửa thông tin</h4>
+        <span *ngIf="paramType === 'qtv'" class="small d-block mb-3">Tài khoản quản trị viên.</span>
+        <span *ngIf="paramType === 'kh'" class="small d-block mb-3">Tài khoản người dùng.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Sửa</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container my-3">
+    <form action="" [formGroup]="dataForm" class="mx-auto p-3 border border-1 bg-white shadow" (submit)="handleSubmit()">
+      <h4 class="text-center">Thông tin cá nhân</h4>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="fullname-inp"><b>Họ và tên *</b></label>
+            <input type="text" formControlName="fullname" id="fullname-inp" class="form-control rounded-0" placeholder="Họ và tên">
+            <div class="box-mesage" *ngIf="f.fullname.invalid && (f.fullname.dirty || f.fullname.touched)">
+              <div *ngIf="f.fullname.errors">
+                <span class="small text-danger">Trường này không được để rỗng!</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email-inp"><b>Email *</b></label>
+            <input type="text" formControlName="email" id="email-inp" class="form-control rounded-0" placeholder="Email">
+            <div class="box-message" *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+              <div *ngIf="f.email.errors">
+                <span class="small text-danger" *ngIf="f.email.errors['required']">Trường này không được để rỗng!</span>
+                <span class="small text-danger" *ngIf="f.email.errors['email']">Trường này phải là email!</span>
+              </div>
+            </div>
+            <span class="small text-danger" *ngIf="emailError">Email đã được đăng ký!</span>
+          </div>
+          <div class="form-group">
+            <label for="phone-inp"><b>Số điện thoại *</b></label>
+            <input type="text" formControlName="phone" id="phone-inp" class="form-control rounded-0" placeholder="Số điện thoại">
+            <div class="box-message" *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)">
+              <div *ngIf="f.phone.errors">
+                <span class="small text-danger" *ngIf="f.phone.errors['required']">Trường này không được để rỗng!</span>
+                <span class="small text-danger" *ngIf="f.phone.errors['pattern']">Trường này phải là số điện thoại(VN)!</span>
+              </div>
+            </div>
+            <span class="small text-danger" *ngIf="phoneError">Số điện thoại đã được đăng ký!</span>
+          </div>
+          <div class="form-group">
+            <label for="password-inp"><b>Mật khẩu *</b></label>
+            <input type="password" name="password" id="password-inp" class="form-control rounded-0" placeholder="Mật khẩu" disabled>
+          </div>
+          <div class="form-group">
+            <label for="passwordComfirm-inp"><b>Xác nhận mật khẩu *</b></label>
+            <input type="password" name="passwordComfirm" id="passwordComfirm-inp" class="form-control rounded-0" placeholder="Xác nhận mật khẩu" disabled (ngModelChange)="passwordComfirmError = false">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="" class="d-block"><b>Giới tính</b></label>
+            <div *ngFor="let item of radioInputs" class="d-inline">
+              <input type="radio" formControlName="gender" id="{{item.name}}" value="{{item.value}}" [checked]="item.checked">
+              <label class="mx-2" for="{{item.name}}">{{item.name}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="birthday-inp"><b>Ngày sinh</b></label>
+            <input type="date" formControlName="birthday" value="{{ account.birthday | date:'yyyy-MM-dd' }}" id="birthday-inp" class="form-control rounded-0">
+          </div>
+          <div class="form-group">
+            <label for="address-inp"><b>Địa chỉ</b></label>
+            <textarea formControlName="address" id="address-inp" cols="30" rows="3" class="form-control rounded-0"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="file-inp"><b>Ảnh</b></label>
+            <input type="file" name="upload-file" id="file-inp" class="form-control rounded-0" (change)="selectFile($event)">
+            <div *ngIf="urlImg" class="mt-2">
+              <img src="{{ urlImg }}" class="w-100" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="dataForm.valid">Lưu</button>
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="!dataForm.valid" disabled>Lưu</button>
+    </form>
+  </div>
+</div>

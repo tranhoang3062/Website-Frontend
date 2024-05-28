@@ -1,0 +1,77 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child, h2 {
+  color: rgb(255, 22, 22) !important;
+}
+
+.form-group .file-lable {
+  width: 130px;
+  height: 130px;
+}
+
+.form-group .file-input {
+  width: 100px;
+  height: 40px;
+}
+
+.form-group .file-input::before {
+  content: 'Chọn ảnh';
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+  background-color: #ffffff;
+  border: 1px solid rgb(201, 201, 201);
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+.form-group .file-input:hover::before {
+  border-color: black;
+  color: black;
+}
+
+.thumbnail-user {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.form-group label img, .thumbnail-user img {
+  object-fit: cover !important;
+}
+
+.box-purchase>ul>li a.active {
+  color: red !important;
+  border-bottom: 1px solid red !important;
+}
+
+.box-orders .item {
+  cursor: pointer;
+}
+
+.card-header {
+  transition: all 0.2s linear;
+}
+
+.card-header:hover {
+  background-color: rgba(128, 128, 128, 0.192);
+}
+
+.card-header .btn-show {
+  text-decoration: none !important;
+}

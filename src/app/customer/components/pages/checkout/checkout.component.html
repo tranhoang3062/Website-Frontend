@@ -1,0 +1,207 @@
+<main class="checkout-component">
+  <div class="bg-white">
+    <div class="container-fluid d-flex justify-content-center">
+      <div class="row w-100 px-0 px-lg-4">
+        <div class="col-12 col-lg-8 p-0 left">
+          <div class="p-3">
+            <h3 class="py-3 d-flex d-lg-block justify-content-center"><a [routerLink]="['/']" class="text-info">Pet Shop</a></h3>
+            <div class="responsive-1 d-block d-lg-none mb-4">
+              <div class="w-100">
+                <div class="col-sm-12 col-md-7 col-lg-12 mx-auto">
+                  <p class="p-0 m-0">
+                    <a class="text-dark py-3 d-block" data-toggle="collapse" href="#contentId" aria-expanded="false" aria-controls="contentId">
+                      <h6 class="d-flex justify-content-between w-100"><b>Đơn hàng ({{ listOrder.length }} sản phẩm)<fa-icon [icon]="faAngleDown" class="ml-1"></fa-icon></b><b class="text-info">{{ total_price|currency: ' ':'code':'1.0-0' }}</b></h6>
+                    </a>
+                  </p>
+                  <div class="collapse" id="contentId">
+                    <div class="box-product">
+                      <div *ngFor="let item of listOrder" class="item d-flex my-2">
+                        <div class="position-relative">
+                          <img src="{{ item.resourcesProduct[0] }}" class="w-100 border border-1" alt="">
+                          <span class="position-absolute text-center small rounded-circle text-white bg-danger">{{ item.quantity }}</span>
+                        </div>
+                        <p class="ml-2 text-secondary">{{ item.nameProduct }}<small *ngIf="item.choose !== ''">({{ item.choose.select }})</small></p>
+                        <small class="d-flex align-items-center ml-auto">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>đ</sup></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="w-100">
+                <div class="col-sm-12 col-md-7 col-lg-12 mx-auto">
+                  <div class="d-flex py-3">
+                    <input type="text" name="" id="" class="form-control" placeholder="Nhập mã giảm giá">
+                    <button class="btn btn-info ml-2" type="button">Áp dụng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-lg-6">
+                <form [formGroup]="dataForm" action="" class="col-sm-12 col-md-7 col-lg-12 mx-auto">
+                  <h6><b>Thông tin nhận hàng</b></h6>
+                  <div class="form-group mb-0 position-relative">
+                    <input *ngIf="user" type="email" formControlName="email" id="email" class="form-control pt-3 pb-1" value=" " onchange="this.setAttribute('value', this.value);">
+                    <input *ngIf="!user" type="email" formControlName="email" id="email" class="form-control pt-3 pb-1" value="" onchange="this.setAttribute('value', this.value);">
+                    <label class="position-absolute p-0 m-0 text-secondary px-3" for="email">Email</label>
+                  </div>
+                  <div class="box-message" *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+                    <div *ngIf="f.email.errors">
+                      <span class="small text-danger" *ngIf="f.email.errors['required']">Trường này không được để rỗng!</span>
+                      <span class="small text-danger" *ngIf="f.email.errors['email']">Trường này phải là email!</span>
+                    </div>
+                  </div>
+                  <div class="form-group mb-0 mt-3 position-relative">
+                    <input *ngIf="user" type="text" formControlName="fullname" id="name" class="form-control pt-3 pb-1" value=" " onchange="this.setAttribute('value', this.value);" required>
+                    <input *ngIf="!user" type="text" formControlName="fullname" id="name" class="form-control pt-3 pb-1" value="" onchange="this.setAttribute('value', this.value);" required>
+                    <label class="position-absolute p-0 m-0 text-secondary px-3" for="name">Họ và tên</label>
+                  </div>
+                  <div class="box-message" *ngIf="f.fullname.invalid && (f.fullname.dirty || f.fullname.touched)">
+                    <div *ngIf="f.fullname.errors">
+                      <span class="small text-danger">Trường này không được để rỗng!</span>
+                    </div>
+                  </div>
+                  <div class="form-group mb-0 mt-3 position-relative">
+                    <div>
+                      <input *ngIf="user" type="text" formControlName="phone" id="phone" class="form-control pt-3 pb-1" value=" " onchange="this.setAttribute('value', this.value);">
+                      <input *ngIf="!user" type="text" formControlName="phone" id="phone" class="form-control pt-3 pb-1" value="" onchange="this.setAttribute('value', this.value);">
+                      <label class="position-absolute p-0 m-0 text-secondary px-3" for="phone">Số điện thoại</label>
+                    </div>
+                    <button type="button" class="position-absolute d-block p-0 m-0 border-0 p-2 h-100">
+                      <img src="assets/images/logo-vn.svg" alt="">
+                    </button>
+                  </div>
+                  <div class="box-message" *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)">
+                    <div *ngIf="f.phone.errors">
+                      <span class="small text-danger" *ngIf="f.phone.errors['required']">Trường này không được để rỗng!</span>
+                      <span class="small text-danger" *ngIf="f.phone.errors['pattern']">Trường này phải là số điện thoại(VN)!</span>
+                    </div>
+                  </div>
+                  <div class="form-group mb-0 mt-3 position-relative">
+                    <input *ngIf="user && user.address" type="text" formControlName="address" id="name" class="form-control pt-3 pb-1" value=" " onchange="this.setAttribute('value', this.value);">
+                    <input *ngIf="!user || !user.address" type="text" formControlName="address" id="name" class="form-control pt-3 pb-1" value="" onchange="this.setAttribute('value', this.value);">
+                    <label class="position-absolute p-0 m-0 text-secondary px-3" for="name">Địa chỉ</label>
+                  </div>
+                  <div class="box-message" *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)">
+                    <div *ngIf="f.address.errors">
+                      <span class="small text-danger">Trường này không được để rỗng!</span>
+                    </div>
+                  </div>
+                  <div class="form-group mb-0 mt-3 position-relative">
+                    <select class="form-control text-secondary px-1" formControlName="province" id="" (change)="handleChangeSelect()">
+                      <option value="" disabled selected>
+                        <span>---</span><p>Tỉnh thành</p><span>---</span>
+                      </option>
+                      <option *ngFor="let item of fullProvinceVN" value="{{ item.Name }}">{{ item.Name }}</option>
+                    </select>
+                  </div>
+                  <div class="box-message" *ngIf="f.province.invalid && (f.province.dirty || f.province.touched)">
+                    <div *ngIf="f.province.errors">
+                      <span class="small text-danger">Bạn phải chọn tỉnh thành!</span>
+                    </div>
+                  </div>
+                  <div class="form-group mb-0 mt-3 position-relative">
+                    <select *ngIf="listIndex.a !== false" class="form-control text-secondary px-1" formControlName="district" id="" (change)="handleChangeSelect()">
+                      <option value="" disabled selected>Quận huyện (tùy chọn)</option>
+                      <option *ngFor="let item of fullProvinceVN[listIndex.a].Districts
+                      " value="{{ item.Name }}">{{ item.Name }}</option>
+                    </select>
+                    <select *ngIf="listIndex.a === false" class="form-control text-secondary px-1" name="district" id="" disabled>
+                      <option value="" disabled selected>Quận huyện (tùy chọn)</option>
+                    </select>
+                  </div>
+                  <div class="box-message" *ngIf="f.district.invalid && (f.district.dirty || f.district.touched)">
+                    <div *ngIf="f.district.errors">
+                      <span class="small text-danger">Bạn phải chọn quận huyện!</span>
+                    </div>
+                  </div>
+                  <div class="form-group mb-0 mt-3 position-relative">
+                    <select *ngIf="listIndex.b !== false" class="form-control text-secondary px-1" formControlName="ward" id="" (change)="handleChangeSelect()">
+                      <option value="" disabled selected>Phường xã (tùy chọn)</option>
+                      <option *ngFor="let item of fullProvinceVN[listIndex.a].Districts[listIndex.b].Wards" value="{{ item.Name }}">{{ item.Name }}</option>
+                    </select>
+                    <select *ngIf="listIndex.b === false" class="form-control text-secondary px-1" name="ward" id="" disabled>
+                      <option value="" disabled selected>Phường xã (tùy chọn)</option>
+                    </select>
+                  </div>
+                  <div class="box-message" *ngIf="f.ward.invalid && (f.ward.dirty || f.ward.touched)">
+                    <div *ngIf="f.ward.errors">
+                      <span class="small text-danger">Bạn phải chọn phường xã!</span>
+                    </div>
+                  </div>
+                  <div class="form-group mt-3 position-relative">
+                    <textarea formControlName="description" id="note" cols="30" rows="3" class="form-control pt-3 px-3" value="" onchange="this.setAttribute('value', this.value);"></textarea>
+                    <label class="position-absolute p-0 m-0 text-secondary px-3" for="note">Ghi chú (tùy chọn)</label>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="col-sm-12 col-md-7 col-lg-12 mx-auto">
+                  <div class="mb-5">
+                    <h6><b>Vận chuyển</b></h6>
+                    <div class="alert alert-info" role="alert">
+                      <p class="p-0 m-0 small">Vui lòng nhập thông tin giao hàng</p>
+                    </div>
+                  </div>
+                  <div>
+                    <h6><b>Thanh toán</b></h6>
+                    <div class="border border-1">
+                      <div class="pay d-flex align-items-center">
+                        <input type="radio" name="" id="pay" class="m-3" checked>
+                        <label for="pay" class="small p-0 m-0">Thanh toán khi giao hàng (COD)</label>
+                        <fa-icon [icon]="faMoneyBill1" class="ml-auto p-3 text-info"></fa-icon>
+                      </div>
+                      <p class="p-4 bg-light m-0 text-secondary">Bạn chỉ phải thanh toán khi nhận được hàng</p>
+                    </div>
+                  </div>
+                  <div class="d-block d-lg-none py-3 text-center">
+                    <button (click)="onSubmit()" *ngIf="dataForm.valid" type="button" class="btn btn-primary text-uppercase w-100 d-block mb-2">Đặt hàng</button>
+                    <button *ngIf="!dataForm.valid" type="button" class="btn btn-primary text-uppercase w-100 d-block mb-2" disabled>Đặt hàng</button>
+                    <a href="" class="text-info small"><fa-icon [icon]="faAngleLeft"></fa-icon><span class="ml-1">Quay về
+                      giỏ hàng</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4 p-0 right d-none d-lg-block">
+          <h6 class="p-4 w-100 m-0"><b>Đơn hàng ({{ listOrder.length }} sản phẩm)</b></h6>
+          <div class="p-4">
+            <div class="box-product">
+              <div *ngFor="let item of listOrder" class="item d-flex my-2">
+                <div class="position-relative">
+                  <img src="{{ item.resourcesProduct[0] }}" class="w-100 border border-1" alt="">
+                  <span class="position-absolute text-center small rounded-circle text-white bg-danger">{{ item.quantity }}</span>
+                </div>
+                <p class="ml-2 text-secondary">{{ item.nameProduct }}<small *ngIf="item.choose !== ''">({{ item.choose.select }})</small></p>
+                <small class="d-flex align-items-center ml-auto">{{ item.total_price/item.quantity|currency:' ':'code':'1.0-0' }}<sup>đ</sup></small>
+              </div>
+            </div>
+            <div class="d-flex py-3">
+              <input type="text" name="" id="" class="form-control" placeholder="Nhập mã giảm giá">
+              <button class="btn btn-info ml-2" type="button">Áp dụng</button>
+            </div>
+            <div class="py-3">
+              <p class="d-flex justify-content-between p-0 m-0 pt-2 text-secondary"><span
+                  class="text-secondary small">Tạm tính</span><span>{{ total_price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span></p>
+              <p class="d-flex justify-content-between p-0 m-0 pt-2 text-secondary"><span
+                  class="text-secondary small">Phí vận chuyển</span><span></span></p>
+            </div>
+            <div class="py-3">
+              <h6 class="text-secondary d-flex justify-content-between py-3"><span>Tổng cộng</span>
+                <h5 class="text-info">{{ total_price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5>
+              </h6>
+              <p class="p-0 m-0 d-flex justify-content-between align-items-center">
+                <a [routerLink]="['/gio-hang']" class="text-info small"><fa-icon [icon]="faAngleLeft"></fa-icon><span class="ml-1">Quay về
+                    giỏ hàng</span></a>
+                <button (click)="onSubmit()" *ngIf="dataForm.valid" type="button" class="btn btn-primary text-uppercase py-2">Đặt hàng</button>
+                <button *ngIf="!dataForm.valid" type="button" class="btn btn-primary text-uppercase py-2" disabled>Đặt hàng</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

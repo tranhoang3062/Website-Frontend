@@ -1,0 +1,162 @@
+<div class="w-100">
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Danh mục</h4>
+        <span class="small d-block mb-3">Cái loại thú cưng và danh mục sản phẩm.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Danh mục</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container mb-5 mt-3">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a (click)="handleRouteLink(true,'dmtc')" *ngIf="queryDm ==='dmtc'" class="nav-link active" id="dmtc-tab" data-toggle="tab" href="#dmtc" role="tab" aria-controls="dmtc" aria-selected="true"><b>Danh mục thú cưng</b></a>
+        <a (click)="handleRouteLink(true,'dmtc')" *ngIf="queryDm !=='dmtc'" class="nav-link" id="dmtc-tab" data-toggle="tab" href="#dmtc" role="tab" aria-controls="dmtc" aria-selected="false"><b>Danh mục thú cưng</b></a>
+      </li>
+      <li class="nav-item">
+        <a (click)="handleRouteLink(true,'dmsp')" *ngIf="queryDm ==='dmsp'" class="nav-link active" id="dmsp-tab" data-toggle="tab" href="#dmsp" role="tab" aria-controls="dmsp" aria-selected="true"><b>Danh mục sản phẩm</b></a>
+        <a (click)="handleRouteLink(true,'dmsp')" *ngIf="queryDm !=='dmsp'" class="nav-link" id="dmsp-tab" data-toggle="tab" href="#dmsp" role="tab" aria-controls="dmsp" aria-selected="false"><b>Danh mục sản phẩm</b></a>
+      </li>
+      <li class="nav-item">
+        <a (click)="handleRouteLink(true,'gtc')" *ngIf="queryDm ==='gtc'" class="nav-link active" id="cgtc-tab" data-toggle="tab" href="#cgtc" role="tab" aria-controls="cgtc" aria-selected="true"><b>Các giống thú cưng</b></a>
+        <a (click)="handleRouteLink(true,'gtc')" *ngIf="queryDm !=='gtc'" class="nav-link" id="cgtc-tab" data-toggle="tab" href="#cgtc" role="tab" aria-controls="cgtc" aria-selected="false"><b>Các giống thú cưng</b></a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div *ngIf="queryDm ==='dmtc'" [ngClass]="{'tab-pane fade show active': queryDm ==='dmtc', 'tab-pane fade':queryDm !=='dmtc'}" id="dmtc" role="tabpanel" aria-labelledby="dmtc-tab">
+        <div class="px-3">
+          <div class="d-flex align-items-center my-4">
+            <a [routerLink]="['add/dmtc']" class="btn btn-info mr-3 rounded-0">Thêm mới</a>
+            <div>
+              <form action="">
+                <div class="form-group d-flex p-0 m-0">
+                  <input [(ngModel)]="search" type="text" name="q" id="" class="form-control rounded-0" placeholder="Tìm kiếm theo tên">
+                  <button (click)="handleRouteLink(false, search)" type="button" class="btn btn-success rounded-0"><fa-icon [icon]="faSearch"></fa-icon></button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Tên thú cưng</th>
+                <th>Trạng thái</th>
+                <th>Ngày tạo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataCategoryDMTC | paginate: { itemsPerPage: itemsPageTc, currentPage: pTc }; index as i">
+                <td scope="row">{{ i + 1 }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.status == 0 ? "Hiện" : "Ẩn" }}</td>
+                <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <a [routerLink]="['edit/dmtc/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
+                  <button type="button" (click)="handleDelete(item.id, i, 'dmtc')" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination-controls (click)="handlePaginate(pTc)" *ngIf="dataCategoryDMTC.length > itemsPageTc" (pageChange)="pTc = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="queryDm ==='dmsp'" [ngClass]="{'tab-pane fade show active': queryDm ==='dmsp', 'tab-pane fade':queryDm !=='dmsp'}" id="dmsp" role="tabpanel" aria-labelledby="dmsp-tab">
+        <div class="px-3">
+          <div class="d-flex align-items-center my-4">
+            <a [routerLink]="['add/dmsp']" class="btn btn-info mr-3 rounded-0">Thêm mới</a>
+            <div>
+              <form action="">
+                <div class="form-group d-flex p-0 m-0">
+                  <input [(ngModel)]="search" type="text" name="q" id="" class="form-control rounded-0" placeholder="Tìm kiếm theo tên">
+                  <button (click)="handleRouteLink(false, search)" type="button" class="btn btn-success rounded-0"><fa-icon [icon]="faSearch"></fa-icon></button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Tên danh mục</th>
+                <th>Trạng thái</th>
+                <th>Danh mục cha</th>
+                <th>Ngày tạo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataCategoryDMSP | paginate: { itemsPerPage: itemsPageSp, currentPage: pSp }; index as i">
+                <td scope="row">{{ i + 1 }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.status == 0 ? "Hiện" : "Ẩn" }}</td>
+                <td>{{ item.parentName+'('+item.parentName2+')' }}</td>
+                <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <a [routerLink]="['edit/dmsp/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
+                  <button type="button" (click)="handleDelete(item.id, i, 'dmsp')" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination-controls (click)="handlePaginate(pSp)" *ngIf="dataCategoryDMSP.length > itemsPageSp" (pageChange)="pSp = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="queryDm ==='gtc'" [ngClass]="{'tab-pane fade show active': queryDm ==='gtc', 'tab-pane fade':queryDm !=='gtc'}" id="cgtc" role="tabpanel" aria-labelledby="cgtc-tab">
+        <div class="px-3">
+          <div class="d-flex align-items-center my-4">
+            <a [routerLink]="['add/gtc']" class="btn btn-info mr-3 rounded-0">Thêm mới</a>
+            <div>
+              <form action="">
+                <div class="form-group d-flex p-0 m-0">
+                  <input [(ngModel)]="search" type="text" name="q" id="" class="form-control rounded-0" placeholder="Tìm kiếm theo tên">
+                  <button (click)="handleRouteLink(false, search)" type="button" class="btn btn-success rounded-0"><fa-icon [icon]="faSearch"></fa-icon></button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Tên giống thú cưng</th>
+                <th>Trạng thái</th>
+                <th>Thú cưng</th>
+                <th>Ngày tạo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataListpet | paginate: { itemsPerPage: itemsPageGtc, currentPage: pGtc }; index as i">
+                <td scope="row">{{ i + 1 }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.status == 0 ? "Hiện" : "Ẩn" }}</td>
+                <td>{{ item.nameCategory }}</td>
+                <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <a [routerLink]="['edit/gtc/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
+                  <button type="button" (click)="handleDelete(item.id, i, 'gtc')" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination-controls (click)="handlePaginate(pGtc)" *ngIf="dataListpet.length > itemsPageGtc" (pageChange)="pGtc = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

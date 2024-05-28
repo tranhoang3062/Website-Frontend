@@ -1,0 +1,109 @@
+<main class="search-component">
+  <div>
+    <div class="banner-top position-relative">
+      <p class="position-absolute w-100 text-center text-light">
+        <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+        <span class="px-3">/</span>
+        <span>Tìm kiếm</span>
+      </p>
+    </div>
+    <div class="container mb-5">
+      <h3 class="pb-3">Có {{ dataProducts.length }} kết quả phù hợp cho: <b>{{ queryQ }}</b></h3>
+      <div class="box-product">
+        <div class="row">
+          <div *ngFor="let item of dataProducts | paginate: { itemsPerPage: itemsPage, currentPage: p }" class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2">
+            <div class="product-elem item p-2 position-relative bg-white">
+              <span class="d-block py-1">
+                <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
+                  <img src="{{ item.resources[0] }}" class="w-100" alt="">
+                </a>
+              </span>
+              <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/']" class="text-dark">{{ item.name }}</a></p>
+              <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
+              <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
+              <div class="list-icon position-absolute d-flex flex-column">
+                <button type="button" (click)="quickView(item.id)" class="btn shadow-none rounded-0 d-none d-lg-block" data-toggle="modal" data-target="#exampleModal" title="Xem nhanh">
+                  <fa-icon [icon]="faEye"></fa-icon>
+                  <!-- <span class="text-white px-1">Xem nhanh</span> -->
+                </button>
+                <button (click)="productService.onOrder(item)" type="button" class="btn shadow-none rounded-0 my-1" title="Thêm vào giỏ hàng" id="btnorder{{ item.id }}">
+                  <i class="fa" [ngClass]="{'fa-check text-success': user && productService.checkOrder(item), 'fa-cart-arrow-down': !user || !productService.checkOrder(item)}" aria-hidden="true"></i>
+                  <!-- <span class="text-white px-1">Mua ngay</span> -->
+                </button>
+                <button (click)="wishlistService.onWishlist(item.id)" type="button" class="btn shadow-none rounded-0 " title="Yêu thích" id="btnwishlist{{ item.id }}" [ngClass]="{'text-danger': user && wishlistService.isWishlist(item.id)}">
+                  <fa-icon [icon]="faHeart"></fa-icon>
+                  <!-- <span class="text-white px-1">Yêu thích</span> -->
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <pagination-controls (click)="handlePaginate(p)" *ngIf="dataProducts.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+    <div class="quick-view d-none d-lg-block">
+      <div class="modal fade p-0" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog m-0 mx-auto" role="document">
+          <div class="modal-content mx-auto mt-5 position-relative">
+            <div class="modal-header border-0 p-1 position-absolute">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row p-4">
+                <div class="left col-6">
+                  <div class="show mx-2" href="1.jpg">
+                    <img src="{{ dataQuickview.resources[0] }}" class="w-100 border border-1" id="show-img">
+                  </div>
+                  <div class="small-img">
+                    <img (click)="productService.onImagesInQuickView($event, 'left')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-left" alt="" id="prev-img">
+                    <div class="small-container">
+                      <div id="small-img-roll">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" src="{{ dataQuickview.resources[0] }}" class="show-small-img" alt="now" style="border: 1px solid rgb(149, 27, 37); padding: 2px;">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" *ngFor="let item of dataQuickview.resources.slice(1,dataQuickview.resources.length); index as i" src="{{ item }}" class="show-small-img">
+                      </div>
+                    </div>
+                    <img (click)="productService.onImagesInQuickView($event, 'right')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-right" alt="" id="next-img">
+                  </div>
+                </div>
+                <div class="right col-6">
+                  <div class="mx-2">
+                    <h3 class="" data-dismiss="modal" aria-label="Close"><a [routerLink]="['/san-pham/'+dataQuickview.cateSlug+'/'+dataQuickview.cate1Slug+'/'+dataQuickview.cate2Slug+'/'+dataQuickview.slug]" class="text-dark">{{ dataQuickview.name }}</a></h3>
+                    <div *ngIf="chooseObj.price == ''">
+                      <div *ngIf="dataQuickview.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="dataQuickview.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+                    <div *ngIf="chooseObj.price !== ''">
+                      <div *ngIf="chooseObj.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObj.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ chooseObj.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="chooseObj.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObj.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+
+                    <div *ngIf="dataQuickview.choose !== ''" class="py-3">
+                      <p class="py-0"><span class="text-secondary">Lựa chọn</span></p>
+                      <p class="d-flex p-0 m-0">
+                        <span *ngFor="let item of dataQuickview.choose; index as i" (click)="onChoose(i)" class="btn m-1 d-block border border-1" ngClass="{{ chooseObj.select == item.select ? 'border-danger active' : '' }}">{{ item.select }}</span>
+                      </p>
+                    </div>
+                    <div class="d-flex align-items-center py-3">
+                      <span class="text-secondary mr-3">Số lượng:</span>
+                      <div class="d-flex align-items-center border border-1 border-dark  p-0">
+                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
+                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityElem }}</h5></button>
+                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                      </div>
+                    </div>
+                    <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart()" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>
+                    <a *ngIf="productService.checkOrderChoose(dataQuickview)" [routerLink]="['/gio-hang']" style="opacity: 1;" class="btn btn-danger close text-center w-100 py-2 rounded-0" data-dismiss="modal" aria-label="Close"><h5 class="p-0 m-0 text-uppercase text-white">Xem giỏ hàng</h5></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

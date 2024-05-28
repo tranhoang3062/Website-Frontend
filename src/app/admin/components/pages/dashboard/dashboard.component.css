@@ -1,0 +1,58 @@
+.header-top {
+  background-image: url('/assets/images/breadcrumb-bg.jpg');
+  background-position: center;
+}
+
+.header-top::before {
+  content:  '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(68, 138, 255, 0.5);
+  z-index: 0;
+}
+
+.box-item:hover {
+  box-shadow: 0 0 5px 1px rgb(112, 112, 112), inset 0 0 3px 1px rgb(209, 209, 209);
+}
+
+.box-item, .box-item .box-header {
+  border-radius: 5px ;
+  transition: all 0.2s linear;
+}
+
+.box-item .box-header {
+  background-color: rgb(158, 212, 248);
+}
+
+.box-info>div>div>.item .icon-top {
+  transition: all 0.2s linear;
+  opacity: 0.8;
+}
+
+.box-info>div>div>.item:hover .icon-top {
+  transform: scale(1.1);
+}
+
+.box-info>div>div:nth-child(1)>.item {
+  background-color: #17a2b8;
+}
+
+.box-info>div>div:nth-child(2)>.item {
+  background-color: #28a745;
+}
+
+.box-info>div>div:nth-child(3)>.item {
+  background-color: #ffc107;
+}
+
+.box-info>div>div:nth-child(4)>.item {
+  background-color: #dc3545;
+}
+
+.box-info .item>a {
+  background-color: rgba(0,0,0,.1);
+}
+

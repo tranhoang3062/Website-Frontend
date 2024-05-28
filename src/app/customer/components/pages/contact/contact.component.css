@@ -1,0 +1,57 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child, h2 {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-info .item span:first-child {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+}
+
+.box-info .item .icon-phone {
+  background-color: #71cbe8;
+}
+
+.box-info .item .icon-location {
+  background-color: #f9a529;
+}
+
+.box-info .item .icon-email {
+  background-color: red;
+}
+
+.box-form>div form>.form-group input, .box-form>div form>.form-group textarea {
+  border-color: #f9a529;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 10px 35px !important;
+  border-radius: 10px !important;
+}
+
+.box-form>div form>.form-group input:focus, .box-form>div form>.form-group textarea:focus {
+  border-color: rgb(197, 197, 197);
+}
+
+.box-form>div form>.form-group span {
+  top: 0;
+  padding: 10px;
+  color: #f9a529;
+}
+
+.box-form>div form button {
+  background-color: #f9a529;
+  border-radius: 10px !important;
+}

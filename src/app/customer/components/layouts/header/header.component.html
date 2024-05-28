@@ -1,0 +1,300 @@
+<header>
+  <div class="position-absolute w-100 d-none d-lg-block">
+    <div class="header-top d-flex justify-content-end px-5 py-3">
+      <ul class="list-unstyled d-flex justify-content-center align-items-center p-0 m-0">
+        <li>
+          <button type="button" (click)="handleEventClickSearch()"
+            class="btn shadow-none border-0 bg-transparent text-white"><fa-icon [icon]="faSearch"
+              class="h3 m-0 p-0"></fa-icon></button>
+        </li>
+        <li *ngIf="!user" class="user position-relative">
+          <button type="button" class="btn shadow-none border-0 bg-transparent text-white d-flex align-items-center">
+            <fa-icon [icon]="faUser" class="h3 m-0 p-0"></fa-icon>
+            <fa-icon [icon]="faSortDown"></fa-icon>
+          </button>
+          <div class="position-absolute bg-white p-0 m-0">
+            <a [routerLink]="['/login']" class="text-dark text-decoration-none">
+              <p class="p-2 m-0 px-3">Đăng nhập</p>
+            </a>
+            <hr class="bg-light w-100 p-0 m-0">
+            <a [routerLink]="['/register']" class="text-dark text-decoration-none">
+              <p class="p-2 m-0 px-3">Đăng ký</p>
+            </a>
+          </div>
+        </li>
+        <li class="cart position-relative">
+          <button type="button" class="btn shadow-none border-0 bg-transparent text-white position-relative">
+            <fa-icon [icon]="faCartShopping" class="h3 m-0 p-0"></fa-icon>
+            <span class="quantityProductInCart p-0 m-0 position-absolute text-center border border-white bg-danger text-white rounded-circle small">{{ dataCarts.length > 99 ? "99+" : dataCarts.length }}</span>
+          </button>
+          <div class="position-absolute bg-white p-0 m-0">
+            <p *ngIf="!dataCarts.length" class="text-secondary p-4">Không có sản phẩm nào.</p>
+            <div *ngIf="dataCarts.length" class="p-3">
+              <ul class="list-unstyled">
+                <li *ngFor="let item of dataCarts" class="">
+                  <div class="d-flex">
+                    <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="d-block p-0 m-0 w-25">
+                      <img src="{{ item.resourcesProduct[0] }}" class="w-100" alt="">
+                    </a>
+                    <div class="w-75 text-dark position-relative pl-1">
+                      <p class="p-0 m-0 pr-3">
+                        <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slugProduct]" class="text-dark">{{ item.nameProduct }}<span *ngIf="item.choose !== ''" class="small">({{ item.choose.select }})</span></a>
+                      </p>
+                      <p class="p-0 m-0"><small class="mr-1">Số lượng:</small> {{ item.quantity }}</p>
+                      <p class="p-0 m-0"><small class="mr-1">Tổng tiền:</small> {{ item.total_price |currency:' ':'code':'1.0-0' }}</p>
+                      <button (click)="productService.deleteOrder(item)" type="button"
+                        class="border-0 shadow-none bg-transparent text-secondary position-absolute"><fa-icon
+                          [icon]="faTrash"></fa-icon></button>
+                    </div>
+                  </div>
+                  <hr class="p-0 my-3">
+                </li>
+              </ul>
+              <div class="row">
+                <span class="col-6 d-flex align-items-center">{{ dataCarts.length }} sản phẩm</span>
+                <span class="col-6"><a [routerLink]="['/gio-hang']" class="btn btn-danger shadow-none w-100">Xem Giỏ hàng</a></span>
+                <!-- <span class="col-6"><a [routerLink]="['/thanh-toan']" class="btn btn-danger shadow-none w-100">Thanh toán</a></span> -->
+              </div>
+            </div>
+          </div>
+        </li>
+        <li *ngIf="user" class="user position-relative">
+          <button type="button" class="btn shadow-none border-0 bg-transparent text-white d-flex align-items-center">
+            <span class="d-block">
+              <img src="{{ user.thumbnail }}" class="rounded-circle w-100 h-100" alt="">
+            </span>
+            <h6 class="m-0 p-0 ml-1">{{ user.fullname }}</h6>
+          </button>
+          <div class="position-absolute bg-white p-0 m-0">
+            <a [routerLink]="['/user/account']" class="text-dark text-decoration-none">
+              <p class="p-2 m-0 px-3">Tài khoản của tôi</p>
+            </a>
+            <hr class="bg-light w-100 p-0 m-0">
+            <a [routerLink]="['/user/purchase']" class="text-dark text-decoration-none">
+              <p class="p-2 m-0 px-3">Đơn hàng</p>
+            </a>
+            <hr class="bg-light w-100 p-0 m-0">
+            <a (click)="logout()" class="btn p-0 text-dark text-decoration-none">
+              <p class="p-2 m-0 px-3">Đăng xuất</p>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="header-menu container p-0">
+      <div class="p-1">
+        <div class="d-flex justify-content-between position-relative">
+          <ul class="menu-left list-unstyled d-flex align-items-center m-0 position-relative">
+            <li class="item">
+              <a [routerLink]="['/']" class="text-white h5 p-0 m-0 px-3 py-4 d-block" [ngClass]="{'active': href == '/'}" (click)="restartHref('/')"><span>Trang chủ</span></a>
+            </li>
+            <li class="text-white h5 p-0 m-0 icon-paw"><fa-icon [icon]="faPaw"></fa-icon></li>
+            <li class="item position-relative">
+              <a class="text-white h5 p-0 m-0 px-3 py-4 d-block" [ngClass]="{'active': href.indexOf('/thu-cung') !== -1}">
+                <span>Thú cưng</span>
+                <fa-icon [icon]="faAngleDown" class="icon-angle_down ml-1 small"></fa-icon>
+              </a>
+              <div class="menu-pet menu-child position-absolute bg-white">
+                <ul class="list-unstyled m-0 px-3">
+                  <li (click)="restartHref('/thu-cung')" *ngFor="let item of dataPets" class="item position-relative">
+                    <a [routerLink]="['/thu-cung/'+item.slug+'/pho-bien']" class="text-secondary text-decoration-none py-2 d-flex justify-content-between">
+                      <span class="">{{ item.name }}</span>
+                      <fa-icon *ngIf="item.array.length !== 0" [icon]="faCaretRight"></fa-icon>
+                    </a>
+                    <div *ngIf="item.array.length !== 0" class="menu-child_child position-absolute bg-white ml-3 d-flex">
+                      <ul *ngFor="let item1 of generateArray(item.array, 6)" class="list-unstyled m-0 px-3">
+                        <li *ngFor="let item2 of item.array.slice(item1*6, item1*6+6)" class="item position-relative">
+                          <a [routerLink]="['/thu-cung/'+item.slug+'/'+item2.slug]" class="text-secondary text-decoration-none py-2 d-flex justify-content-between">
+                            <span class="">{{ item2.name }}</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="text-white h5 p-0 m-0 icon-paw"><fa-icon [icon]="faPaw"></fa-icon></li>
+            <li class="item">
+              <a [routerLink]="['/san-pham']" class="text-white h5 p-0 m-0 px-3 py-4 d-block" [ngClass]="{'active': href.indexOf('/san-pham') !== -1}" (click)="restartHref('/san-pham')">
+                <span>Sản phẩm</span>
+                <fa-icon [icon]="faAngleDown" class="icon-angle_down ml-1 small"></fa-icon>
+              </a>
+              <div class="menu-pet menu-child position-absolute bg-white">
+                <ul class="list-unstyled m-0 px-3">
+                  <li (click)="restartHref('/san-pham')" *ngFor="let item of dataProducts" class="item position-relative">
+                    <a [routerLink]="['/san-pham/'+item.slug]" class="text-secondary text-decoration-none py-2 d-flex justify-content-between">
+                      <span class="">Sản phẩm cho {{ item.name|lowercase }}</span>
+                      <fa-icon *ngIf="item.array.length !== 0" [icon]="faCaretRight"></fa-icon>
+                    </a>
+                    <div *ngIf="item.array.length !== 0" class="menu-child_child position-absolute bg-white ml-3 d-flex">
+                      <ul class="list-unstyled m-0 px-3">
+                        <li *ngFor="let item1 of item.array" class="item position-relative">
+                          <a [routerLink]="['/san-pham/'+item.slug+'/'+item1.slug]" class="text-secondary text-decoration-none py-2 d-flex justify-content-between">
+                            <span class="">{{ item1.name }}</span>
+                            <fa-icon *ngIf="item1.child.length !== 0" [icon]="faCaretRight"></fa-icon>
+                          </a>
+                          <div *ngIf="item1.child.length !== 0" class="menu-child_child position-absolute bg-white ml-3 d-flex">
+                            <ul class="list-unstyled m-0 px-3">
+                              <li *ngFor="let item2 of item1.child" class="item position-relative">
+                                <a [routerLink]="['/san-pham/'+item.slug+'/'+item1.slug+'/'+item2.slug]" class="text-secondary text-decoration-none py-2 d-flex justify-content-between">
+                                  <span class="">{{ item2.name }}</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- <li class="item">
+                    <a href="" class="text-secondary text-decoration-none py-2 d-flex justify-content-between">
+                      <span class="">Chó cảnh</span>
+                    </a>
+                  </li> -->
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <ul class="menu-center list-unstyled m-0 position-absolute">
+            <a [routerLink]="['/']" (click)="restartHref('/')" class="d-block rounded-circle overflow-hidden">
+              <img src="assets/images/logo.png" alt="" class="w-100 rounded-circle">
+            </a>
+          </ul>
+          <ul class="menu-right list-unstyled d-flex align-items-center m-0">
+            <li class="item">
+              <a (click)="restartHref('/thuong-hieu')" [routerLink]="['/thuong-hieu']" class="text-white h5 p-0 m-0 px-3 py-4 d-block" [ngClass]="{'active': href.indexOf('/thuong-hieu') !== -1}"><span>Thương hiệu</span></a>
+            </li>
+            <li class="text-white h5 p-0 m-0 icon-paw"><fa-icon [icon]="faPaw"></fa-icon></li>
+            <li class="item">
+              <a (click)="restartHref('/tin-tuc')" [routerLink]="['/tin-tuc']" class="text-white h5 p-0 m-0 px-3 py-4 d-block" [ngClass]="{'active': href.indexOf('/tin-tuc') !== -1}">
+                <span>Tin thú cưng</span>
+              </a>
+            </li>
+            <li class="text-white h5 p-0 m-0 icon-paw"><fa-icon [icon]="faPaw"></fa-icon></li>
+            <li class="item">
+              <a (click)="restartHref('/lien-he')" [routerLink]="['/lien-he']" class="text-white h5 p-0 m-0 px-3 py-4 d-block" [ngClass]="{'active': href.indexOf('/lien-he') !== -1}">
+                <span>Liên hệ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-responsive position-absolute w-100 d-block d-lg-none bg-transparent">
+    <div class="px-5 py-3 d-flex align-items-center justify-content-between position-relative">
+      <span class="d-block h2 text-white ml-5" (click)="handleEventMenuResponsive(true)"><fa-icon [icon]="faBars"></fa-icon></span>
+      <span class="d-block">
+        <a [routerLink]="['/']"><img src="assets/images/logo.png" class="w-100 rounded-circle" alt=""></a>
+      </span>
+      <span class="d-block h2 text-white mr-5 position-relative">
+        <a [routerLink]="['/gio-hang']" class="text-white">
+          <fa-icon [icon]="faCartShopping"></fa-icon>
+          <span class="quantityProductInCart smallmin p-0 m-0 position-absolute text-center border border-white bg-danger text-white rounded-circle small">{{ dataCarts.length > 99 ? "99+" : dataCarts.length }}</span>
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="menu-responsive position-fixed">
+    <div class="p-3 h-100" (click)="handleEventMenuResponsive(true)">
+      <ul class="list-unstyled">
+        <li>
+          <form action="" class="d-flex align-items-center position-relative text-secondary py-3">
+            <input type="text" name="q" [(ngModel)]="valueSearch" id="search" placeholder="Tìm kiếm sản phẩm..."  class="form-control shadow-none border-0">
+            <button (click)="handleSearch(false)" type="submit" class="position-absolute shadow-none border-0 bg-transparent text-secondary px-2"><fa-icon [icon]="faSearch"></fa-icon></button>
+          </form>
+        </li>
+        <li>
+          <p class="p-0 m-0 py-2 w-100">
+            <a class="btn shadow-none border-0 bg-transparent text-white p-0 m-0 w-100" data-toggle="collapse" href="#contentId" aria-expanded="false" aria-controls="contentId">
+              <p *ngIf="!user" class="p-0 m-0 w-100">
+                <fa-icon [icon]="faUser"></fa-icon>
+                <span class="px-2">Tài khoản</span>
+                <fa-icon [icon]="faAngleDown" class="small"></fa-icon>
+              </p>
+              <p *ngIf="user" class="p-0 m-0 w-100">
+                <img width="50px" src="{{ user.thumbnail }}" alt="" class="">
+                <span class="px-2">{{ user.fullname }}</span>
+                <fa-icon [icon]="faAngleDown" class="small"></fa-icon>
+              </p>
+            </a>
+          </p>
+          <div *ngIf="user" class="collapse" id="contentId">
+            <a [routerLink]="['/user/account']" class="py-2 w-100 text-white d-block">Tài khoản của tôi</a>
+            <a [routerLink]="['/user/purchase']" class="py-2 w-100 text-white d-block">Đơn hàng</a>
+            <a (click)="logout()" class="btn d-flex justify-content-start pl-0 py-2 w-100 text-white d-block">Đăng xuất</a>
+          </div>
+          <div *ngIf="!user" class="collapse" id="contentId">
+            <a [routerLink]="['/login']" class="py-2 w-100 text-white d-block">Đăng nhập</a>
+            <a [routerLink]="['/register']" class="py-2 w-100 text-white d-block">Đăng ký</a>
+          </div>
+        </li>
+        <li>
+          <a [routerLink]="['/']" class="text-white py-2 w-100 d-block">
+            <fa-icon [icon]="faPaw"></fa-icon>
+            <span class="px-2">Trang chủ</span>
+          </a>
+        </li>
+        <li>
+          <p class="p-0 m-0 py-2 w-100">
+            <a class="btn shadow-none border-0 bg-transparent text-white p-0 m-0" data-toggle="collapse" href="#contentId1" aria-expanded="false" aria-controls="contentId1">
+              <fa-icon [icon]="faPaw"></fa-icon>
+              <span class="px-2">Thú cưng</span>
+              <fa-icon [icon]="faAngleDown" class="small"></fa-icon>
+            </a>
+          </p>
+          <div class="collapse" id="contentId1">
+            <a *ngFor="let item of dataPets" [routerLink]="['/thu-cung/'+item.slug+'/pho-bien']" class="p-2 w-100 text-white d-block">{{ item.name }}</a>
+          </div>
+        </li>
+        <li>
+          <p class="p-0 m-0 py-2 w-100 d-flex align-items-center">
+            <a [routerLink]="['/san-pham']" class="text-white">
+              <fa-icon [icon]="faPaw"></fa-icon>
+              <span class="px-2">Sản phẩm</span>
+            </a>
+            <a class="btn shadow-none border-0 bg-transparent text-white p-0 m-0" data-toggle="collapse" href="#contentId2" aria-expanded="false" aria-controls="contentId2">
+              <fa-icon [icon]="faAngleDown" class="small"></fa-icon>
+            </a>
+          </p>
+          <div class="collapse" id="contentId2">
+            <a *ngFor="let item of dataProducts" [routerLink]="['/san-pham/'+item.slug]" class="p-2 w-100 text-white d-block">Sản phẩm cho {{ item.name|lowercase }}</a>
+          </div>
+        </li>
+        <li>
+          <a [routerLink]="['/thuong-hieu']" class="text-white py-2 w-100 d-block">
+            <fa-icon [icon]="faPaw"></fa-icon>
+            <span class="px-2">Thương hiệu</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/tin-tuc']" class="text-white py-2 w-100 d-block">
+            <fa-icon [icon]="faPaw"></fa-icon>
+            <span class="px-2">Tin tức</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/lien-he']" class="text-white py-2 w-100 d-block">
+            <fa-icon [icon]="faPaw"></fa-icon>
+            <span class="px-2">Liện hệ</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="position-absolute w-100 h-100" (click)="handleEventMenuResponsive(false)"></div>
+  </div>
+  <div *ngIf="onSearch" class="form-search position-fixed w-100 h-100 d-flex justify-content-center align-items-center">
+    <div class="position-absolute" class="w-50">
+      <form action="" class="w-100 d-flex align-items-center position-relative">
+        <input type="text" name="q" [(ngModel)]="valueSearch" id="search-inp" placeholder="Bạn muốn tìm sản phẩm gì?" class="w-100 p-3">
+        <button (click)="handleSearch(true)" type="submit"
+          class="btn border-0 shadow-none bg-transparent position-absolute text-danger m-0 p-3 "><fa-icon
+            [icon]="faSearch" class="h4"></fa-icon></button>
+      </form>
+      <div class="w-100 text-center py-5 text-white">
+        <span class="p-0 m-0"><fa-icon [icon]="faXmark" (click)="handleEventClickSearch()"></fa-icon></span>
+      </div>
+    </div>
+  </div>
+</header>

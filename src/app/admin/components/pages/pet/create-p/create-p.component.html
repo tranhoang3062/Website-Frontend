@@ -1,0 +1,97 @@
+<div class="w-100">
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Thêm mới thú cưng</h4>
+        <span class="small d-block mb-3">Cái loại thú cưng và danh mục sản phẩm.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <a class="text-white" [routerLink]="['/admin/pet']">Thú cưng</a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Thêm mới</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form action="" [formGroup]="dataForm" class="mx-auto my-4 border border-1 p-4" (submit)="handleSubmit()">
+      <div class="form-group d-flex">
+        <div class="col-6 pl-0">
+          <label for="name-inp"><b>Tên thú cưng</b></label>
+          <input type="text" formControlName="name" id="name-inp" placeholder="Tên thú cưng" class="form-control rounded-0" (input)="onInputName($event)">
+          <div class="box-mesage" *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
+            <div *ngIf="f.name.errors">
+              <span class="small text-danger">Trường này không được để rỗng!</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 pr-0">
+          <label for="slug-inp"><b>Slug</b></label>
+          <input type="text" formControlName="slug" id="slug-inp" placeholder="Slug" class="form-control rounded-0">
+          <div class="box-mesage" *ngIf="f.slug.invalid && (f.slug.dirty || f.slug.touched)">
+            <div *ngIf="f.slug.errors">
+              <span class="small text-danger">Trường này không được để rỗng!</span>
+            </div>
+          </div>
+          <span *ngIf="slugError" class="small text-danger">Slug này đã tồn tại!</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-6 pl-0">
+          <label for="code-inp"><b>Mã thú cưng</b></label>
+          <input type="text" formControlName="code" id="code-inp" placeholder="Mã thú cưng" class="form-control rounded-0" (input)="onInputName($event)">
+          <div class="box-mesage" *ngIf="f.code.invalid && (f.code.dirty || f.code.touched)">
+            <div *ngIf="f.code.errors">
+              <span class="small text-danger">Trường này không được để rỗng!</span>
+            </div>
+          </div>
+          <span *ngIf="codeError" class="small text-danger">Mã này đã tồn tại!</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pet_list_id"><b>Loại</b></label>
+        <select formControlName="pet_list_id" id="pet_list_id" class="form-control">
+        </select>
+        <div class="box-mesage" *ngIf="f.pet_list_id.invalid && (f.pet_list_id.dirty || f.pet_list_id.touched)">
+          <div *ngIf="f.pet_list_id.errors">
+            <span class="small text-danger">Bạn phải chọn loại!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description"><b>Mô tả</b></label>
+        <ckeditor id="description" formControlName="description"></ckeditor>
+      </div>
+
+      <div class="form-group">
+        <label for="file-inp"><b>Ảnh/video mô tả</b></label>
+          <input type="file" name="upload-files" id="file-inp" class="form-control rounded-0" (change)="selectFile($event)" multiple>
+          <span class="small text-danger" *ngIf="!checkFile">Vui lòng chọn file!</span>
+          <div class="box-images mt-2">
+            <owl-carousel-o [options]="customOptions" class="w-100">
+              <ng-template *ngFor="let item of urlImg" carouselSlide>
+                <div class="item">
+                  <img src="{{ item }}" class="w-100" alt="">
+                </div>
+              </ng-template>
+            </owl-carousel-o>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <input type="checkbox" formControlName="popular" id="popular-inp">
+        <label for="popular-inp" class="ml-2">Phổ biến</label>
+      </div>
+
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="dataForm.valid && checkFile">Thêm mới</button>
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="!dataForm.valid || !checkFile" disabled>Thêm mới</button>
+    </form>
+  </div>
+</div>

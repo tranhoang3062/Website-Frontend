@@ -1,0 +1,396 @@
+<main class="detail-product_component">
+  <div class="banner-top position-relative">
+    <p class="position-absolute w-100 text-center text-light">
+      <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+      <span class="px-3">/</span>
+      <a [routerLink]="['/san-pham/'+paramType+'/'+paramCate+'/'+paramChild]" class="text-white">{{ cateChild &&
+        cateChild.name }}</a>
+      <span class="px-3">/</span>
+      <span>{{ product.name }}</span>
+    </p>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="left col-lg-5 col-md-12 d-flex justify-content-center flex-column mb-5">
+        <div class="show mx-2 w-100 mx-auto position-relative" href="1.jpg">
+          <img src="{{ product.resources && product.resources[0] }}" class="w-100 border border-1" id="show-img">
+          <div class="box-tym position-absolute d-flex align-items-center bg-white border border-1 p-2">
+            <fa-icon (click)="handleTym()" *ngIf="!wishlistService.isWishlist(product.id)" [icon]="faHeartRe" class="icon-heart text-danger h4 p-0 m-0 mr-2"></fa-icon>
+            <fa-icon (click)="handleTym()" *ngIf="wishlistService.isWishlist(product.id)" [icon]="faHeart" class="icon-heart text-danger h4 p-0 m-0 mr-2"></fa-icon>
+            <span>Đã thích ({{ countWishlist }})</span>
+          </div>
+        </div>
+        <div class="small-img w-100 mx-auto">
+          <img (click)="productService.onImagesInQuickView($event, 'left')"
+            src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-left" alt=""
+            id="prev-img">
+          <div class="small-container">
+            <div id="small-img-roll">
+              <img (click)="productService.onImagesInQuickView($event, 'center')"
+                src="{{ product.resources && product.resources[0] }}" class="show-small-img" alt="now"
+                style="border: 1px solid rgb(149, 27, 37); padding: 2px;">
+              <img (click)="productService.onImagesInQuickView($event, 'center')"
+                *ngFor="let item of product.resources && product.resources.slice(1,product.resources.length); index as i"
+                src="{{ item }}" class="show-small-img">
+            </div>
+          </div>
+          <img (click)="productService.onImagesInQuickView($event, 'right')"
+            src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-right" alt=""
+            id="next-img">
+        </div>
+      </div>
+      <div class="right col-lg-7 col-md-12">
+        <div class="mx-2">
+          <div>
+            <h3 class=""><a class="text-dark">{{ product.name }}</a></h3>
+          </div>
+          <div class="p-0 m-0 py-2"><b>Thương hiệu:</b><span class="ml-2">{{ product.brandName }}</span></div>
+          <div class="p-0 m-0">
+            <span *ngFor="let elem of renderArr(valueEvaluate)" class="text-warning"><fa-icon [icon]="faStar"></fa-icon></span>
+            <span *ngFor="let elem of renderArr(5-valueEvaluate)" class="text-warning"><fa-icon [icon]="faStarRe"></fa-icon></span>
+            <span class="ml-2 small">({{ commentProducts.length }} đánh giá của khách hàng)</span>
+          </div>
+          <div *ngIf="chooseObj.price == ''" class="d-flex align-items-center price py-2">
+            <h4 *ngIf="product.sale_price != 0" class="p-0 m-0 mr-1 text-danger">{{ product.sale_price |currency:'
+              ':'code':'1.0-0' }}<sup>vnđ</sup></h4>
+            <del *ngIf="product.sale_price != 0">{{ product.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del>
+            <h4 *ngIf="product.sale_price == 0" class="p-0 m-0 mr-1 text-danger">{{ product.price |currency:'
+              ':'code':'1.0-0' }}<sup>vnđ</sup></h4>
+          </div>
+
+          <div *ngIf="chooseObj.price !== ''" class="d-flex align-items-center price py-2">
+            <h4 *ngIf="chooseObj.sale_price != 0" class="p-0 m-0 mr-1 text-danger">{{ chooseObj.sale_price |currency:'
+              ':'code':'1.0-0' }}<sup>vnđ</sup></h4>
+            <del *ngIf="chooseObj.sale_price != 0">{{ chooseObj.price |currency:' ':'code':'1.0-0'
+              }}<sup>vnđ</sup></del>
+            <h4 *ngIf="chooseObj.sale_price == 0" class="p-0 m-0 mr-1 text-danger">{{ chooseObj.price |currency:'
+              ':'code':'1.0-0' }}<sup>vnđ</sup></h4>
+          </div>
+
+          <span class="w-100 d-block my-3"></span>
+          <div *ngIf="product.choose !== ''" class="py-3">
+            <p class="py-0"><span class="text-secondary">Lựa chọn</span></p>
+            <p class="d-flex p-0 m-0">
+              <span *ngFor="let item of product.choose; index as i" (click)="onChoose(i, true)"
+                class="btn m-1 d-block border border-1"
+                ngClass="{{ chooseObj.select == item.select ? 'border-danger active' : '' }}">{{ item.select }}</span>
+            </p>
+          </div>
+          <div class="d-flex align-items-center py-3">
+            <span class="text-secondary mr-3">Số lượng:</span>
+            <div class="d-flex align-items-center border border-1 border-dark col-5 col-md-3 col-lg-3 p-0">
+              <button (click)="handleQuantityPrice('plus', true)" class="btn rounded-0 bg-transparent border-0">
+                <h5 class="p-0 m-0">+</h5>
+              </button>
+              <button type="button" class="btn rounded-0 bg-transparent border-0 w-100 d-block">
+                <h5 class="p-0 m-0">{{ quantityElem }}</h5>
+              </button>
+              <button (click)="handleQuantityPrice('minus', true)" class="btn rounded-0 bg-transparent border-0">
+                <h5 class="p-0 m-0">-</h5>
+              </button>
+            </div>
+          </div>
+          <div class="row py-3 px-2">
+            <div class="col-6 pl-0">
+              <a (click)="handleOnCart(true, true)" class="btn btn-warning text-uppercase text-white py-2 px-0 m-0 text-center w-100 rounded-0">
+                <fa-icon [icon]="faCartShopping"></fa-icon>
+                <span class="m-1">Mua ngay</span>
+              </a>
+            </div>
+            <div class="col-6 pr-0">
+              <a *ngIf="!productService.checkOrderChoose(product)" (click)="handleOnCart(true)" class="btn btn-info text-white py-2 px-0 m-0 text-center text-uppercase w-100 rounded-0">
+                <span class="m-1">Thêm vào giỏ hàng</span>
+              </a>
+              <a *ngIf="productService.checkOrderChoose(product)" [routerLink]="['/gio-hang']" class="btn btn-info text-white py-2 px-0 m-0 text-center text-uppercase w-100 rounded-0">
+                <span class="m-1">Xem giỏ hàng</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+            aria-controls="nav-home" aria-selected="true">
+            <h5 class="p-0 m-0 text-dark">Mô tả sản phẩm</h5>
+          </a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            aria-controls="nav-profile" aria-selected="false">
+            <h5 class="p-0 m-0 text-dark">Đánh giá</h5>
+          </a>
+        </div>
+      </nav>
+      <div class="tab-content mt-4" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="pl-5" [innerHTML]="product.description"></div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="row">
+            <div class="col-sm-12 col-md-7 col-lg-7">
+              <h4>{{ commentProducts.length }} đánh giá cho {{ product.name }}</h4>
+              <div class="box-comments">
+                <div *ngFor="let item of commentProducts" class="item">
+                  <div class="d-flex mt-3">
+                    <span class="d-block mx-2">
+                      <img class="w-100 h-100 rounded-circle" src="{{ item.thumbnail }}" alt="">
+                    </span>
+                    <div>
+                      <p class="p-0 m-0">
+                        <span *ngFor="let elem of renderArr(item.evaluate)" class="text-warning"><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span *ngFor="let elem of renderArr(5-item.evaluate)" class="text-warning"><fa-icon [icon]="faStarRe"></fa-icon></span>
+                      </p>
+                      <p class="p-0 m-0"><b>{{ item.nameUser }}</b> - <span>{{ item.created_at | date:'yyyy-MM-dd' }}</span></p>
+                      <p class="p-0 m-0">{{ item.content }}</p>
+                    </div>
+                  </div>
+                  <div *ngIf="item.resources !== ''" class="box-resources">
+                    <div class="position-relative d-flex align-items-center">
+                      <div class="position-relative d-flex align-items-center">
+                        <button type="button" class="btn btn-outline-light position-absolute border-0 w-100 h-100 bg-transparent" data-toggle="modal" [attr.data-target]="'#exampleModalCenter' + item.id"></button>
+                        <span *ngIf="item.resources[0]" class="d-block border border-1 p-1">
+                          <img class="w-100 h-100" src="{{ item.resources[0] }}" alt="">
+                        </span>
+                        <span *ngIf="item.resources[1]" class="d-block border border-1 p-1">
+                          <img class="w-100 h-100" src="{{ item.resources[1] }}" alt="">
+                        </span>
+                        <span *ngIf="item.resources[2]" class="d-block border border-1 p-1">
+                          <img class="w-100 h-100" src="{{ item.resources[2] }}" alt="">
+                        </span>
+                        <span *ngIf="item.resources.length > 3" class="d-flex align-items-center justify-content-center border border-1 p-1 h4 p-0 m-0 text-secondary">
+                          <fa-icon [icon]="faPhotoVideo"></fa-icon>+{{ item.resources.length - 3 }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal fade" id="exampleModalCenter{{ item.id }}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div id="carouselExampleControls{{ item.id }}" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                              <div *ngFor="let item1 of item.resources; index as i" class="carousel-item" [ngClass]="{'active': i == 0}">
+                                <img class="d-block w-100" src="{{ item1 }}" alt="First slide">
+                              </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"><fa-icon class="text-dark" [icon]="faChevronLeft"></fa-icon></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"><fa-icon class="text-dark" [icon]="faChevronRight"></fa-icon></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-5 col-lg-5">
+              <div class="form-comment">
+                <form [formGroup]="dataForm" (submit)="handleSubmit()" action="" class="p-4 text-dark">
+                  <h4 *ngIf="!yourComment">Thêm đánh giá</h4>
+                  <h4 *ngIf="yourComment">Đánh giá</h4>
+                  <div class="form-group">
+                    <label for=""><b>Đánh giá của bạn *</b></label>
+                    <div class="box-star">
+                      <input type="radio" formControlName="evaluate" value="1" id="evaluate-one" class="d-none">
+                      <label class="px-2" for="evaluate-one"><span><fa-icon [icon]="faStar"></fa-icon></span></label>
+                      <input type="radio" formControlName="evaluate" value="2" id="evaluate-two" class="d-none">
+                      <label class="px-2" for="evaluate-two">
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                      </label>
+                      <input type="radio" formControlName="evaluate" value="3" id="evaluate-three" class="d-none">
+                      <label class="px-2" for="evaluate-three">
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                      </label>
+                      <input type="radio" formControlName="evaluate" value="4" id="evaluate-four" class="d-none">
+                      <label class="px-2" for="evaluate-four">
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                      </label>
+                      <input type="radio" formControlName="evaluate" value="5" id="evaluate-five" class="d-none">
+                      <label class="px-2 border-0" for="evaluate-five">
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                        <span><fa-icon [icon]="faStar"></fa-icon></span>
+                      </label>
+                    </div>
+                    <div class="box-message" *ngIf="f.evaluate.invalid && (f.evaluate.dirty || f.evaluate.touched)">
+                      <div *ngIf="f.evaluate.errors">
+                        <span class="small text-danger">Bạn phải chọn mục này!</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="content-text"><b>Nhận xét của bạn *</b></label>
+                    <textarea id="content-text" rows="3" cols="" formControlName="content" class="form-control rounded-0"></textarea>
+                    <div class="box-message" *ngIf="f.content.invalid && (f.content.dirty || f.content.touched)">
+                      <div *ngIf="f.content.errors">
+                        <span class="small text-danger">Trường này không được để rỗng!</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="files-inp"><b>Ảnh/video</b></label>
+                    <input (change)="selectFile($event)" type="file" name="upload-file" id="files-inp" multiple class="form-control rounded-0">
+                    <div *ngIf="urlImg && urlImg.length !== 0" class="box-images mt-2">
+                      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                          <div *ngFor="let item of urlImg; index as i" class="carousel-item" [ngClass]="{'active': i==0}">
+                            <img class="d-block w-100" height="393px" src="{{ item }}" alt="First slide">
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!yourComment">
+                    <button *ngIf="dataForm.valid" type="submit" class="btn btn-info rounded-0">Gửi đi</button>
+                    <button *ngIf="!dataForm.valid" type="submit" class="btn btn-info rounded-0" disabled>Gửi đi</button>
+                  </div>
+                  <div *ngIf="yourComment !== false">
+                    <button *ngIf="dataForm.valid" type="submit" class="btn btn-info rounded-0">Lưu sửa đổi</button>
+                    <button *ngIf="!dataForm.valid" type="submit" class="btn btn-info rounded-0" disabled>Lưu sửa đổi</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-5 mb-5">
+      <div class="mb-4">
+        <h3 class="text-uppercase text-center">Sản phẩm liên quan</h3>
+        <img class="d-block mx-auto" src="assets/images/bg-title.webp" alt="">
+      </div>
+      <div class="box-product">
+        <div class="row">
+          <div *ngFor="let item of relatedProducts | paginate: { itemsPerPage: itemsPage, currentPage: p }"
+            class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2">
+            <div class="product-elem item p-2 position-relative bg-white">
+              <span class="d-block py-1">
+                <a
+                  [routerLink]="['/san-pham/'+item.pet.slug+'/'+item.cateParent.slug+'/'+item.cateChild.slug+'/'+item.slug]">
+                  <img src="{{ item.resources[0] }}" class="w-100" alt="">
+                </a>
+              </span>
+              <p class="pt-3"><a [routerLink]="['/san-pham/']" class="text-dark">{{ item.name }}</a></p>
+              <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:'
+                  ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
+              <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:'
+                  ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:'
+                  ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
+              <div class="list-icon position-absolute d-flex flex-column">
+                <button type="button" (click)="quickView(item.id)" class="btn shadow-none rounded-0 d-none d-lg-block" data-toggle="modal" data-target="#exampleModal" title="Xem nhanh">
+                  <fa-icon [icon]="faEye"></fa-icon>
+                  <!-- <span class="text-white px-1">Xem nhanh</span> -->
+                </button>
+                <button (click)="productService.onOrder(item)" type="button" class="btn shadow-none rounded-0 my-1" title="Thêm vào giỏ hàng" id="btnorder{{ item.id }}">
+                  <i class="fa" [ngClass]="{'fa-check text-success': user && productService.checkOrder(item), 'fa-cart-arrow-down': !user || !productService.checkOrder(item)}" aria-hidden="true"></i>
+                  <!-- <span class="text-white px-1">Mua ngay</span> -->
+                </button>
+                <button (click)="wishlistService.onWishlist(item.id)" type="button" class="btn shadow-none rounded-0 " title="Yêu thích" id="btnwishlist{{ item.id }}" [ngClass]="{'text-danger': user && wishlistService.isWishlist(item.id)}">
+                  <fa-icon [icon]="faHeart"></fa-icon>
+                  <!-- <span class="text-white px-1">Yêu thích</span> -->
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="quick-view d-none d-lg-block">
+      <div class="modal fade p-0" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog m-0 mx-auto" role="document">
+          <div class="modal-content mx-auto mt-5 position-relative">
+            <div class="modal-header border-0 p-1 position-absolute">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row p-4">
+                <div class="left col-6">
+                  <div class="show mx-2" href="1.jpg">
+                    <img src="{{ dataQuickview.resources[0] }}" class="w-100 border border-1" id="show-img">
+                  </div>
+                  <div class="small-img">
+                    <img (click)="productService.onImagesInQuickView($event, 'left')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-left" alt="" id="prev-img">
+                    <div class="small-container">
+                      <div id="small-img-roll">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" src="{{ dataQuickview.resources[0] }}" class="show-small-img" alt="now" style="border: 1px solid rgb(149, 27, 37); padding: 2px;">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" *ngFor="let item of dataQuickview.resources.slice(1,dataQuickview.resources.length); index as i" src="{{ item }}" class="show-small-img">
+                      </div>
+                    </div>
+                    <img (click)="productService.onImagesInQuickView($event, 'right')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-right" alt="" id="next-img">
+                  </div>
+                </div>
+                <div class="right col-6">
+                  <div class="mx-2">
+                    <h3 class="" data-dismiss="modal" aria-label="Close"><a [routerLink]="['/san-pham/'+dataQuickview.cateSlug+'/'+dataQuickview.cate1Slug+'/'+dataQuickview.cate2Slug+'/'+dataQuickview.slug]" class="text-dark">{{ dataQuickview.name }}</a></h3>
+                    <div *ngIf="chooseObjQv.price == ''">
+                      <div *ngIf="dataQuickview.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="dataQuickview.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+                    <div *ngIf="chooseObjQv.price !== ''">
+                      <div *ngIf="chooseObjQv.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObjQv.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ chooseObjQv.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="chooseObjQv.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObjQv.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+
+                    <div *ngIf="dataQuickview.choose !== ''" class="py-3">
+                      <p class="py-0"><span class="text-secondary">Lựa chọn</span></p>
+                      <p class="d-flex p-0 m-0">
+                        <span *ngFor="let item of dataQuickview.choose; index as i" (click)="onChoose(i, false)" class="btn m-1 d-block border border-1" ngClass="{{ chooseObjQv.select == item.select ? 'border-danger active' : '' }}">{{ item.select }}</span>
+                      </p>
+                    </div>
+                    <div class="d-flex align-items-center py-3">
+                      <span class="text-secondary mr-3">Số lượng:</span>
+                      <div class="d-flex align-items-center border border-1 border-dark  p-0">
+                        <button (click)="handleQuantityPrice('plus', false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
+                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityQvElem }}</h5></button>
+                        <button (click)="handleQuantityPrice('minus', false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                      </div>
+                    </div>
+                    <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart(false)" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>
+                    <a *ngIf="productService.checkOrderChoose(dataQuickview)" [routerLink]="['/gio-hang']" style="opacity: 1;" class="btn btn-danger close text-center w-100 py-2 rounded-0" data-dismiss="modal" aria-label="Close"><h5 class="p-0 m-0 text-uppercase text-white">Xem giỏ hàng</h5></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

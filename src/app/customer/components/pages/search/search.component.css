@@ -1,0 +1,81 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child, h2 {
+  color: rgb(255, 22, 22) !important;
+}
+
+h3 {
+  font-weight: 100;
+}
+
+.product-elem>p>a:hover {
+  color: rgb(255, 22, 22) !important;
+}
+
+.product-elem {
+  transition: all 0.2s linear;
+  border-radius: 5px;
+}
+
+.product-elem:hover {
+  box-shadow: 0 0 10px 3px rgb(224, 224, 224);
+  /* opacity: 0.8; */
+}
+
+.product-elem:hover>.list-icon button {
+  transform: rotateY(0);
+}
+
+.product-elem>p>a {
+  text-decoration: none;
+  transition: all 0.2s linear;
+}
+
+.product-elem>.list-icon {
+  top: 30%;
+  right: 0;
+  transform: translateY(-30%);
+}
+
+.product-elem>.list-icon button {
+  box-shadow: none !important;
+  /* background-color: rgb(255, 101, 101); */
+  /* background-color: #ffa2a2; */
+  background-color: rgb(255, 188, 188);
+  transform-origin: right;
+  transform: rotateY(90deg);
+  border-right: none !important;
+  /* color: #343a40; */
+  color: #ffffff;
+}
+
+.product-elem>.list-icon button>fa-icon, .product-elem>.list-icon button {
+  font-size: 20px;
+}
+
+.product-elem>.list-icon button:nth-child(1) {
+  transition: all 0.2s linear;
+}
+
+.product-elem>.list-icon button:nth-child(2) {
+  transition: all 0.3s linear;
+}
+
+.product-elem>.list-icon button:nth-child(3) {
+  transition: all 0.4s linear;
+}
+
+.product-elem>.list-icon button:hover {
+  /* background-color: rgb(255, 65, 65); */
+  background-color: rgb(230, 161, 161) !important;
+}

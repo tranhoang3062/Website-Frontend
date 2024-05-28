@@ -1,0 +1,245 @@
+<main class="product-component">
+  <div class="">
+    <div class="banner-top position-relative">
+      <p class="position-absolute w-100 text-center text-light">
+        <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+        <span class="px-3">/</span>
+        <span *ngIf="paramType === ''">Tất cả sản phẩm</span>
+        <span *ngIf="paramType !== '' && paramCate === ''">Sản phẩm cho {{ cateType.name|lowercase }}</span>
+        <a *ngIf="paramCate !== ''" [routerLink]="['/san-pham/'+paramType]" class="text-white">{{ cateType.name }}</a>
+        <span *ngIf="paramCate !== ''" class="px-3">/</span>
+        <span *ngIf="paramCate !== '' && paramChild === ''">{{ cateCate.name }}</span>
+        <a *ngIf="paramChild !== ''" [routerLink]="['/san-pham/'+paramType+'/'+paramCate]" class="text-white">{{ cateCate.name }}</a>
+        <span *ngIf="paramChild !== ''" class="px-3">/</span>
+        <span *ngIf="paramChild !== ''">{{ cateChild.name }}</span>
+      </p>
+    </div>
+    <div class="container p-0 py-4 d-flex justify-content-center">
+      <div class="row w-100">
+        <div class="box-left col-lg-3 position-relative">
+          <div>
+            <div class="list-cate">
+              <h5 class="text-uppercase">Danh mục sản phẩm</h5>
+              <ul class="list-unstyled">
+                <li *ngFor="let item of dataCategories">
+                  <div class="d-flex align-items-center">
+                    <a (click)="handleRouteLink()" [routerLink]="['/san-pham/'+item.slug]" class="text-dark py-3 pr-3 d-block w-100"><span [ngClass]="{'text-danger': paramType === item.slug}">Sản phẩm cho {{ item.name|lowercase }}</span></a>
+                    <p *ngIf="item.array.length !== 0" class="p-0 m-0">
+                      <a *ngIf="paramCate+item.id !== cateCate.slug+cateCate.parent_id" class="p-0 m-0" data-toggle="collapse" href="#{{ item.slug+item.id }}" aria-expanded="false" (aria-controls)="item.slug+item.id">
+                        <fa-icon class="" [icon]="faAngleDown"></fa-icon>
+                      </a>
+                      <a *ngIf="paramCate+item.id === cateCate.slug+cateCate.parent_id" class="p-0 m-0" data-toggle="collapse" href="#{{ item.slug+item.id }}" aria-expanded="true" (aria-controls)="item.slug+item.id">
+                        <fa-icon class="text-danger" [icon]="faAngleDown"></fa-icon>
+                      </a>
+                    </p>
+                  </div>
+                  <div *ngIf="item.array.length !== 0" class="collapse" [ngClass]="{'show': paramCate+item.id === cateCate.slug+cateCate.parent_id}" id="{{ item.slug+item.id }}">
+                    <ul class="list-unstyled child">
+                      <li *ngFor="let item1 of item.array">
+                        <div class="d-flex align-items-center">
+                          <a (click)="handleRouteLink()" [routerLink]="['/san-pham/'+item.slug+'/'+item1.slug]" class="text-dark py-3 d-block w-100"><span [ngClass]="{'text-danger': cateCate.slug+cateCate.parent_id === item1.slug+item1.parent_id}">- {{ item1.name }}</span></a>
+                          <p *ngIf="item1.child.length !== 0" class="p-0 m-0">
+                            <a *ngIf="paramChild+item1.id !== cateChild.slug+cateChild.parent_id" class="p-0 m-0" data-toggle="collapse" href="#{{ item1.slug+item1.id }}" aria-expanded="false" (aria-controls)="item1.slug+item1.id">
+                              <fa-icon [icon]="faAngleDown"></fa-icon>
+                            </a>
+                            <a *ngIf="paramChild+item1.id === cateChild.slug+cateChild.parent_id" class="p-0 m-0" data-toggle="collapse" href="#{{ item1.slug+item1.id }}" aria-expanded="true" (aria-controls)="item1.slug+item1.id">
+                              <fa-icon class="text-danger" [icon]="faAngleDown"></fa-icon>
+                            </a>
+                          </p>
+                        </div>
+                        <div *ngIf="item1.child.length !== 0" class="collapse" [ngClass]="{'show': paramChild+item1.id === cateChild.slug+cateChild.parent_id}" id="{{ item1.slug+item1.id }}">
+                          <ul class="list-unstyled child">
+                            <li *ngFor="let item2 of item1.child">
+                              <div class="d-flex align-items-center">
+                                <a (click)="handleRouteLink()" [routerLink]="['/san-pham/'+item.slug+'/'+item1.slug+'/'+item2.slug]" class="text-dark py-3 pl-2 d-block w-100"><span [ngClass]="{'text-danger': cateChild.slug+cateChild.parent_id === item2.slug+item2.parent_id}">+ {{ item2.name }}</span></a>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="list-brand">
+              <div *ngIf="filterBrands.length !== 0" class="box-choose py-3">
+                <div class="d-flex justify-content-between">
+                  <h5 class="text-info">Bạn chọn</h5>
+                  <small (click)="handleBrand(null, 'reset')" class="text-secondary">Bỏ hết</small>
+                </div>
+                <div class="d-flex flex-wrap">
+                  <p *ngFor="let item of filterBrands; index as i" class="m-0 p-0 small pr-2 pb-1 text-secondary">
+                    <fa-icon (click)="handleBrand(i, 'remove')" [icon]="faXmark"></fa-icon>
+                    <span>{{ item.name }}</span>
+                  </p>
+                </div>
+              </div>
+              <h5 class="text-uppercase">Chọn thương hiệu</h5>
+              <div class="form-group d-flex">
+                <input type="text" id="" placeholder="Nhập tên thương hiệu?" class="form-control rounded-0" (input)="handleBrand($event, 'search')">
+                <!-- <button type="button" class="btn btn-danger rounded-0"><fa-icon [icon]="faSearch"></fa-icon></button> -->
+              </div>
+              <div class="box-brand">
+                <div *ngFor="let item of listBrands" class="form-group item d-flex mb-0">
+                  <input (change)="handleBrand(item, 'add')" type="checkbox" name="brand" id="{{ item.id }}" [checked]="isChecked(item.id)">
+                  <label for="{{ item.id }}" class="p-3 w-100 m-0 text-secondary">{{ item.name }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-price my-3">
+              <h5 class="text-uppercase">Khoảng giá</h5>
+              <div>
+                <p class="d-flex justify-content-between p-0 m-0 mb-2">
+                  <input readonly class="w-50 border-0 bg-transparent small" id="min-price-show">
+                  <span>-</span>
+                  <input readonly class="w-50 border-0 bg-transparent small" style="text-align: end;" id="max-price-show">
+                </p>
+                <!-- <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider> -->
+                <div id="price-slider" class="slide"></div>
+                <input class="d-none" value="" id="min-price">
+                <input class="d-none" value="" id="max-price">
+                <button (click)="onFilterPrice()" type="button" class="btn btn-danger w-100 my-3">Lọc giá</button>
+              </div>
+              <span class="mb-5 d-block">
+                <img src="assets/images/logo-store.png" class="w-100" alt="">
+              </span>
+            </div>
+          </div>
+          <div (click)="handleEventFilter()" class="icon-filter position-absolute d-block d-lg-none text-center bg-danger">
+            <span class="text-white">
+              <fa-icon [icon]="faFilter"></fa-icon>
+            </span>
+          </div>
+        </div>
+        <div class="box-right col-12 col-lg-9 d-block">
+          <div class="d-flex justify-content-between pb-3">
+            <h5 class="text-uppercase">
+              <span *ngIf="paramType === ''">Tất cả sản phẩm</span>
+              <span *ngIf="paramType !== '' && paramCate === ''">Sản phẩm cho {{ cateType.name }}</span>
+              <span *ngIf="paramCate !== '' && paramChild === ''">{{ cateCate.name }}({{ cateType.name|lowercase }})</span>
+              <span *ngIf="paramChild !== ''">{{ cateChild.name }}({{ cateType.name|lowercase }})</span>
+            </h5>
+            <div>
+              <p class="d-inline mr-1 text-secondary">Hiển thị {{ itemsPage*(p-1)+1 }}-{{ p*itemsPage }} của {{ listProduct.length }} kết quả</p>
+              <select (change)="handleSort()" [(ngModel)]="valueSelectSort" name="" id="" class="rounded-0 border border-1 border-white shadow-none bg-transparent px-3">
+                <option value="" disabled selected><a href="">Sắp xếp theo</a></option>
+                <option value="0"><a href="">A -> Z</a></option>
+                <option value="1"><a href="">Z -> A</a></option>
+                <option value="2"><a href="">Giá tăng dần</a></option>
+                <option value="3"><a href="">Giá giảm dần</a></option>
+                <option value="4"><a href="">Sản phẩm mới nhất</a></option>
+                <option value="5"><a href="">Sản phẩm cũ nhất</a></option>
+              </select>
+            </div>
+          </div>
+          <div class="box-product container mt-3">
+            <div *ngIf="listProduct.length === 0">
+              <h2 class="text-secondary">Không có sản phẩm nào!</h2>
+            </div>
+            <div class="row">
+              <div *ngFor="let item of listProduct | paginate: { itemsPerPage: itemsPage, currentPage: p }" class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2">
+                <div class="product-elem item p-2 position-relative bg-white">
+                  <span class="d-block py-1">
+                    <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
+                      <img src="{{ item.resources[0] }}" class="w-100" alt="">
+                    </a>
+                  </span>
+                  <p class="pt-3 mb-2 styleText"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]" class="text-dark">{{ item.name }}</a></p>
+                  <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
+                  <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
+                  <p class="">
+                    <span *ngFor="let elem of renderArr(item.evaluate)" class="text-warning"><fa-icon [icon]="faStarSolid"></fa-icon></span>
+                    <span *ngFor="let elem of renderArr(5-item.evaluate)" class="text-warning"><fa-icon [icon]="faStarRegular"></fa-icon></span>
+                  </p>
+                  <div class="list-icon position-absolute d-flex flex-column">
+                    <button type="button" (click)="quickView(item.id)" class="btn shadow-none rounded-0 d-none d-lg-block" data-toggle="modal" data-target="#exampleModal" title="Xem nhanh">
+                      <fa-icon [icon]="faEye"></fa-icon>
+                      <!-- <span class="text-white px-1">Xem nhanh</span> -->
+                    </button>
+                    <button (click)="productService.onOrder(item)" type="button" class="btn shadow-none rounded-0 my-1" title="Thêm vào giỏ hàng" id="btnorder{{ item.id }}">
+                      <i class="fa" [ngClass]="{'fa-check text-success': user && productService.checkOrder(item), 'fa-cart-arrow-down': !user || !productService.checkOrder(item)}" aria-hidden="true"></i>
+                      <!-- <span class="text-white px-1">Mua ngay</span> -->
+                    </button>
+                    <button (click)="wishlistService.onWishlist(item.id)" type="button" class="btn shadow-none rounded-0 " title="Yêu thích" id="btnwishlist{{ item.id }}" [ngClass]="{'text-danger': user && wishlistService.isWishlist(item.id)}">
+                      <fa-icon [icon]="faHeart"></fa-icon>
+                      <!-- <span class="text-white px-1">Yêu thích</span> -->
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <pagination-controls (click)="handlePaginate(p)" *ngIf="listProduct.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+        <div class="screen-black d-none" (click)="handleEventFilter()"></div>
+      </div>
+    </div>
+    <div class="quick-view d-none d-lg-block">
+      <div class="modal fade p-0" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog m-0 mx-auto" role="document">
+          <div class="modal-content mx-auto mt-5 position-relative">
+            <div class="modal-header border-0 p-1 position-absolute">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row p-4">
+                <div class="left col-6">
+                  <div class="show mx-2" href="1.jpg">
+                    <img src="{{ dataQuickview.resources[0] }}" class="w-100 border border-1" id="show-img">
+                  </div>
+                  <div class="small-img">
+                    <img (click)="productService.onImagesInQuickView($event, 'left')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-left" alt="" id="prev-img">
+                    <div class="small-container">
+                      <div id="small-img-roll">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" src="{{ dataQuickview.resources[0] }}" class="show-small-img" alt="now" style="border: 1px solid rgb(149, 27, 37); padding: 2px;">
+                        <img (click)="productService.onImagesInQuickView($event, 'center')" *ngFor="let item of dataQuickview.resources.slice(1,dataQuickview.resources.length); index as i" src="{{ item }}" class="show-small-img">
+                      </div>
+                    </div>
+                    <img (click)="productService.onImagesInQuickView($event, 'right')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-right" alt="" id="next-img">
+                  </div>
+                </div>
+                <div class="right col-6">
+                  <div class="mx-2">
+                    <h3 class="" data-dismiss="modal" aria-label="Close"><a [routerLink]="['/san-pham/'+dataQuickview.cateSlug+'/'+dataQuickview.cate1Slug+'/'+dataQuickview.cate2Slug+'/'+dataQuickview.slug]" class="text-dark">{{ dataQuickview.name }}</a></h3>
+                    <div *ngIf="chooseObj.price == ''">
+                      <div *ngIf="dataQuickview.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="dataQuickview.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ dataQuickview.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+                    <div *ngIf="chooseObj.price !== ''">
+                      <div *ngIf="chooseObj.sale_price != 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObj.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5><del>{{ chooseObj.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></div>
+                      <div *ngIf="chooseObj.sale_price == 0" class="py-3 d-flex price"><h5 class="mr-1">{{ chooseObj.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></h5></div>
+                    </div>
+
+                    <div *ngIf="dataQuickview.choose !== ''" class="py-3">
+                      <p class="py-0"><span class="text-secondary">Lựa chọn</span></p>
+                      <p class="d-flex p-0 m-0">
+                        <span *ngFor="let item of dataQuickview.choose; index as i" (click)="onChoose(i)" class="btn m-1 d-block border border-1" ngClass="{{ chooseObj.select == item.select ? 'border-danger active' : '' }}">{{ item.select }}</span>
+                      </p>
+                    </div>
+                    <div class="d-flex align-items-center py-3">
+                      <span class="text-secondary mr-3">Số lượng:</span>
+                      <div class="d-flex align-items-center border border-1 border-dark  p-0">
+                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
+                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityElem }}</h5></button>
+                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                      </div>
+                    </div>
+                    <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart()" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>
+                    <a *ngIf="productService.checkOrderChoose(dataQuickview)" [routerLink]="['/gio-hang']" style="opacity: 1;" class="btn btn-danger close text-center w-100 py-2 rounded-0" data-dismiss="modal" aria-label="Close"><h5 class="p-0 m-0 text-uppercase text-white">Xem giỏ hàng</h5></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,78 @@
+<main class="detail-pet_component">
+  <div class="banner-top position-relative">
+    <p class="position-absolute w-100 text-center text-light">
+      <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+      <span class="px-3">/</span>
+      <a [routerLink]="['/thu-cung/'+paramType+'/'+'pho-bien']" class="text-white">{{ pet.categoryName }}</a>
+      <span class="px-3">/</span>
+      <a [routerLink]="['/thu-cung/'+paramType+'/'+paramSpecies]" class="text-white">{{ pet.petlistName }}</a>
+      <span class="px-3">/</span>
+      <span>{{ pet.code }}</span>
+    </p>
+  </div>
+  <div>
+    <div class="container-fluid">
+      <div class="row p-4">
+        <div class="left col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center flex-column mb-4">
+          <div class="show mx-2 w-100 mx-auto" href="1.jpg">
+            <img src="{{ pet.resources[0] }}" class="w-100 border border-1" id="show-img">
+          </div>
+          <div class="small-img w-100 mx-auto">
+            <img (click)="productService.onImagesInQuickView($event, 'left')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-left" alt="" id="prev-img">
+            <div class="small-container">
+              <div id="small-img-roll">
+                <img (click)="productService.onImagesInQuickView($event, 'center')" src="{{ pet.resources[0] }}" class="show-small-img" alt="now" style="border: 1px solid rgb(149, 27, 37); padding: 2px;">
+                <img (click)="productService.onImagesInQuickView($event, 'center')" *ngFor="let item of pet.resources.slice(1,pet.resources.length); index as i" src="{{ item }}" class="show-small-img">
+              </div>
+            </div>
+            <img (click)="productService.onImagesInQuickView($event, 'right')" src="assets/plugin/Product-Gallery-Image-Zoom/images/online_icon_right@2x.png" class="icon-right" alt="" id="next-img">
+          </div>
+        </div>
+        <div class="right col-lg-6 col-md-12 col-sm-12">
+          <div class="mx-2">
+            <div>
+              <h2>{{ pet.code }} <small class="text-secondary">({{ pet.name }})</small></h2>
+            </div>
+            <div>
+              <p class="m-0">
+                <a class="btn border-0 text-dark d-flex py-3 rounded-0 collapsed" data-toggle="collapse" href="#contentId5" aria-expanded="true" aria-controls="contentId5">
+                  <fa-icon [icon]="faAngleDown" class="mr-2"></fa-icon>
+                  <h5 class="m-0 text-uppercase">Mô tả</h5>
+                </a>
+              </p>
+              <div class="collapse show" id="contentId5">
+                <div class="ml-4 mt-2" [innerHTML]="pet.description"></div>
+              </div>
+            </div>
+            <div class="py-4 border-0">
+              <button type="button" class="btn btn-danger mr-2 p-3">
+                <fa-icon [icon]="faPhone"></fa-icon>
+                Gọi ngay
+              </button>
+              <button type="button" class="btn btn-outline-danger p-3">
+                <fa-icon [icon]="faUser"></fa-icon>
+                Chat với pet shop
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container my-4">
+      <h4 class="my-3">Có thể bạn thích</h4>
+      <div class="box-pet">
+        <div class="row">
+          <div *ngFor="let item of dataPetMore|paginate: { itemsPerPage: 8, currentPage: 1 }" class="item col-lg-3 col-md-4 col-sm-6">
+            <a [routerLink]="['/thu-cung/'+paramType+'/'+paramSpecies+'/'+item.slug]" class="text-center">
+              <span class="d-block">
+                <img src="{{ item.resources ? item.resources[0] : '' }}" class="w-100" alt="">
+              </span>
+              <p class="text-uppercase p-2">{{ item.code }}</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

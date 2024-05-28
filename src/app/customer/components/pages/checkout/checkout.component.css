@@ -1,0 +1,97 @@
+select.form-control, input.form-control {
+  height: 45px !important;
+}
+
+.form-group label {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  transition: all 0.2s linear;
+  transform-origin: 10% 0%;
+}
+
+.form-group textarea ~ label {
+  top: 25%;
+}
+
+.form-group input:not([value=""]):not(:focus) ~ label, .form-group textarea:not([value=""]):not(:focus) ~ label {
+  transform: translateY(-90%) scale(0.8) !important;
+}
+
+/* .form-group input ~ label, .form-group textarea ~ label {
+  transform: translateY(-90%) scale(0.8) !important;
+} */
+
+.form-group input:focus ~ label, .form-group textarea:focus ~ label {
+  transform: translateY(-90%) scale(0.8) !important;
+}
+
+.form-group input, .form-group textarea, select {
+  font-size: 14px !important;
+  color: black;
+  box-shadow: none !important;
+}
+
+.form-group input:focus, .form-group textarea:focus, select:focus {
+  border: 1px solid #66afe9 !important;
+}
+
+.form-group>button {
+  width: 40px;
+  top: 0;
+  right: 0;
+  border: 1px solid rgb(201, 201, 201) !important;
+  border-radius: 0 5px 5px 0;
+}
+
+.pay label {
+  cursor: pointer;
+}
+
+.left {
+  border-right: 1px solid rgb(219, 219, 219);
+}
+
+.right>h6, .right>div>div {
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.box-product {
+  overflow-y: auto;
+  max-height: 160px;
+}
+
+.box-product .item img {
+  width: 60px !important;
+  border-radius: 5px;
+}
+
+.box-product .item>div>span {
+  right: -5px;
+  top: -5px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.responsive-1>div {
+  border-bottom: 1px solid rgb(223, 223, 223);
+}
+
+.responsive-1>div:first-child {
+  border-top: 1px solid rgb(223, 223, 223);
+}
+
+.responsive-1>div a {
+  text-decoration: none;
+}
+
+@media (max-width: 991px) {
+  .left {
+    border-right: none !important;
+  }
+
+  .right>h6, .right>div>div {
+    border-bottom: none !important;
+  }
+}

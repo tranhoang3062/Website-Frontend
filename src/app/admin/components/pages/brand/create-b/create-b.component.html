@@ -1,0 +1,55 @@
+<div class="w-100">
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Thêm mới Thương hiệu</h4>
+        <span class="small d-block mb-3">Cái loại thương hiệu liên kết với Pet Shop.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <a class="text-white" [routerLink]="['/admin/brand']">Thương hiệu</a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Thêm mới</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form action="" [formGroup]="dataForm" class="col-lg-8 col-md-8 col-sm-12 mx-auto mt-4 border border-1 p-4" (submit)="handleSubmit()">
+
+      <div class="form-group">
+        <label for="name-inp"><b>Tên thương hiệu</b></label>
+        <input type="text" formControlName="name" id="name-inp" placeholder="Tên thương hiệu" class="form-control rounded-0" (input)="eventInput()">
+        <div class="box-mesage" *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
+          <div *ngIf="f.name.errors">
+            <span class="small text-danger">Trường này không được để rỗng!</span>
+          </div>
+        </div>
+        <span *ngIf="nameError" class="small text-danger">Tên này đã tồn tại!</span>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="d-block"><b>Trạng thái</b></label>
+        <div *ngFor="let item of radioInputs" class="d-inline">
+          <input type="radio" formControlName="status" id="{{item.name}}" value="{{item.value}}" [checked]="item.checked">
+          <label class="mx-2" for="{{item.name}}">{{item.name}}</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="file-inp" class="d-block"><b>Ảnh</b></label>
+        <input type="file" name="upload-file" id="file-inp" class="form-control rounded-0" (change)="selectFile($event)">
+        <span class="small text-danger" *ngIf="!checkFile">Vui lòng chọn tệp!</span>
+        <div *ngIf="urlImg" class="mt-2">
+          <img src="{{ urlImg }}" class="w-100" alt="">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="dataForm.valid && checkFile">Thêm mới</button>
+      <button type="submit" class="btn btn-info rounded-0" *ngIf="!dataForm.valid || !checkFile" disabled>Thêm mới</button>
+    </form>
+  </div>
+</div>

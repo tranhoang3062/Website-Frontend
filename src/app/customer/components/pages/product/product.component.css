@@ -1,0 +1,197 @@
+.banner-top {
+  background-image: url('src/assets/images/banner-header2.webp');
+  background-position: center top;
+  padding: 245px 0px 0;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  z-index: 9;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.banner-top>p>span:last-child, .box-left>div>.list-cate ul>li a:hover, .box-left>div>.list-brand .box-brand .item>label:hover, .box-left>div>.list-brand .box-choose>div small:hover, .box-left>div>.list-brand .box-choose>div p:hover, .product-elem>p>a:hover {
+  color: rgb(255, 22, 22) !important;
+}
+
+.box-left>div>.list-cate ul>li, .box-left>div>.list-brand .box-brand .item, .box-right>div:first-child {
+  border-bottom: 1px dashed rgb(207, 207, 207);
+}
+
+.box-left>div>.list-cate ul.child>li {
+  border-top: 1px dashed rgb(207, 207, 207);
+  border-bottom: none;
+}
+
+.box-left>div>.list-cate ul>li a {
+  color: rgb(85, 85, 85) !important;
+  transition: all 0.2s linear;
+  text-decoration: none;
+}
+
+.box-left>div>.list-brand .box-brand .item>input, .box-left>div>.list-brand .box-brand .item>label {
+  cursor: pointer !important;
+  transition: all 0.2s linear;
+}
+
+.box-left>div>.list-brand .box-brand {
+  overflow: hidden;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.box-left>div>.list-brand .box-choose>div small:hover, .box-left>div>.list-brand .box-choose>div p:hover {
+  cursor: pointer;
+}
+
+.product-elem {
+  transition: all 0.2s linear;
+  border-radius: 5px;
+}
+
+.product-elem:hover {
+  box-shadow: 0 0 10px 3px rgb(224, 224, 224);
+  /* opacity: 0.8; */
+}
+
+.product-elem:hover>.list-icon button {
+  transform: rotateY(0);
+}
+
+.product-elem>p>a {
+  text-decoration: none;
+  transition: all 0.2s linear;
+}
+
+.product-elem>.list-icon {
+  top: 30%;
+  right: 0;
+  transform: translateY(-30%);
+}
+
+.product-elem>.list-icon button {
+  box-shadow: none !important;
+  /* background-color: rgb(255, 101, 101); */
+  /* background-color: #ffa2a2; */
+  background-color: rgb(255, 188, 188);
+  transform-origin: right;
+  transform: rotateY(90deg);
+  border-right: none !important;
+  /* color: #343a40; */
+  color: #ffffff;
+}
+
+.product-elem>.list-icon button>fa-icon, .product-elem>.list-icon button {
+  font-size: 20px;
+}
+
+.product-elem>.list-icon button:nth-child(1) {
+  transition: all 0.2s linear;
+}
+
+.product-elem>.list-icon button:nth-child(2) {
+  transition: all 0.3s linear;
+}
+
+.product-elem>.list-icon button:nth-child(3) {
+  transition: all 0.4s linear;
+}
+
+.product-elem>.list-icon button:hover {
+  /* background-color: rgb(255, 65, 65); */
+  background-color: rgb(230, 161, 161) !important;
+}
+
+.box-right select {
+  height: 30px !important;
+  transition: all 0.2s linear;
+}
+
+.box-right select:hover {
+  cursor: pointer;
+  border: 1px solid grey !important;
+}
+
+.box-right select:focus-visible {
+  outline: 0px;
+}
+
+
+@media (max-width: 992px) {
+  .box-left {
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff !important;
+    z-index: 1200;
+    width: 320px;
+    transform: translateX(320px);
+    border-left: 1px solid rgb(207, 207, 207);
+    /* animation: onFilter 0.3s linear forwards alternate; */
+  }
+
+  .box-left.on-filter {
+    animation: onFilter 0.3s linear forwards alternate;
+  }
+
+  .box-left.off-filter {
+    animation: offFilter 0.3s linear forwards alternate;
+  }
+
+  .box-left>div:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 10px;
+  }
+
+  .box-left>.icon-filter {
+    top: 30%;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    transform: translateX(-30px);
+  }
+
+  .screen-black {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0505057e;
+    z-index: 1100;
+  }
+
+  @keyframes onFilter {
+    from {
+      transform: translateX(320px);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes offFilter {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(320px);
+    }
+  }
+}
+
+.styleText {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,60 @@
+<div>
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Thương hiệu</h4>
+        <span class="small d-block mb-3">Danh sách thương hiệu liên kết với Pet Shop.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Thương hiệu</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="d-flex align-items-center my-4">
+      <a [routerLink]="['add']" class="btn btn-info mr-3 rounded-0">Thêm mới</a>
+      <div>
+        <form action="">
+          <div class="form-group d-flex p-0 m-0">
+            <input [(ngModel)]="search" type="text" name="q" id="" class="form-control rounded-0" placeholder="Tìm kiếm theo tên">
+            <button (click)="handleRouteLink()" type="button" class="btn btn-success rounded-0"><fa-icon [icon]="faSearch"></fa-icon></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Stt</th>
+          <th>Tên thương hiệu</th>
+          <th>Trạng thái</th>
+          <th>Ảnh</th>
+          <th>Ngày tạo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataBrands | paginate: { itemsPerPage: itemsPage, currentPage: p }; index as i">
+          <td scope="row">{{ i + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.status === 0 ? "Hiện" : "Ẩn" }}</td>
+          <td class="thumbnail">
+            <div><img src="{{ item.thumbnail }}" alt="{{ item.thumbnail }}"></div>
+          </td>
+          <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
+          <td>
+            <a [routerLink]="['edit/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
+            <button type="button" (click)="handleDelete(item.id, i)" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+      <pagination-controls (click)="handlePaginate()" *ngIf="dataBrands.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

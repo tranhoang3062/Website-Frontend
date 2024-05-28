@@ -1,0 +1,68 @@
+<main class="contact-component">
+  <div>
+    <div class="banner-top position-relative">
+      <p class="position-absolute w-100 text-center text-light">
+        <a [routerLink]="['/']" class="text-white">Trang chủ</a>
+        <span class="px-3">/</span>
+        <span>Liên hệ</span>
+      </p>
+    </div>
+    <div class="mb-5">
+      <h4 class="text-center text-uppercase d-block">Liên hệ</h4>
+      <div class="box-info container d-flex justify-content-center">
+        <div class="row w-100">
+          <div class="item col-12 col-md-4 text-center my-3">
+            <span class="text-white d-block icon-phone rounded-circle overflow-hidden mx-auto mb-2">
+              <fa-icon [icon]="faPhone"></fa-icon>
+            </span>
+            <p class="text-dark p-0 m-0 py-2 h5">Hỗ trợ tư vấn</p>
+            <p class="p-0 m-0">1900 1234 - 1900 1234</p>
+          </div>
+          <div class="item col-12 col-md-4 text-center my-3">
+            <span class="text-white d-block icon-location rounded-circle overflow-hidden mx-auto mb-2">
+              <fa-icon [icon]="faLocationDot"></fa-icon>
+            </span>
+            <p class="text-dark p-0 m-0 py-2 h5">Văn phòng giao dịch</p>
+            <p class="p-0 m-0">250 Hoàng Quốc Việt, Bắc Từ Liêm, Hà Nội.</p>
+          </div>
+          <div class="item col-12 col-md-4 text-center my-3">
+            <span class="text-white d-block icon-email rounded-circle overflow-hidden mx-auto mb-2">
+              <fa-icon [icon]="faEnvelope"></fa-icon>
+            </span>
+            <p class="text-dark p-0 m-0 py-2 h5">Bộ phận hỗ trợ bán hàng</p>
+            <p class="p-0 m-0">support@gmail.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="box-form container-fluid d-flex justify-content-center">
+        <div class="row w-100">
+          <div class="col-12 col-lg-6 my-4">
+            <iframe class="p-0 m-0 w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53078.87955572883!2d105.76947851618685!3d21.045111576814225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab3b4220c2bd%3A0x1c9e359e2a4f618c!2sB%C3%A1ch%20Khoa%20Aptech!5e0!3m2!1svi!2s!4v1697297002887!5m2!1svi!2s" width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="col-12 col-lg-6 my-4">
+            <form action="">
+              <p>Bạn hãy điền nội dung tin nhắn vào form dưới đây. Chúng tôi sẽ trả lời bạn sau khi nhận được.</p>
+              <div class="form-group position-relative">
+                <input type="text" name="" id="" placeholder="Họ tên:" class="w-100 form-control">
+                <span class="position-absolute"><fa-icon [icon]="faUser"></fa-icon></span>
+              </div>
+              <div class="form-group position-relative">
+                <input type="number" name="" id="" placeholder="Số điện thoại:" class="w-100 form-control">
+                <span class="position-absolute"><fa-icon [icon]="faPhone"></fa-icon></span>
+              </div>
+              <div class="form-group position-relative">
+                <input type="email" name="" id="" placeholder="Email:" class="w-100 form-control">
+                <span class="position-absolute"><fa-icon [icon]="faEnvelope"></fa-icon></span>
+              </div>
+              <div class="form-group position-relative">
+                <textarea name="" id="" cols="30" rows="5" placeholder="Nội dung:" class="w-100 form-control"></textarea>
+                <span class="position-absolute"><fa-icon [icon]="faComment"></fa-icon></span>
+              </div>
+              <button type="submit" class="btn text-white py-2 px-3"><b>Gửi tin nhắn</b></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

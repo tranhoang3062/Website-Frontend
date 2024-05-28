@@ -1,0 +1,212 @@
+<div class="w-100">
+  <div class="header-top text-white bg-white p-4 position-relative">
+    <div class="d-flex justify-content-between align-items-center position-relative">
+      <div>
+        <h4 class="p-0 m-0">Bảng điều khiển</h4>
+        <span class="small d-block mb-3">Chào mừng bạn đến với PetShop.</span>
+      </div>
+      <div>
+        <nav class="">
+          <a class="text-white" [routerLink]="['/admin']"><fa-icon [icon]="faHouse"></fa-icon></a>
+          <span class="px-2 d-inline-block">/</span>
+          <span class="">Dashboard</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="main-content mt-3">
+    <div class="container">
+      <div class="box-info mb-3">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="item text-white btn p-0 m-0 w-100">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="p-3 d-flex align-items-start flex-column">
+                  <h1 class="font-weight-bold p-0 m-0 mb-3">{{ totalProduct }}</h1>
+                  <h6 class="p-0 m-0">Sản phẩm</h6>
+                </div>
+                <span class="h1 p-3 m-0 icon-top"><fa-icon [icon]="faShirt"></fa-icon></span>
+              </div>
+              <a [routerLink]="['/product']"
+                class="small w-100 d-block text-white text-center bg-info-gradient py-2">
+                <span>Xem thêm</span>
+                <span class="ml-2"><fa-icon [icon]="faArrowRight"></fa-icon></span>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="item text-white btn p-0 m-0 w-100">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="p-3 d-flex align-items-start flex-column">
+                  <h1 class="font-weight-bold p-0 m-0 mb-3">{{ totalPet }}</h1>
+                  <h6 class="p-0 m-0">Thú cưng</h6>
+                </div>
+                <span class="h1 p-3 m-0 icon-top"><fa-icon [icon]="faPaw"></fa-icon></span>
+              </div>
+              <a [routerLink]="['/pet']"
+                class="small w-100 d-block text-white text-center bg-info-gradient py-2">
+                <span>Xem thêm</span>
+                <span class="ml-2"><fa-icon [icon]="faArrowRight"></fa-icon></span>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="item text-white btn p-0 m-0 w-100">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="p-3 d-flex align-items-start flex-column">
+                  <h1 class="font-weight-bold p-0 m-0 mb-3">{{ totalBrand }}</h1>
+                  <h6 class="p-0 m-0">Thương hiệu</h6>
+                </div>
+                <span class="h1 p-3 m-0 icon-top"><fa-icon [icon]="faCopyright"></fa-icon></span>
+              </div>
+              <a [routerLink]="['/brand']"
+                class="small w-100 d-block text-white text-center bg-info-gradient py-2">
+                <span>Xem thêm</span>
+                <span class="ml-2"><fa-icon [icon]="faArrowRight"></fa-icon></span>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="item text-white btn p-0 m-0 w-100">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="p-3 d-flex align-items-start flex-column">
+                  <h1 class="font-weight-bold p-0 m-0 mb-3">{{ totalNews }}</h1>
+                  <h6 class="p-0 m-0">Bài viết</h6>
+                </div>
+                <span class="h1 p-3 m-0 icon-top"><fa-icon [icon]="faNewspaper"></fa-icon></span>
+              </div>
+              <a [routerLink]="['/news']"
+                class="small w-100 d-block text-white text-center bg-info-gradient py-2">
+                <span>Xem thêm</span>
+                <span class="ml-2"><fa-icon [icon]="faArrowRight"></fa-icon></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-user">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-6 p-0">
+            <div class="box-item p-1 m-1 border border-1">
+              <div class="box-header d-flex align-items-center justify-content-between">
+                <h4 class="p-2">Quản trị viên <span class="small text-secondary">({{ dataUserAdmin.length }} tài
+                    khoản)</span></h4>
+                <a [routerLink]="['register/qtv']" title="Thêm mới" class="btn btn-light rounded-circle mr-2"><fa-icon
+                    [icon]="faPlus"></fa-icon></a>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of dataUserAdmin; index as i">
+                    <td scope="row">{{ item.fullname }}</td>
+                    <td>{{ item.email }}</td>
+                    <td class="d-flex align-items-center">
+                      <button type="button" title="Chi tiết" class="btn btn-light rounded-0" data-toggle="modal"
+                        data-target="#exampleModalCenter" (click)="quickView(item)"><fa-icon
+                          [icon]="faEye"></fa-icon></button>
+                      <a [routerLink]="['account/qtv/'+item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon
+                          [icon]="faEdit"></fa-icon></a>
+                      <button type="button" title="Xóa" class="btn btn-light rounded-0"
+                        (click)="handleDelete(item.id, i, 'qtv')"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6 p-0">
+            <div class="box-item p-1 m-1 border border-1">
+              <div class="box-header d-flex align-items-center justify-content-between">
+                <h4 class="p-2">Người dùng <span class="small text-secondary">({{ dataUserCustomer.length }} tài
+                    khoản)</span></h4>
+                <a [routerLink]="['register/kh']" title="Thêm mới" class="btn btn-light rounded-circle mr-2"><fa-icon
+                    [icon]="faPlus"></fa-icon></a>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of dataUserCustomer; index as i">
+                    <td scope="row">{{ item.fullname }}</td>
+                    <td>{{ item.email }}</td>
+                    <td class="d-flex align-items-center">
+                      <button type="button" title="Chi tiết" class="btn btn-light rounded-0" data-toggle="modal"
+                        data-target="#exampleModalCenter" (click)="quickView(item)"><fa-icon
+                          [icon]="faEye"></fa-icon></button>
+                      <a [routerLink]="['account/kh/'+item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon
+                          [icon]="faEdit"></fa-icon></a>
+                      <button type="button" title="Xóa" class="btn btn-light rounded-0"
+                        (click)="handleDelete(item.id, i, 'kh')"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="quick-view">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Thông tin chi tiết</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row d-flex px-3">
+              <div class="px-2">
+                <img src="{{ dataQuickView.thumbnail }}" width="300px" alt="">
+              </div>
+              <div class="px-2">
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <span><b>Họ và tên:</b></span>
+                    <span class="ml-2">{{ dataQuickView.fullname }}</span>
+                  </li>
+                  <li class="mb-2">
+                    <span><b>Email:</b></span>
+                    <span class="ml-2">{{ dataQuickView.email }}</span>
+                  </li>
+                  <li class="mb-2">
+                    <span><b>Số điện thoại:</b></span>
+                    <span class="ml-2">{{ dataQuickView.phone }}</span>
+                  </li>
+                  <li class="mb-2">
+                    <span><b>Giới tính:</b></span>
+                    <span class="ml-2">{{ dataQuickView.gender == 0 ? "Nam" : dataQuickView.gender == 1 ? "Nữ" : "Khác"
+                      }}</span>
+                  </li>
+                  <li class="mb-2">
+                    <span><b>Ngày sinh:</b></span>
+                    <span class="ml-2">{{ dataQuickView.birthday | date:'yyyy-MM-dd' }}</span>
+                  </li>
+                  <li class="mb-2">
+                    <span><b>Địa chỉ:</b></span>
+                    <span class="ml-2">{{ dataQuickView.address }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
