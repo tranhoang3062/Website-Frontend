@@ -4,9 +4,11 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCalendarMinus, faClock, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { EditService } from 'src/app/services/edit/edit-service.service';
-import { getService } from 'src/app/services/get/get-service.service';
-import { ProductService } from 'src/app/services/product/product.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { EditService } from 'src/app/services/edit-service.service';
+import { getService } from 'src/app/services/get-service.service';
+import { OrderService } from 'src/app/services/order.service';
+import { ProductService } from 'src/app/services/product.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -43,7 +45,17 @@ export class UserComponent {
         "address": [""],
     });
 
-    public constructor(private titleService: Title, private getService: getService, private fb: FormBuilder, private editService: EditService, private router: Router, private activatedRoute: ActivatedRoute, private productService: ProductService) {
+    public constructor(
+        private titleService: Title, 
+        private getService: getService, 
+        private fb: FormBuilder, 
+        private editService: EditService, 
+        private router: Router, 
+        private activatedRoute: ActivatedRoute, 
+        private productService: ProductService,
+        private authService: AuthService,
+        private orderService: OrderService
+    ) {
         $('html, body').animate({ scrollTop: 0 }, 0);
 
         const auth: any = localStorage.getItem('auth');
@@ -68,9 +80,9 @@ export class UserComponent {
             } else if (this.paramKey === 'purchase') {
                 this.titleService.setTitle('Đơn hàng');
 
-                this.getService.getOrderByUser(this.user.id, (err: boolean, dataOrder: any) => {
+                this.orderService.getOrderByUser(this.user.id, (err: boolean, dataOrder: any) => {
                     if (!err) {
-                        this.getService.getOrderDetailByUser(this.user.id, async (err: boolean, dataOrderDetail: any) => {
+                        this.orderService.getOrderDetailByUser(this.user.id, async (err: boolean, dataOrderDetail: any) => {
                             if (!err) {
                                 this.listOrderStatus1 = await dataOrder
                                     .filter((item: any) => item.status == 1)
@@ -163,7 +175,7 @@ export class UserComponent {
         formData.append('address', newData.address);
         formData.append('birthday', newData.birthday);
         if (this.file) formData.append('upload-file', this.file);
-        this.editService.editUser(this.user.id, formData, (result: boolean, data: any) => {
+        this.authService.editUser(this.user.id, formData, (result: boolean, data: any) => {
             if (result) {
                 Swal.fire({
                     icon: 'success',
@@ -199,7 +211,7 @@ export class UserComponent {
             cancelButtonText: 'Trở lại'
         }).then((result) => {
             if (result.isConfirmed) {
-                this.editService.editOrder(item.id, { status: 5 }, (result: boolean, data: any) => {
+                this.orderService.editOrder(item.id, { status: 5 }, (result: boolean, data: any) => {
                     if (result) {
                         this.listOrderStatus1.splice(index, 1);
                         this.listOrderStatus5.unshift(item);

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { getService } from 'src/app/services/get/get-service.service';
+import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
   selector: 'app-brand',
@@ -10,11 +10,11 @@ import { getService } from 'src/app/services/get/get-service.service';
 export class BrandComponent {
   public dataBrands:any = [];
 
-  public constructor(private titleService:Title, private getService:getService) {
+  public constructor(private titleService:Title, private brandService: BrandService) {
     this.titleService.setTitle('Thương hiệu');
     $('html, body').animate({scrollTop:0}, 0);
 
-    this.getService.getAllBrands(undefined, (err:boolean, data:any) => {
+    this.brandService.getAllBrands(undefined, (err:boolean, data:any) => {
       if(!err) {
         this.dataBrands = data;
       }

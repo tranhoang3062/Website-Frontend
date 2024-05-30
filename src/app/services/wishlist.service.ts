@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { getService } from '../get/get-service.service';
-import { CreateService } from '../create/create-service.service';
+import { getService } from './get-service.service';
+import { CreateService } from './create-service.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { DeleteService } from '../delete/delete-service.service';
+import { DeleteService } from './delete-service.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { faCircleUser, faMoneyBill1 } from '@fortawesome/free-regular-svg-icons';
 import { faAngleLeft, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { EditService } from 'src/app/services/edit/edit-service.service';
-import { ProductService } from 'src/app/services/product/product.service';
+import { EditService } from 'src/app/services/edit-service.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-checkout',

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faBars, faSearch, faHouse, faWindowMaximize, faRightFromBracket, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { CategoryService } from 'src/app/services/category/category.service';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-master',

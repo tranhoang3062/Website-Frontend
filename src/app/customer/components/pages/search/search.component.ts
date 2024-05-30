@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEye, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { getService } from 'src/app/services/get/get-service.service';
-import { ProductService } from 'src/app/services/product/product.service';
-import { WishlistService } from 'src/app/services/wishlist/wishlist.service';
+import { getService } from 'src/app/services/get-service.service';
+import { ProductService } from 'src/app/services/product.service';
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
     selector: 'app-search',

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEdit, faHouse, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { CategoryService } from 'src/app/services/category/category.service';
-import { DeleteService } from 'src/app/services/delete/delete-service.service';
-import { getService } from 'src/app/services/get/get-service.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { DeleteService } from 'src/app/services/delete-service.service';
+import { getService } from 'src/app/services/get-service.service';
 
 @Component({
   selector: 'app-index-pr',
