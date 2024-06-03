@@ -29,9 +29,9 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Stt</th>
+          <th class="text-center">Stt</th>
           <th>Tên thương hiệu</th>
-          <th>Trạng thái</th>
+          <th class="text-center">Trạng thái</th>
           <th>Ảnh</th>
           <th>Ngày tạo</th>
           <th></th>
@@ -39,9 +39,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of dataBrands | paginate: { itemsPerPage: itemsPage, currentPage: p }; index as i">
-          <td scope="row">{{ i + 1 }}</td>
+          <td scope="row" class="text-center">{{ i + 1 }}</td>
           <td>{{ item.name }}</td>
-          <td>{{ item.status === 0 ? "Hiện" : "Ẩn" }}</td>
+          <td class="text-center"><span class="badge badge-{{item.status == 0 ? 'success' : 'danger'}}">{{ item.status == 0 ? "Hiện" : "Ẩn" }}</span></td>
           <td class="thumbnail">
             <div><img src="{{ item.thumbnail }}" alt="{{ item.thumbnail }}"></div>
           </td>

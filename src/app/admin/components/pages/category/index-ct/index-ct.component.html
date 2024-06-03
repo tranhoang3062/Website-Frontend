@@ -46,18 +46,18 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Stt</th>
+                <th class="text-center">Stt</th>
                 <th>Tên thú cưng</th>
-                <th>Trạng thái</th>
+                <th class="text-center">Trạng thái</th>
                 <th>Ngày tạo</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of dataCategoryDMTC | paginate: { itemsPerPage: itemsPageTc, currentPage: pTc }; index as i">
-                <td scope="row">{{ i + 1 }}</td>
+                <td scope="row" class="text-center">{{ i + 1 }}</td>
                 <td>{{ item.name }}</td>
-                <td>{{ item.status == 0 ? "Hiện" : "Ẩn" }}</td>
+                <td class="text-center"><span class="badge badge-{{item.status == 0 ? 'success' : 'danger'}}">{{ item.status == 0 ? "Hiện" : "Ẩn" }}</span></td>
                 <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
                 <td>
                   <a [routerLink]="['edit/dmtc/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
@@ -87,9 +87,9 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Stt</th>
+                <th class="text-center">Stt</th>
                 <th>Tên danh mục</th>
-                <th>Trạng thái</th>
+                <th class="text-center">Trạng thái</th>
                 <th>Danh mục cha</th>
                 <th>Ngày tạo</th>
                 <th></th>
@@ -97,9 +97,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of dataCategoryDMSP | paginate: { itemsPerPage: itemsPageSp, currentPage: pSp }; index as i">
-                <td scope="row">{{ i + 1 }}</td>
+                <td scope="row" class="text-center">{{ i + 1 }}</td>
                 <td>{{ item.name }}</td>
-                <td>{{ item.status == 0 ? "Hiện" : "Ẩn" }}</td>
+                <td class="text-center"><span class="badge badge-{{item.status == 0 ? 'success' : 'danger'}}">{{ item.status == 0 ? "Hiện" : "Ẩn" }}</span></td>
                 <td>{{ item.parentName+'('+item.parentName2+')' }}</td>
                 <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
                 <td>
@@ -130,20 +130,20 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Stt</th>
+                <th class="text-center">Stt</th>
                 <th>Tên giống thú cưng</th>
-                <th>Trạng thái</th>
-                <th>Thú cưng</th>
+                <th class="text-center">Trạng thái</th>
+                <th class="text-center">Thú cưng</th>
                 <th>Ngày tạo</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of dataListpet | paginate: { itemsPerPage: itemsPageGtc, currentPage: pGtc }; index as i">
-                <td scope="row">{{ i + 1 }}</td>
+                <td scope="row" class="text-center">{{ i + 1 }}</td>
                 <td>{{ item.name }}</td>
-                <td>{{ item.status == 0 ? "Hiện" : "Ẩn" }}</td>
-                <td>{{ item.nameCategory }}</td>
+                <td class="text-center"><span class="badge badge-{{item.status == 0 ? 'success' : 'danger'}}">{{ item.status == 0 ? "Hiện" : "Ẩn" }}</span></td>
+                <td class="text-center">{{ item.nameCategory }}</td>
                 <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
                 <td>
                   <a [routerLink]="['edit/gtc/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
