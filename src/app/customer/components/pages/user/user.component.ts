@@ -230,4 +230,13 @@ export class UserComponent {
         this.listOrderStatus5.splice(index, 1);
         this.listAllOrder = [...this.listOrderStatus1, ...this.listOrderStatus2, ...this.listOrderStatus3, ...this.listOrderStatus5];
     }
+
+    renderStatus(status: any) {
+        if (status == 1) return { text: 'Chuẩn bị hàng', color: 'warning' };
+        if (status == 2) return { text: 'Vận chuyển', color: 'primary' };
+        if (status == 3) return { text: 'Chờ giao hàng', color: 'primary' };
+        if (status == 4) return { text: 'Hoàn thành', color: 'success' };
+        if (status == 5) return { text: 'Đã hủy', color: 'secondary' };
+        if (status == 6) return { text: 'Trả hàng/Hoàn tiền', color: 'danger' };
+    }
 }

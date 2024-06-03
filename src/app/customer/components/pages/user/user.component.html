@@ -149,7 +149,7 @@
                                 <p class="p-0 m-0 ml-auto"><fa-icon [icon]="faClock"></fa-icon><span class="ml-1">{{ order.create_at|date:'dd/MM/yyyy' }}</span></p>
                               </div>
                             </button>
-                            <button type="button" class="btn btn-danger ml-3">{{ order.status == 1 ? "Chuẩn bị hàng" : order.status == 2 ? "Vận chuyển" : order.status == 3 ? "Chờ giao hàng" : order.status == 4 ? "Hoàn thành" : order.status == 5 ? "Đã hủy" : "Trả hàng/Hoàn tiền" }}</button>
+                            <button type="button" class="btn btn-{{renderStatus(order.status)?.color}} ml-3">{{ renderStatus(order.status)?.text }}</button>
                           </h5>
                         </div>
 
