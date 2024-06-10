@@ -72,7 +72,7 @@ export class DetailProductComponent {
     public totalCmt: number = 0;
 
     public dataForm = this.fb.group({
-        "content": ["", [Validators.required]],
+        "content": [""],
         "evaluate": ["", [Validators.required]],
     })
 
@@ -239,7 +239,7 @@ export class DetailProductComponent {
         if (this.user) {
             const newData: any = this.dataForm.value;
             const formData = new FormData();
-            formData.append("content", newData.content);
+            formData.append("content", newData.content || '');
             formData.append("evaluate", newData.evaluate);
             if ([...this.files].length !== 0) {
                 [...this.files].forEach((file) => {

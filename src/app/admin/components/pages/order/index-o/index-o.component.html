@@ -34,34 +34,36 @@
         </form>
       </div>
       <div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Mã đơn hàng</th>
-              <th>Tên khách hàng</th>
-              <th>Ngày đặt hàng</th>
-              <th>Trạng thái</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
-            <tr *ngFor="let item of dataOrder; index as i" class="item-order" title="Chi tiết đơn hàng">
-              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'" scope="row">{{ item.id }}</td>
-              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">{{ item.name }}</td>
-              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">{{ item.create_at|date:"dd/MM/yyyy" }}</td>
-              <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">
-                <button class="btn btn-info p-0 px-1">
-                  <span class="small p-0 m-0">{{ item.status == 1 ? "Chuẩn bị hàng" : item.status == 2 ? "Vận chuyển" : item.status == 3 ? "giao hàng" : item.status == 4 ? "Hoàn thành" : item.status == 5 ? "Đã hủy" : 'Trả hàng' }}</span>
-                </button>
-              </td>
-              <td class="btn-event">
-                <button (click)="onUpdateStatus(item, i)" title="Sửa" class="btn btn-light bg-transparent rounded-0"><fa-icon [icon]="faEdit"></fa-icon></button>
-                <button (click)="handleDelete(item, i)" type="button" title="Xóa" class="btn btn-light bg-transparent rounded-0"><fa-icon [icon]="faTrash"></fa-icon></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên khách hàng</th>
+                    <th>Ngày đặt hàng</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
+                  <tr *ngFor="let item of dataOrder; index as i" class="item-order" title="Chi tiết đơn hàng">
+                    <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'" scope="row">{{ item.id }}</td>
+                    <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">{{ item.name }}</td>
+                    <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">{{ item.create_at|date:"dd/MM/yyyy" }}</td>
+                    <td (click)="viewOrderDetail(item, i)" data-toggle="modal" [attr.data-target]="'.bd-example-modal-lg'">
+                      <button class="btn btn-info p-0 px-1">
+                        <span class="small p-0 m-0">{{ item.status == 1 ? "Chuẩn bị hàng" : item.status == 2 ? "Vận chuyển" : item.status == 3 ? "giao hàng" : item.status == 4 ? "Hoàn thành" : item.status == 5 ? "Đã hủy" : 'Trả hàng' }}</span>
+                      </button>
+                    </td>
+                    <td class="btn-event">
+                      <button (click)="onUpdateStatus(item, i)" title="Sửa" class="btn btn-light bg-transparent rounded-0"><fa-icon [icon]="faEdit"></fa-icon></button>
+                      <button (click)="handleDelete(item, i)" type="button" title="Xóa" class="btn btn-light bg-transparent rounded-0"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-center">
           <pagination-controls (click)="handlePaginate()" *ngIf="dataOrder.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
         </div>

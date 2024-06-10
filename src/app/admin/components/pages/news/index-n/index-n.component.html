@@ -26,37 +26,39 @@
         </form>
       </div>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="col-1">Stt</th>
-          <th class="col-3">Tiêu đề</th>
-          <th class="col-2">Nội dung</th>
-          <th class="col-2">Ảnh bài viết</th>
-          <th class="col-2">Ngày tạo</th>
-          <th class="col-2"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of dataNews | paginate: { itemsPerPage: itemsPage, currentPage: p }; index as i">
-          <td scope="row">{{ i + 1 }}</td>
-          <td><p class="styleText">{{ item.title }}</p></td>
-          <td>
-            <button type="button" class="btn rounded-0 border border-1 bg-white" data-toggle="modal" data-target="#exampleModalLong" (click)="showContent(item.content)">
-              Xem chi tiết
-            </button>
-          </td>
-          <td class="thumbnail">
-            <div><img src="{{ item.thumbnail }}" alt="{{ item.thumbnail }}"></div>
-          </td>
-          <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
-          <td>
-            <a [routerLink]="['edit/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
-            <button type="button" (click)="handleDelete(item.id, i)" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                <th class="col-1">Stt</th>
+                <th class="col-3">Tiêu đề</th>
+                <th class="col-2">Nội dung</th>
+                <th class="col-2">Ảnh bài viết</th>
+                <th class="col-2">Ngày tạo</th>
+                <th class="col-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of dataNews | paginate: { itemsPerPage: itemsPage, currentPage: p }; index as i">
+                <td scope="row">{{ i + 1 }}</td>
+                <td><p class="styleText">{{ item.title }}</p></td>
+                <td>
+                    <button type="button" class="btn rounded-0 border border-1 bg-white" data-toggle="modal" data-target="#exampleModalLong" (click)="showContent(item.content)">
+                    Xem chi tiết
+                    </button>
+                </td>
+                <td class="thumbnail">
+                    <div><img src="{{ item.thumbnail }}" alt="{{ item.thumbnail }}"></div>
+                </td>
+                <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <a [routerLink]="['edit/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
+                    <button type="button" (click)="handleDelete(item.id, i)" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="d-flex justify-content-center">
       <pagination-controls (click)="handlePaginate()" *ngIf="dataNews.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
     </div>

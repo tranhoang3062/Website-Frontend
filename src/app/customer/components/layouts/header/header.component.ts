@@ -39,8 +39,11 @@ export class HeaderComponent {
         private categoryService: CategoryService,
         private petService: PetsService
     ) {
-        const auth: any = localStorage.getItem('auth');
-        this.user = auth ? JSON.parse(auth) : false;
+        if (localStorage.getItem('auth') && localStorage.getItem('token')) {
+            const auth: any = localStorage.getItem('auth');
+            this.user = JSON.parse(auth);
+        } else this.user = false;
+        
 
         this.categoryService.getAllCate(undefined, (err: boolean, data: any) => {
             if (!err) {

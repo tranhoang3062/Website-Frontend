@@ -131,18 +131,18 @@
             <div class="col-sm-12 col-md-7 col-lg-7">
               <h4>{{ commentProducts.length }} đánh giá cho {{ product.name }}</h4>
               <div class="box-comments">
-                <div *ngFor="let item of commentProducts" class="item">
-                  <div class="d-flex mt-3">
+                <div *ngFor="let item of commentProducts; index as i" class="item">
+                  <div class="d-flex mt-3" style="background-color: #fff; padding: 16px; border-radius: 8px;">
                     <span class="d-block mx-2">
-                      <img class="w-100 h-100 rounded-circle" src="{{ item.thumbnail }}" alt="">
+                        <img class="w-100 h-100 rounded-circle" src="{{ item.thumbnail }}" alt="">
                     </span>
                     <div>
-                      <p class="p-0 m-0">
-                        <span *ngFor="let elem of renderArr(item.evaluate)" class="text-warning"><fa-icon [icon]="faStar"></fa-icon></span>
-                        <span *ngFor="let elem of renderArr(5-item.evaluate)" class="text-warning"><fa-icon [icon]="faStarRe"></fa-icon></span>
-                      </p>
-                      <p class="p-0 m-0"><b>{{ item.nameUser }}</b> - <span>{{ item.created_at | date:'yyyy-MM-dd' }}</span></p>
-                      <p class="p-0 m-0">{{ item.content }}</p>
+                        <p class="p-0 m-0">
+                            <span *ngFor="let elem of renderArr(item.evaluate)" class="text-warning"><fa-icon [icon]="faStar"></fa-icon></span>
+                            <span *ngFor="let elem of renderArr(5-item.evaluate)" class="text-warning"><fa-icon [icon]="faStarRe"></fa-icon></span>
+                        </p>
+                        <p class="p-0 m-0"><b>{{ item.nameUser }}</b> - <span>{{ item.create_at | date:'dd/MM/YYYY' }}</span></p>
+                        <p class="p-0 m-0">{{ item.content }}</p>
                     </div>
                   </div>
                   <div *ngIf="item.resources !== ''" class="box-resources">
@@ -240,7 +240,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="content-text"><b>Nhận xét của bạn *</b></label>
+                    <label for="content-text"><b>Nhận xét của bạn</b></label>
                     <textarea id="content-text" rows="3" cols="" formControlName="content" class="form-control rounded-0"></textarea>
                     <div class="box-message" *ngIf="f.content.invalid && (f.content.dirty || f.content.touched)">
                       <div *ngIf="f.content.errors">

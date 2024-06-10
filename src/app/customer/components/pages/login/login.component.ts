@@ -48,4 +48,8 @@ export class LoginComponent {
             }
         });
     }
+
+    loginGoogle(e: any) {
+        console.log(e)
+    }
 }

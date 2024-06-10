@@ -8,7 +8,7 @@ import { DeleteService } from 'src/app/services/delete-service.service';
 @Component({
     selector: 'app-index-b',
     templateUrl: './index-b.component.html',
-    styleUrls: ['./index-b.component.css']
+    styleUrls: ['./index-b.component.css'],
 })
 export class IndexBComponent {
     public faHouse = faHouse;

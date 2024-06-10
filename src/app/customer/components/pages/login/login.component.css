@@ -1,59 +1,71 @@
 .banner-top {
-  background-image: url('src/assets/images/banner-header2.webp');
-  background-position: center top;
-  padding: 245px 0px 0;
-  background-repeat: no-repeat;
-  min-height: 300px;
-  z-index: 9;
-  background-size: cover;
-  position: relative;
-  margin-bottom: 30px;
+    background-image: url('src/assets/images/banner-header2.webp');
+    background-position: center top;
+    padding: 245px 0px 0;
+    background-repeat: no-repeat;
+    min-height: 300px;
+    z-index: 9;
+    background-size: cover;
+    position: relative;
+    margin-bottom: 30px;
 }
 
-.banner-top>p>span:last-child, h2 {
-  color: rgb(255, 22, 22) !important;
+.banner-top>p>span:last-child,
+h2 {
+    color: rgb(255, 22, 22) !important;
 }
 
 .form-item {
-  box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
-  -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
 }
 
 .form-item>div:first-child {
-  /* background-color: #FFE9D1 !important; */
-  background-color: #FFD1D1 !important;
+    /* background-color: #FFE9D1 !important; */
+    background-color: #FFD1D1 !important;
 }
 
-.form-item .form-group input, .form-item .form-group textarea {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-bottom: 1px solid black !important;
+.form-item .form-group input,
+.form-item .form-group textarea {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-bottom: 1px solid black !important;
 }
 
 .form-item .form-group textarea {
-  border: 1px solid black !important;
+    border: 1px solid black !important;
 }
 
 .form-item .box-message span {
-  font-size: 12px !important;
+    font-size: 12px !important;
 }
 
 .btn {
-  outline: none !important;
-  box-shadow: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-.form-item .btn-next, .btn-back {
-  background-color: #e9cfcf;
-  color: #666;
+.form-item .btn-next,
+.btn-back {
+    background-color: #e9cfcf;
+    color: #666;
 }
 
-.form-item .btn-next:hover, .btn-back:hover {
-  background-color: #cfb8b8;
+.form-item .btn-next:hover,
+.btn-back:hover {
+    background-color: #cfb8b8;
 }
 
 .btn-login {
-  background-color: rgb(255, 83, 83);
-  color: #fff;
+    background-color: rgb(255, 83, 83);
+    color: #fff;
+}
+
+.btn-google {
+    cursor: pointer;
+    border: 1px solid #e9cfcf;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 13px;
 }

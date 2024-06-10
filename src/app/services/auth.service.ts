@@ -160,7 +160,7 @@ export class AuthService {
 
     public async refreshtoken(token: string) {
         try {
-            const res = await axios.get("http://localhost:8000/api/refresh-token", { headers: { 'authorization': JSON.stringify({ access_token: token }) } });
+            const res = await axios.get(`${environment.apiUrl}/refresh-token`, { headers: { 'authorization': JSON.stringify({ access_token: token }) } });
             localStorage.setItem('token', res.data.access_token);
             this.token = await res.data.access_token;
         } catch (err: any) {
@@ -179,4 +179,7 @@ export class AuthService {
         }
     }
 
+    logout() {
+        
+    }
 }

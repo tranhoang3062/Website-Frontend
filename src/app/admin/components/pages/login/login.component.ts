@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from 'src/app/environment/environment';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -20,7 +21,11 @@ export class LoginComponent {
         private fb: FormBuilder, 
         private router: Router, 
         private authService: AuthService
-    ) { }
+    ) {
+        if (localStorage.getItem('token_admin')) {
+            window.location.href = '/admin';
+        }
+    }
 
     get f() {
         return this.dataForm.controls;
@@ -30,7 +35,7 @@ export class LoginComponent {
         const data = this.dataForm.value;
         this.authService.loginUser(data).subscribe({
             next: (res: any) => {
-                localStorage.setItem('token', res.token.access_token);
+                localStorage.setItem('token_admin', res.token.access_token);
                 delete res.data[0]['password'];
                 delete res.data[0]['refresh_token'];
                 localStorage.setItem('auth', JSON.stringify(res.data[0]));
@@ -41,5 +46,9 @@ export class LoginComponent {
                 this.error = true;
             }
         });
+    }
+
+    loginGoogle(e: any) {
+
     }
 }

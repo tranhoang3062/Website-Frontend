@@ -26,58 +26,60 @@
         </form>
       </div>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Stt</th>
-          <th class="col-2">Tên</th>
-          <th class="col-1">Giá tiền</th>
-          <th class="col-2">Tài nguyên</th>
-          <th class="col-2">Danh mục</th>
-          <th class="col-2">Thương hiệu</th>
-          <th class="col-1">Ngày tạo</th>
-          <th class="col-2"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of dataProducts | paginate: { itemsPerPage: itemsPage, currentPage: p }; index as i">
-          <td scope="row">{{ i + 1 }}</td>
-          <td><p title="{{ item.name }}" class="styleText">{{ item.name }}</p></td>
-          <td>
-            <p class="p-0 m-0" *ngIf="item.sale_price > 0"><span class="d-block">{{ item.sale_price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span><del>{{ item.price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
-            <p class="p-0 m-0" *ngIf="item.sale_price == 0"><span class="d-block">{{ item.price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span></p>
-          </td>
-          <!-- <td [innerHTML]="item.description"></td> -->
-          <td>
-            <div id="carouselExampleControls{{ item.id }}" class="carousel slide border border-1" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="{{ item.resources[0] }}" class="d-block w-100 mx-auto" alt="...">
-                </div>
-                <div *ngFor="let item of item.resources; index as i" [ngClass]="i == 0 ? 'd-none' : 'carousel-item'">
-                  <img src="{{ item }}" class="d-block w-100 mx-auto" alt="...">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </td>
-          <td>{{ item.categoryName }}</td>
-          <td>{{ item.brandName }}</td>
-          <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
-          <td>
-            <a [routerLink]="['edit/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
-            <button type="button" (click)="handleDelete(item.id, i)" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Stt</th>
+                <th class="col-2">Tên</th>
+                <th class="col-1">Giá tiền</th>
+                <th class="col-2">Tài nguyên</th>
+                <th class="col-2">Danh mục</th>
+                <th class="col-2">Thương hiệu</th>
+                <th class="col-1">Ngày tạo</th>
+                <th class="col-2"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataProducts | paginate: { itemsPerPage: itemsPage, currentPage: p }; index as i">
+                <td scope="row">{{ i + 1 }}</td>
+                <td><p title="{{ item.name }}" class="styleText">{{ item.name }}</p></td>
+                <td>
+                  <p class="p-0 m-0" *ngIf="item.sale_price > 0"><span class="d-block">{{ item.sale_price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span><del>{{ item.price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
+                  <p class="p-0 m-0" *ngIf="item.sale_price == 0"><span class="d-block">{{ item.price|currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></span></p>
+                </td>
+                <!-- <td [innerHTML]="item.description"></td> -->
+                <td>
+                  <div id="carouselExampleControls{{ item.id }}" class="carousel slide border border-1" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="{{ item.resources[0] }}" class="d-block w-100 mx-auto" alt="...">
+                      </div>
+                      <div *ngFor="let item of item.resources; index as i" [ngClass]="i == 0 ? 'd-none' : 'carousel-item'">
+                        <img src="{{ item }}" class="d-block w-100 mx-auto" alt="...">
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                </td>
+                <td>{{ item.categoryName }}</td>
+                <td>{{ item.brandName }}</td>
+                <td>{{ item.create_at|date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <a [routerLink]="['edit/' + item.id]" title="Sửa" class="btn btn-light rounded-0"><fa-icon [icon]="faEdit"></fa-icon></a>
+                  <button type="button" (click)="handleDelete(item.id, i)" title="Xóa" class="btn btn-light rounded-0" ><fa-icon [icon]="faTrash"></fa-icon></button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="d-flex justify-content-center">
       <pagination-controls (click)="handlePaginate()" *ngIf="dataProducts.length > itemsPage" (pageChange)="p = $event"></pagination-controls>
     </div>

@@ -41,7 +41,7 @@ export class MasterComponent {
     window.addEventListener('load', () => {
       this.categoryService.setLocalstorageQuery({});
     });
-    const auth:any = localStorage.getItem('auth');
+    const auth: any = localStorage.getItem('auth');
     this.user = auth ? JSON.parse(auth) : false;
   }
 
@@ -73,8 +73,7 @@ export class MasterComponent {
 
   public logout() {
     localStorage.removeItem('auth');
-    localStorage.removeItem('token');
-    localStorage.clear();
+    localStorage.removeItem('token_admin');
     window.location.href = '/admin/login';
     // this.router.navigate(['/admin/dang-nhap']);
   }

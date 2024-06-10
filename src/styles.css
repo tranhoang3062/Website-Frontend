@@ -234,3 +234,7 @@ body {
 .ui-slider-handle.ui-corner-all.ui-state-default:focus-visible {
     outline: rgb(255, 22, 22) auto 1px;
 }
+
+table {
+    width: 100%;
+}
