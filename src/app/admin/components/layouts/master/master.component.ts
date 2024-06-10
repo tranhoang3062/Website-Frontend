@@ -41,7 +41,7 @@ export class MasterComponent {
     window.addEventListener('load', () => {
       this.categoryService.setLocalstorageQuery({});
     });
-    const auth: any = localStorage.getItem('auth');
+    const auth: any =  localStorage.getItem('auth_adm');
     this.user = auth ? JSON.parse(auth) : false;
   }
 

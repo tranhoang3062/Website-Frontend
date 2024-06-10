@@ -35,12 +35,13 @@ export class LoginComponent {
         const data = this.dataForm.value;
         this.authService.loginUser(data).subscribe({
             next: (res: any) => {
-                localStorage.setItem('token_admin', res.token.access_token);
-                delete res.data[0]['password'];
-                delete res.data[0]['refresh_token'];
-                localStorage.setItem('auth', JSON.stringify(res.data[0]));
-                window.location.href = '/admin';
-                // this.router.navigate(['/admin']);
+                if (res.data[0].role == 0) {
+                    localStorage.setItem('token_admin', res.token.access_token);
+                    delete res.data[0]['password'];
+                    delete res.data[0]['refresh_token'];
+                    localStorage.setItem('auth_adm', JSON.stringify(res.data[0]));
+                    window.location.href = '/admin';
+                } else this.error = true;
             },
             error: (err) => {
                 this.error = true;

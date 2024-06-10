@@ -36,11 +36,13 @@ export class LoginComponent {
         const data = this.dataForm.value;
         this.authService.loginUser(data).subscribe({
             next: (res: any) => {
-                localStorage.setItem('token', res.token.access_token);
-                delete res.data[0]['password'];
-                delete res.data[0]['refresh_token'];
-                localStorage.setItem('auth', JSON.stringify(res.data[0]));
-                window.location.href = '/';
+                if (res.data[0].role == 1) {
+                    localStorage.setItem('token', res.token.access_token);
+                    delete res.data[0]['password'];
+                    delete res.data[0]['refresh_token'];
+                    localStorage.setItem('auth_cli', JSON.stringify(res.data[0]));
+                    window.location.href = '/';
+                } else this.error = true;
             },
             error: (err) => {
                 console.log(err);

@@ -63,7 +63,7 @@ export class DashboardComponent {
                 this.dataUserCustomer = data.filter((item: any) => item.role === 1);
             }
         });
-        const auth: any = localStorage.getItem('auth');
+        const auth: any = localStorage.getItem('auth_adm');
         this.user = auth ? JSON.parse(auth) : false;
     }
 

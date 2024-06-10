@@ -88,7 +88,7 @@ export class DetailProductComponent {
         private commentService: CommentService
     ) {
         this.titleService.setTitle('Sản phẩm');
-        const auth: any = localStorage.getItem('auth');
+        const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : false;
 
         this.activatedRoute.paramMap.subscribe(params => {

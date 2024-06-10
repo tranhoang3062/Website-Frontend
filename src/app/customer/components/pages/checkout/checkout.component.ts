@@ -51,7 +51,7 @@ export class CheckoutComponent {
     this.listOrder = JSON.parse(localStorage.getItem('selectedProduct') || '[]');
     this.total_price = this.listOrder.reduce((a:number,b:any) => a + b.total_price, 0);
 
-    const auth:any = localStorage.getItem('auth');
+    const auth:any = localStorage.getItem('auth_cli');
     this.user = auth ? JSON.parse(auth) : false;
     if(this.user) {
       this.dataForm.controls.email.setValue(this.user.email);

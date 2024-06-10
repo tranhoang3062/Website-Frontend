@@ -38,7 +38,7 @@ export class SearchComponent {
                 })
             })
         });
-        const auth: any = localStorage.getItem('auth');
+        const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : false;
     }
 

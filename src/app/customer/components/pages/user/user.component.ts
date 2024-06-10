@@ -58,7 +58,7 @@ export class UserComponent {
     ) {
         $('html, body').animate({ scrollTop: 0 }, 0);
 
-        const auth: any = localStorage.getItem('auth');
+        const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : false;
 
         this.activatedRoute.paramMap.subscribe(params => {

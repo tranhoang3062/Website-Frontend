@@ -39,8 +39,8 @@ export class HeaderComponent {
         private categoryService: CategoryService,
         private petService: PetsService
     ) {
-        if (localStorage.getItem('auth') && localStorage.getItem('token')) {
-            const auth: any = localStorage.getItem('auth');
+        if (localStorage.getItem('auth_cli') && localStorage.getItem('token')) {
+            const auth: any = localStorage.getItem('auth_cli');
             this.user = JSON.parse(auth);
         } else this.user = false;
         
@@ -126,9 +126,10 @@ export class HeaderComponent {
     }
 
     public logout() {
-        localStorage.removeItem('auth');
-        localStorage.removeItem('token');
-        localStorage.clear();
+        if (!window.location.pathname.includes('admin')) {
+            localStorage.removeItem('auth');
+            localStorage.removeItem('token');
+        }
         this.user = false;
         window.location.href = '/login';
     }

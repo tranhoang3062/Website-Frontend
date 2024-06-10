@@ -84,7 +84,7 @@ export class ProductComponent {
         private brandService: BrandService
     ) {
         this.titleService.setTitle('Sản phẩm');
-        const auth: any = localStorage.getItem('auth');
+        const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : false;
         // js
         $('html, body').animate({ scrollTop: 0 }, 0);
