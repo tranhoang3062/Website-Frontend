@@ -53,20 +53,20 @@
                                     <p>Bạn chưa có tài khoản? <a [routerLink]="['/register']">Đăng ký</a></p>
                                 </div>
                                 <div class="row d-flex justify-content-center pt-0">
-                                    <button *ngIf="dataForm.valid" type="submit" class="btn btn-login rounded-0">
+                                    <button type="submit" class="btn btn-login rounded-0">
                                         <span class="mr-2">Đăng nhập</span>
                                     </button>
-                                    <button *ngIf="!dataForm.valid" disabled type="submit"
+                                    <!-- <button *ngIf="!dataForm.valid" disabled type="submit"
                                         class="btn btn-login rounded-0">
                                         <span class="mr-2">Đăng nhập</span>
-                                    </button>
+                                    </button> -->
 
-                                    <div class="col-12 mt-5">
+                                    <!-- <div class="col-12 mt-5">
                                         <a (click)="loginGoogle($event)" class="btn-google text-nowrap">
                                             <img alt="Logo" src="../../../../../assets/images/google-icon.svg" width="20" class="mr-2"/>
                                             Sign in with Google
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

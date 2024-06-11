@@ -148,9 +148,9 @@ export class AuthService {
     }
 
     public isAuthenticated(): any {
-        if (localStorage.getItem('type') == 'customer') this.token = localStorage.getItem('token') || '';
-        else this.token = localStorage.getItem('token_admin') || '';
-        if (this.token || this.token !== '') {
+        if (window.location.pathname.includes('admin')) this.token = localStorage.getItem('token_admin') || null;
+        else this.token = localStorage.getItem('token') || null;
+        if (this.token) {
             const decodedToken: any = jwtDecode(this.token);
             var current_time = new Date().getTime() / 1000;
             const result = current_time > decodedToken.exp;

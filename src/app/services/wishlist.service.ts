@@ -17,7 +17,7 @@ export class WishlistService {
     currentDataWishlistByUser = this.dataWishlistByUser.asObservable();
 
     constructor(private getService: getService, private createService: CreateService, private router: Router, private deleteService: DeleteService) {
-        const auth: any = localStorage.getItem('auth');
+        const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : {};
         this.getService.getWishlistByUser(this.user.id, (err: boolean, data: any) => {
             if (!err) {

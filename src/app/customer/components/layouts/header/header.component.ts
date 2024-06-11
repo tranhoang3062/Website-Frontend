@@ -127,7 +127,7 @@ export class HeaderComponent {
 
     public logout() {
         if (!window.location.pathname.includes('admin')) {
-            localStorage.removeItem('auth');
+            localStorage.removeItem('auth_cli');
             localStorage.removeItem('token');
         }
         this.user = false;

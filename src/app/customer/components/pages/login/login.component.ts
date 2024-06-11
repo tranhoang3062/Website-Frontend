@@ -23,9 +23,9 @@ export class LoginComponent {
         private router: Router,
         private authService: AuthService
     ) {
-        this.titleService.setTitle('Đăng ký');
+        this.titleService.setTitle('Đăng nhập');
         $('html, body').animate({ scrollTop: 0 }, 0);
-
+        if (localStorage.getItem('token')) this.router.navigate(['/']);
     }
 
     get f() {

@@ -26,7 +26,7 @@ export class ProductService {
         private router: Router, 
         private orderService: OrderService
     ) {
-        const auth: any = localStorage.getItem('auth');
+        const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : {};
         if (this.user.id) {
             this.orderService.getOrderByUser(this.user.id, (err: boolean, data: any) => {

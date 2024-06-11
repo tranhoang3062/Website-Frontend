@@ -52,7 +52,7 @@ export class RegisterComponent {
     ) {
         this.titleService.setTitle('Đăng ký');
         $('html, body').animate({ scrollTop: 0 }, 0);
-
+        if (localStorage.getItem('token')) this.router.navigate(['/']);
     }
 
     get f() {

@@ -72,7 +72,7 @@ export class MasterComponent {
   }
 
   public logout() {
-    localStorage.removeItem('auth');
+    localStorage.removeItem('auth_adm');
     localStorage.removeItem('token_admin');
     window.location.href = '/admin/login';
     // this.router.navigate(['/admin/dang-nhap']);
