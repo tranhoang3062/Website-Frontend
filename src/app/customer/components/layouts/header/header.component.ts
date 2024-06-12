@@ -126,11 +126,9 @@ export class HeaderComponent {
     }
 
     public logout() {
-        if (!window.location.pathname.includes('admin')) {
-            localStorage.removeItem('auth_cli');
-            localStorage.removeItem('token');
-        }
+        localStorage.removeItem('auth_cli');
+        localStorage.removeItem('token');
         this.user = false;
-        window.location.href = '/login';
+        window.location.href = '/';
     }
 }

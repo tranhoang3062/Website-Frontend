@@ -26,7 +26,7 @@ export class NewspageComponent {
         private newsService: NewsService
     ) {
         this.titleService.setTitle('Tin tức');
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
 
         this.activatedRoute.queryParamMap.subscribe(queries => {
             this.p = queries.get('page') ? Number(queries.get('page')) : 1;

@@ -87,7 +87,7 @@ export class ProductComponent {
         const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : false;
         // js
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
         $(document).ready(() => {
             $("#price-slider").slider({
                 range: true,
@@ -227,6 +227,7 @@ export class ProductComponent {
     }
 
     public onFilterPrice() {
+        this.valueSelectSort = ''
         const minPriceElem = document.querySelector('#min-price') as HTMLInputElement;
         const maxPriceElem = document.querySelector('#max-price') as HTMLInputElement;
         this.router.navigate(['/san-pham/' + this.paramType + '/' + this.paramCate + '/' + this.paramChild], { queryParams: { from: Number(minPriceElem.value), to: Number(maxPriceElem.value) }, queryParamsHandling: 'merge' });

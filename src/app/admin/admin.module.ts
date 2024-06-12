@@ -30,6 +30,7 @@ import { EditRComponent } from './components/pages/register/edit-r/edit-r.compon
 import { LoginComponent } from './components/pages/login/login.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 import { IndexOComponent } from './components/pages/order/index-o/index-o.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
     declarations: [
@@ -65,7 +66,8 @@ import { IndexOComponent } from './components/pages/order/index-o/index-o.compon
         HttpClientModule,
         NgxPaginationModule,
         CKEditorModule,
-        CarouselModule
+        CarouselModule,
+        NgxLoadingModule
     ]
 })
 export class AdminModule { }

@@ -10,6 +10,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth.interceptor';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,16 @@ import { AuthInterceptor } from './auth.interceptor';
         CarouselModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        NgxLoadingModule.forRoot({
+            animationType: ngxLoadingAnimationTypes.circleSwish,
+            backdropBackgroundColour: 'rgba(255,255,255,0.5)',
+            backdropBorderRadius: '4px',
+            primaryColour: '#ccc',
+            secondaryColour: '#dd0031',
+            tertiaryColour: '#1976d2',
+            fullScreenBackdrop: true,
+        }),
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

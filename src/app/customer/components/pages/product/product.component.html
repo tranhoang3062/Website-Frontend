@@ -64,19 +64,19 @@
             </div>
 
             <div class="list-brand">
+              <h5 class="text-uppercase">Chọn thương hiệu</h5>
               <div *ngIf="filterBrands.length !== 0" class="box-choose py-3">
                 <div class="d-flex justify-content-between">
-                  <h5 class="text-info">Bạn chọn</h5>
-                  <small (click)="handleBrand(null, 'reset')" class="text-secondary">Bỏ hết</small>
+                  <h5 class="text-info">Đang chọn</h5>
+                  <small (click)="handleBrand(null, 'reset')" class="text-secondary">Xóa tất cả</small>
                 </div>
                 <div class="d-flex flex-wrap">
-                  <p *ngFor="let item of filterBrands; index as i" class="m-0 p-0 small pr-2 pb-1 text-secondary">
+                  <p *ngFor="let item of filterBrands; index as i" class="m-0 p-0 small pr-2 pb-1 text-secondary text-decoration-underline">
                     <fa-icon (click)="handleBrand(i, 'remove')" [icon]="faXmark"></fa-icon>
-                    <span>{{ item.name }}</span>
+                    <span class="ml-1">{{ item.name }}</span>
                   </p>
                 </div>
               </div>
-              <h5 class="text-uppercase">Chọn thương hiệu</h5>
               <div class="form-group d-flex">
                 <input type="text" id="" placeholder="Nhập tên thương hiệu?" class="form-control rounded-0" (input)="handleBrand($event, 'search')">
                 <!-- <button type="button" class="btn btn-danger rounded-0"><fa-icon [icon]="faSearch"></fa-icon></button> -->
@@ -226,9 +226,9 @@
                     <div class="d-flex align-items-center py-3">
                       <span class="text-secondary mr-3">Số lượng:</span>
                       <div class="d-flex align-items-center border border-1 border-dark  p-0">
-                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
-                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityElem }}</h5></button>
-                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">-</h5></button>
+                        <input class="input-quantity" [(ngModel)]="quantityElem">
+                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">+</h5></button>
                       </div>
                     </div>
                     <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart()" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>

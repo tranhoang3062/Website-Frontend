@@ -57,7 +57,7 @@
         <div class="bg-white">
           <owl-carousel-o [options]="customOptions" class="position-relative">
             <ng-template *ngFor="let item of dataProductOutstand" carouselSlide>
-              <div class="product-elem item m-3 p-2 position-relative bg-white">
+              <div class="product-elem item m-3 p-2 position-relative bg-white cursor-pointer" style="height: 396px;">
                 <span class="d-block py-1">
                   <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
                     <img src="{{ item.resources[0] }}" class="w-100" alt="">
@@ -107,8 +107,8 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row">
-              <div *ngFor="let item of boxThreeDataProduct | paginate: { itemsPerPage: itemsPage, currentPage: p }" class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2">
-                <div class="product-elem item p-2 position-relative bg-white">
+              <div *ngFor="let item of boxThreeDataProduct | paginate: { itemsPerPage: itemsPage, currentPage: p }" class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2" style="height: 437px !important;">
+                <div class="product-elem item p-2 position-relative bg-white cursor-pointer" style="height: 100%;">
                   <span class="d-block py-1">
                     <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
                       <img src="{{ item.resources[0] }}" class="w-100" alt="">
@@ -291,9 +291,9 @@
                     <div class="d-flex align-items-center py-3">
                       <span class="text-secondary mr-3">Số lượng:</span>
                       <div class="d-flex align-items-center border border-1 border-dark  p-0">
-                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
-                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityElem }}</h5></button>
-                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">-</h5></button>
+                        <input class="input-quantity" [(ngModel)]="quantityElem">
+                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">+</h5></button>
                       </div>
                     </div>
                     <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart()" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>

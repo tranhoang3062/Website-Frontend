@@ -26,7 +26,7 @@ export class SearchComponent {
 
     public constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private getService: getService, public productService: ProductService, public wishlistService: WishlistService, private router: Router) {
         this.titleService.setTitle('Tìm kiếm');
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
 
         this.activatedRoute.queryParamMap.subscribe(queries => {
             this.queryQ = queries.get('q');

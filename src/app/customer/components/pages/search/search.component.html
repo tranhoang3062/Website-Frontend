@@ -90,9 +90,9 @@
                     <div class="d-flex align-items-center py-3">
                       <span class="text-secondary mr-3">Số lượng:</span>
                       <div class="d-flex align-items-center border border-1 border-dark  p-0">
-                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
-                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityElem }}</h5></button>
-                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                        <button (click)="hanldeQuantityPrice(false)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">-</h5></button>
+                        <input class="input-quantity" [(ngModel)]="quantityElem">
+                        <button (click)="hanldeQuantityPrice(true)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">+</h5></button>
                       </div>
                     </div>
                     <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart()" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>

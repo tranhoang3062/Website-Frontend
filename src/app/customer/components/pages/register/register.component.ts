@@ -14,24 +14,26 @@ import Swal from 'sweetalert2';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-    public faArrowRightLong = faArrowRightLong;
-    public faArrowLeftLong = faArrowLeftLong;
-    public faPlus = faPlus;
+    faArrowRightLong = faArrowRightLong;
+    faArrowLeftLong = faArrowLeftLong;
+    faPlus = faPlus;
 
-    public emailError: boolean = false;
-    public phoneError: boolean = false;
-    public passwordComfirmError: boolean = false;
-    public file: any;
-    public urlImg: any = 'assets/images/avatar-user-default.png';
-    public showForm: any = [true, false, false];
+    emailError: boolean = false;
+    phoneError: boolean = false;
+    passwordComfirmError: boolean = false;
+    file: any;
+    urlImg: any = 'assets/images/avatar-user-default.png';
+    showForm: any = [true, false, false];
 
-    public radioInputs: any = [
+    radioInputs: any = [
         { id: 1, name: 'Nam', value: 0, checked: true },
         { id: 2, name: 'Nữ', value: 1, checked: false },
         { id: 2, name: 'Khác', value: 2, checked: false },
     ];
 
-    public dataForm = this.fb.group({
+    loading: boolean = false;
+
+    dataForm = this.fb.group({
         "fullname": ["", [Validators.required]],
         "email": ["", [Validators.required, Validators.email]],
         "phone": ["", [Validators.required, Validators.pattern('(03|05|07|08|09|01[2|6|8|9])+[0-9]{8}')]],
@@ -42,7 +44,7 @@ export class RegisterComponent {
         "address": [""],
     });
 
-    public constructor(
+    constructor(
         private titleService: Title, 
         private fb: FormBuilder, 
         private createService: CreateService, 
@@ -51,7 +53,7 @@ export class RegisterComponent {
         private authService: AuthService
     ) {
         this.titleService.setTitle('Đăng ký');
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
         if (localStorage.getItem('token')) this.router.navigate(['/']);
     }
 
@@ -59,7 +61,7 @@ export class RegisterComponent {
         return this.dataForm.controls;
     }
 
-    public selectFile(elem: any) {
+    selectFile(elem: any) {
         this.file = elem.target.files[0];
         if (!this.file) {
             this.urlImg = 'assets/images/avatar-user-default.png';
@@ -71,11 +73,11 @@ export class RegisterComponent {
         }
     }
 
-    public handleButton(a: boolean, b: boolean, c: boolean) {
+    handleButton(a: boolean, b: boolean, c: boolean) {
         this.showForm = [a, b, c];
     }
 
-    public handleSubmit() {
+    handleSubmit() {
         if (this.dataForm.value.passwordComfirm !== this.dataForm.value.password) {
             this.passwordComfirmError = true;
             this.showForm = [true, false, false];
@@ -106,10 +108,23 @@ export class RegisterComponent {
                                     formData.append("address", newData.address);
                                     if (!this.file) formData.append("thumbnail", "assets/images/avatar-user-default.png");
                                     else formData.append("upload-file", this.file);
+                                    this.loading = true;
                                     this.authService.register(formData, (result: boolean) => {
                                         if (result) {
-                                            this.router.navigate(['/login']);
+                                            setTimeout(() => {
+                                                Swal.fire({
+                                                    icon: "success",
+                                                    title: "Đăng ký thành công",
+                                                    text: "Vui lòng đăng nhập để tiếp tục",
+                                                    confirmButtonText: "Đăng nhập"
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) this.router.navigate(['/login']);
+                                                });
+                                            });
                                         }
+                                        setTimeout(() => {
+                                            this.loading = false;
+                                        }, 1000);
                                     });
                                 }
                             }

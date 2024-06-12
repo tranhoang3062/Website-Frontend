@@ -238,3 +238,27 @@ body {
 table {
     width: 100%;
 }
+
+.text-decoration-underline {
+    text-decoration: underline;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.input-quantity {
+    width: 40px;
+    border: none;
+    text-align: center;
+    border: 0px solid;
+}
+
+.input-quantity:focus {
+    outline: none;
+}
+
+.btn-focus-none:focus {
+    outline: none;
+    box-shadow: none;
+}

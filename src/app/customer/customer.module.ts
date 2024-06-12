@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 import { UserComponent } from './components/pages/user/user.component';
 import { SearchComponent } from './components/pages/search/search.component';
+import { NgxLoadingModule } from 'ngx-loading';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -61,8 +62,8 @@ import { SearchComponent } from './components/pages/search/search.component';
         NgxSliderModule,
         NgxPaginationModule,
         HttpClientModule,
-        ReactiveFormsModule
-        // BrowserAnimationsModule
+        ReactiveFormsModule,
+        NgxLoadingModule
     ]
 })
 export class CustomerModule { }

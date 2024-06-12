@@ -10,21 +10,23 @@ import { AuthService } from 'src/app/services/auth.service';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-    public error: any = false;
+    error: any = false;
 
-    public dataForm: any = this.fb.group({
+    dataForm: any = this.fb.group({
         "email": ["", [Validators.required, Validators.email]],
         "password": ["", [Validators.required, Validators.minLength(6)]]
     });
 
-    public constructor(
+    loading: boolean = false;
+
+    constructor(
         private titleService: Title,
         private fb: FormBuilder,
         private router: Router,
         private authService: AuthService
     ) {
         this.titleService.setTitle('Đăng nhập');
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
         if (localStorage.getItem('token')) this.router.navigate(['/']);
     }
 
@@ -32,8 +34,10 @@ export class LoginComponent {
         return this.dataForm.controls;
     }
 
-    public handleSubmit() {
+    handleSubmit() {
         const data = this.dataForm.value;
+
+        this.loading = true;
         this.authService.loginUser(data).subscribe({
             next: (res: any) => {
                 if (res.data[0].role == 1) {
@@ -41,12 +45,18 @@ export class LoginComponent {
                     delete res.data[0]['password'];
                     delete res.data[0]['refresh_token'];
                     localStorage.setItem('auth_cli', JSON.stringify(res.data[0]));
-                    window.location.href = '/';
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
                 } else this.error = true;
+                setTimeout(() => {
+                    this.loading = false;                
+                }, 1000);
             },
             error: (err) => {
                 console.log(err);
                 this.error = true;
+                this.loading = false;
             }
         });
     }

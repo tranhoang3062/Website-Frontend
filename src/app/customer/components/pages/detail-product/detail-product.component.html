@@ -131,69 +131,70 @@
             <div class="col-sm-12 col-md-7 col-lg-7">
               <h4>{{ commentProducts.length }} đánh giá cho {{ product.name }}</h4>
               <div class="box-comments">
-                <div *ngFor="let item of commentProducts; index as i" class="item">
-                  <div class="d-flex mt-3" style="background-color: #fff; padding: 16px; border-radius: 8px;">
-                    <span class="d-block mx-2">
-                        <img class="w-100 h-100 rounded-circle" src="{{ item.thumbnail }}" alt="">
-                    </span>
-                    <div>
-                        <p class="p-0 m-0">
-                            <span *ngFor="let elem of renderArr(item.evaluate)" class="text-warning"><fa-icon [icon]="faStar"></fa-icon></span>
-                            <span *ngFor="let elem of renderArr(5-item.evaluate)" class="text-warning"><fa-icon [icon]="faStarRe"></fa-icon></span>
-                        </p>
-                        <p class="p-0 m-0"><b>{{ item.nameUser }}</b> - <span>{{ item.create_at | date:'dd/MM/YYYY' }}</span></p>
-                        <p class="p-0 m-0">{{ item.content }}</p>
-                    </div>
-                  </div>
-                  <div *ngIf="item.resources !== ''" class="box-resources">
-                    <div class="position-relative d-flex align-items-center">
-                      <div class="position-relative d-flex align-items-center">
-                        <button type="button" class="btn btn-outline-light position-absolute border-0 w-100 h-100 bg-transparent" data-toggle="modal" [attr.data-target]="'#exampleModalCenter' + item.id"></button>
-                        <span *ngIf="item.resources[0]" class="d-block border border-1 p-1">
-                          <img class="w-100 h-100" src="{{ item.resources[0] }}" alt="">
-                        </span>
-                        <span *ngIf="item.resources[1]" class="d-block border border-1 p-1">
-                          <img class="w-100 h-100" src="{{ item.resources[1] }}" alt="">
-                        </span>
-                        <span *ngIf="item.resources[2]" class="d-block border border-1 p-1">
-                          <img class="w-100 h-100" src="{{ item.resources[2] }}" alt="">
-                        </span>
-                        <span *ngIf="item.resources.length > 3" class="d-flex align-items-center justify-content-center border border-1 p-1 h4 p-0 m-0 text-secondary">
-                          <fa-icon [icon]="faPhotoVideo"></fa-icon>+{{ item.resources.length - 3 }}
-                        </span>
+                <ng-container *ngFor="let item of commentProducts; index as i" >
+                  <div class="item" style="background-color: #fff; padding: 16px; border-radius: 8px; margin-top: 15px">
+                    <div class="d-flex mt-3">
+                      <span class="d-block mx-2">
+                          <img class="w-100 h-100 rounded-circle" src="{{ item.thumbnail }}" alt="">
+                      </span>
+                      <div>
+                          <p class="p-0 m-0">
+                              <span *ngFor="let elem of renderArr(item.evaluate)" class="text-warning"><fa-icon [icon]="faStar"></fa-icon></span>
+                              <span *ngFor="let elem of renderArr(5-item.evaluate)" class="text-warning"><fa-icon [icon]="faStarRe"></fa-icon></span>
+                          </p>
+                          <p class="p-0 m-0"><b>{{ item.nameUser }}</b> - <span>{{ item.create_at | date:'dd/MM/YYYY' }}</span></p>
+                          <p class="p-0 m-0">{{ item.content }}</p>
                       </div>
                     </div>
-                  </div>
-                  <div class="modal fade" id="exampleModalCenter{{ item.id }}" tabindex="-1" role="dialog"
-                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                    <div *ngIf="item.resources !== ''" class="box-resources">
+                      <div class="position-relative d-flex align-items-center" style="margin-left: 65px; margin-top: 15px;">
+                        <div class="position-relative d-flex align-items-center">
+                          <button type="button" class="btn btn-outline-light position-absolute border-0 w-100 h-100 bg-transparent" data-toggle="modal" [attr.data-target]="'#exampleModalCenter' + item.id"></button>
+                          <span *ngIf="item.resources[0]" class="d-block border border-1 p-1">
+                            <img class="w-100 h-100" src="{{ item.resources[0] }}" alt="">
+                          </span>
+                          <span *ngIf="item.resources[1]" class="d-block border border-1 p-1">
+                            <img class="w-100 h-100" src="{{ item.resources[1] }}" alt="">
+                          </span>
+                          <span *ngIf="item.resources[2]" class="d-block border border-1 p-1">
+                            <img class="w-100 h-100" src="{{ item.resources[2] }}" alt="">
+                          </span>
+                          <span *ngIf="item.resources.length > 3" class="d-flex align-items-center justify-content-center border border-1 p-1 h4 p-0 m-0 text-secondary">
+                            <fa-icon [icon]="faPhotoVideo"></fa-icon>+{{ item.resources.length - 3 }}
+                          </span>
                         </div>
-                        <div class="modal-body">
-                          <div id="carouselExampleControls{{ item.id }}" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                              <div *ngFor="let item1 of item.resources; index as i" class="carousel-item" [ngClass]="{'active': i == 0}">
-                                <img class="d-block w-100" src="{{ item1 }}" alt="First slide">
+                      </div>
+                    </div>
+                    <div class="modal fade" id="exampleModalCenter{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div id="carouselExampleControls{{ item.id }}" class="carousel slide" data-ride="carousel">
+                              <div class="carousel-inner">
+                                <div *ngFor="let item1 of item.resources; index as i" class="carousel-item" [ngClass]="{'active': i == 0}">
+                                  <img class="d-block w-100" src="{{ item1 }}" alt="First slide">
+                                </div>
                               </div>
+                              <a class="carousel-control-prev" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"><fa-icon class="text-dark" [icon]="faChevronLeft"></fa-icon></span>
+                                <span class="sr-only">Previous</span>
+                              </a>
+                              <a class="carousel-control-next" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"><fa-icon class="text-dark" [icon]="faChevronRight"></fa-icon></span>
+                                <span class="sr-only">Next</span>
+                              </a>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"><fa-icon class="text-dark" [icon]="faChevronLeft"></fa-icon></span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls{{ item.id }}" role="button" data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"><fa-icon class="text-dark" [icon]="faChevronRight"></fa-icon></span>
-                              <span class="sr-only">Next</span>
-                            </a>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </ng-container>
               </div>
             </div>
             <div class="col-sm-12 col-md-5 col-lg-5">

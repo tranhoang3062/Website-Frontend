@@ -92,7 +92,7 @@ export class DetailProductComponent {
         this.user = auth ? JSON.parse(auth) : false;
 
         this.activatedRoute.paramMap.subscribe(params => {
-            $('html, body').animate({ scrollTop: 0 }, 0);
+            $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
             this.paramType = params.get('type') || '';
             this.paramCate = params.get('cate') || '';
             this.paramChild = params.get('child') || '';
@@ -130,6 +130,7 @@ export class DetailProductComponent {
                         this.totalCmt = this.product.totalCmt
                         this.commentService.getCommentByProduct(this.product.id, (err: boolean, data: any) => {
                             if (!err) {
+                                console.log(data)
                                 this.commentProducts = data.map((item: any) => {
                                     const resources = item.resources !== '' && item.resources ? JSON.parse(item.resources) : '';
                                     return { ...item, resources: resources };
@@ -254,9 +255,9 @@ export class DetailProductComponent {
                         this.totalCmt += 1;
                         const cmt = { ...newData, user_id: this.user.id, product_id: this.product.id, nameUser: this.user.fullname, thumbnail: this.user.thumbnail, resources: this.urlImg, id: res.insertId }
                         this.commentProducts.push(cmt);
-                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                            this.router.navigate(['/san-pham/' + this.paramType + '/' + this.paramCate + '/' + this.paramChild + '/' + this.paramName]);
-                        });
+                        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                        //     this.router.navigate(['/san-pham/' + this.paramType + '/' + this.paramCate + '/' + this.paramChild + '/' + this.paramName]);
+                        // });
                         this.valueEvaluate = Math.ceil(this.commentProducts.reduce((a: number, b: any) => Number(a + Number(b.evaluate)), 0) / this.totalCmt);
                         Swal.fire({
                             icon: 'success',

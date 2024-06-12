@@ -56,7 +56,7 @@ export class UserComponent {
         private authService: AuthService,
         private orderService: OrderService
     ) {
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
 
         const auth: any = localStorage.getItem('auth_cli');
         this.user = auth ? JSON.parse(auth) : false;

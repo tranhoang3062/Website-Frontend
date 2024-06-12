@@ -27,7 +27,7 @@ export class DetailPetComponent {
         this.titleService.setTitle('Thú cưng');
 
         this.activatedRoute.paramMap.subscribe(params => {
-            $('html, body').animate({ scrollTop: 0 }, 0);
+            $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
 
             this.paramType = params.get('type');
             this.paramSpecies = params.get('species');

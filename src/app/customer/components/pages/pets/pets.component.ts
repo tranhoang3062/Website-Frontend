@@ -29,7 +29,7 @@ export class PetsComponent {
         private petService: PetsService
     ) {
         this.titleService.setTitle('Thú cưng');
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
 
         this.activatedRoute.paramMap.subscribe(params => {
             this.paramType = params.get('type');

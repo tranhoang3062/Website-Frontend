@@ -20,7 +20,7 @@ export class DetailNewsComponent {
 
     public constructor(private titleService: Title, private getService: getService, private activatedRoute: ActivatedRoute, private newsService: NewsService) {
         this.titleService.setTitle('Tin tức');
-        $('html, body').animate({ scrollTop: 0 }, 0);
+        $('html, body').animate({ scrollTop: 0, behavior: 'smooth' }, 0);
 
         this.activatedRoute.paramMap.subscribe(params => {
             this.paramName = params.get('name');
