@@ -82,9 +82,7 @@
                 <button (click)="handleQuantityPrice('minus', true)" class="btn rounded-0 bg-transparent border-0">
                     <h5 class="p-0 m-0">-</h5>
                 </button>
-                <button type="button" class="btn rounded-0 bg-transparent border-0 w-100 d-block">
-                    <h5 class="p-0 m-0">{{ quantityElem }}</h5>
-                </button>
+                <input class="input-quantity1" [(ngModel)]="quantityElem">
                 <button (click)="handleQuantityPrice('plus', true)" class="btn rounded-0 bg-transparent border-0">
                     <h5 class="p-0 m-0">+</h5>
                 </button>
@@ -129,11 +127,12 @@
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
           <div class="row">
             <div class="col-sm-12 col-md-7 col-lg-7">
-              <h4>{{ commentProducts.length }} đánh giá cho {{ product.name }}</h4>
+              <!-- <h4>{{ commentProducts.length }} đánh giá cho {{ product.name }}</h4> -->
+              <h4>{{ commentProducts.length }} đánh giá</h4>
               <div class="box-comments">
                 <ng-container *ngFor="let item of commentProducts; index as i" >
                   <div class="item" style="background-color: #fff; padding: 16px; border-radius: 8px; margin-top: 15px">
-                    <div class="d-flex mt-3">
+                    <div class="d-flex">
                       <span class="d-block mx-2">
                           <img class="w-100 h-100 rounded-circle" src="{{ item.thumbnail }}" alt="">
                       </span>
@@ -378,9 +377,9 @@
                     <div class="d-flex align-items-center py-3">
                       <span class="text-secondary mr-3">Số lượng:</span>
                       <div class="d-flex align-items-center border border-1 border-dark  p-0">
-                        <button (click)="handleQuantityPrice('plus', false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">+</h5></button>
-                        <button type="button" class="btn rounded-0 bg-transparent border-0 w-100"><h5 class="p-0 m-0">{{ quantityQvElem }}</h5></button>
-                        <button (click)="handleQuantityPrice('minus', false)" class="btn rounded-0 bg-transparent border-0"><h5 class="p-0 m-0">-</h5></button>
+                        <button (click)="handleQuantityPrice('minus', false)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">-</h5></button>
+                        <input class="input-quantity" [(ngModel)]="quantityQvElem">
+                        <button (click)="handleQuantityPrice('plus', false)" class="btn rounded-0 bg-transparent border-0 btn-focus-none"><h5 class="p-0 m-0">+</h5></button>
                       </div>
                     </div>
                     <button *ngIf="!productService.checkOrderChoose(dataQuickview)" (click)="handleOnCart(false)" type="button" class="btn btn-info w-100 py-2 rounded-0"><h5 class="p-0 m-0 text-uppercase">Thêm vào giỏ hàng</h5></button>

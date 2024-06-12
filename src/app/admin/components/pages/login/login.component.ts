@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent {
     public error: boolean = false;
 
+    loading: boolean = false;
+
     public dataForm: any = this.fb.group({
         "email": ["", [Validators.required, Validators.email]],
         "password": ["", [Validators.required, Validators.minLength(6)]]
@@ -33,6 +35,7 @@ export class LoginComponent {
 
     public handleSubmit() {
         const data = this.dataForm.value;
+        this.loading = true;
         this.authService.loginUser(data).subscribe({
             next: (res: any) => {
                 if (res.data[0].role == 0) {
@@ -40,11 +43,17 @@ export class LoginComponent {
                     delete res.data[0]['password'];
                     delete res.data[0]['refresh_token'];
                     localStorage.setItem('auth_adm', JSON.stringify(res.data[0]));
-                    window.location.href = '/admin';
+                    setTimeout(() => {
+                        window.location.href = '/admin';
+                    }, 1000);
                 } else this.error = true;
+                setTimeout(() => {
+                    this.loading = false;
+                }, 1000)
             },
             error: (err) => {
                 this.error = true;
+                this.loading = false;
             }
         });
     }

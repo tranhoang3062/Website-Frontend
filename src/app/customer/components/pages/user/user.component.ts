@@ -43,7 +43,11 @@ export class UserComponent {
         "gender": [""],
         "birthday": [""],
         "address": [""],
+        "password": "",
+        "confirm_pw": ""
     });
+
+    confirm_pw: any;
 
     public constructor(
         private titleService: Title, 
@@ -69,7 +73,8 @@ export class UserComponent {
                 if (this.user) {
                     this.dataForm.controls.fullname.setValue(this.user.fullname);
                     this.dataForm.controls.gender.setValue(this.user.gender + '');
-                    this.dataForm.controls.birthday.setValue(this.user.birthday);
+                    this.dataForm.controls.birthday.setValue(this.formatDate(this.user.birthday));
+                    // this.dataForm.controls.birthday.setValue(this.user.birthday);
                     this.dataForm.controls.address.setValue(this.user.address);
                     this.radioInputs.forEach((item: any) => {
                         if (item.value == this.user.gender) item.checked = true;
@@ -174,6 +179,7 @@ export class UserComponent {
         formData.append('gender', newData.gender);
         formData.append('address', newData.address);
         formData.append('birthday', newData.birthday);
+        formData.append('password', newData.password);
         if (this.file) formData.append('upload-file', this.file);
         this.authService.editUser(this.user.id, formData, (result: boolean, data: any) => {
             if (result) {
@@ -188,12 +194,20 @@ export class UserComponent {
                     customClass: 'swal-class2',
                     heightAuto: false,
                 });
-                localStorage.setItem('auth', JSON.stringify({ ...this.user, ...newData, thumbnail: this.urlImg }));
-                this.router.navigateByUrl('/user', { skipLocationChange: true }).then(() => {
-                    this.router.navigate(['/user/account']);
-                });
+                localStorage.setItem('auth_cli', JSON.stringify({ ...this.user, ...newData, thumbnail: this.urlImg }));
+                // this.router.navigateByUrl('/user', { skipLocationChange: true }).then(() => {
+                //     this.router.navigate(['/user/account']);
+                // });
             }
         });
+    }
+
+    disabledBtn() {
+        let data = this.dataForm.value;
+        if (data.password || data.confirm_pw) {
+            if (!data.password || !data.confirm_pw) return true;
+            else if (data.password && data.password.length < 6 || data.confirm_pw && data.confirm_pw.length < 6) return true;
+        } else return !data.fullname;
     }
 
     public handleRoute(key: string) {
@@ -238,5 +252,23 @@ export class UserComponent {
         if (status == 4) return { text: 'Hoàn thành', color: 'success' };
         if (status == 5) return { text: 'Đã hủy', color: 'secondary' };
         if (status == 6) return { text: 'Trả hàng/Hoàn tiền', color: 'danger' };
+    }
+
+    formatDate(date: any) {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [year, month, day].join('-');
+    }
+
+    isErrorPw: boolean = false;
+    checkPassword() {
+        if (this.dataForm.value.password && this.dataForm.value.password.length >= 6 && this.dataForm.value.confirm_pw && this.dataForm.value.confirm_pw.length >= 6) {
+            if (this.dataForm.value.password != this.dataForm.value.confirm_pw) this.isErrorPw = true;
+            else this.isErrorPw = false;
+        } else this.isErrorPw = false;
     }
 }

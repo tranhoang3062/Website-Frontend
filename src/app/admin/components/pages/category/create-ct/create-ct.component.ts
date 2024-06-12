@@ -92,6 +92,7 @@ export class CreateCtComponent {
                 if (cateParent.some((item: any) => item.id == newData.parent_id)) newData = { ...arr, lever: 2 };
             }
             if (!this.nameError) {
+                if (this.paramsKey == 'dmtc') newData.parent_id = 0;
                 this.categoryService.createCate(newData, (result: boolean) => {
                     if (result) {
                         if (this.paramsKey === "dmtc") {

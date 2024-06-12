@@ -18,7 +18,7 @@
                   <img src="{{ item.resources[0] }}" class="w-100" alt="">
                 </a>
               </span>
-              <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/']" class="text-dark">{{ item.name }}</a></p>
+              <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/']" class="text-dark ellipsis">{{ item.name }}</a></p>
               <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
               <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
               <div class="list-icon position-absolute d-flex flex-column">

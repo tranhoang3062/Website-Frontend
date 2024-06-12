@@ -35,6 +35,8 @@ export class EditRComponent {
         "gender": [""],
         "birthday": [""],
         "address": [""],
+        "password": [""],
+        "confirm_pw": [""]
     })
 
     public constructor(
@@ -52,7 +54,7 @@ export class EditRComponent {
                     this.dataForm.controls.fullname.setValue(this.account.fullname);
                     this.dataForm.controls.email.setValue(this.account.email);
                     this.dataForm.controls.phone.setValue(this.account.phone);
-                    this.dataForm.controls.birthday.setValue(this.account.birthday);
+                    this.dataForm.controls.birthday.setValue(this.formatDate(this.account.birthday));
                     this.dataForm.controls.address.setValue(this.account.address);
                     this.dataForm.controls.gender.setValue(this.account.gender);
                     this.radioInputs.forEach((item: any) => {
@@ -101,6 +103,7 @@ export class EditRComponent {
                                 formData.append("gender", newData.gender);
                                 formData.append("birthday", newData.birthday);
                                 formData.append("address", newData.address);
+                                formData.append("password", newData.password);
                                 if (this.file) formData.append("upload-file", this.file);
                                 this.authService.editUser(this.paramId, formData, (result: boolean) => {
                                     if (result) {
@@ -109,7 +112,7 @@ export class EditRComponent {
                                             timer: 1000,
                                             showCancelButton: false,
                                             showConfirmButton: false,
-                                            position: 'top-left',
+                                            position: 'top-right',
                                             color: 'green',
                                             customClass: 'swal-height',
                                             heightAuto: false,
@@ -123,5 +126,31 @@ export class EditRComponent {
                 }
             }
         });
+    }
+
+    formatDate(date: any) {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [year, month, day].join('-');
+    }
+
+    disabledBtn() {
+        let data = this.dataForm.value;
+        if (data.password || data.confirm_pw) {
+            if (!data.password || !data.confirm_pw) return true;
+            else if (data.password && data.password.length < 6 || data.confirm_pw && data.confirm_pw.length < 6) return true;
+        }
+    }
+
+    isErrorPw: boolean = false;
+    checkPassword() {
+        if (this.dataForm.value.password && this.dataForm.value.password.length >= 6 && this.dataForm.value.confirm_pw && this.dataForm.value.confirm_pw.length >= 6) {
+            if (this.dataForm.value.password != this.dataForm.value.confirm_pw) this.isErrorPw = true;
+            else this.isErrorPw = false;
+        } else this.isErrorPw = false;
     }
 }

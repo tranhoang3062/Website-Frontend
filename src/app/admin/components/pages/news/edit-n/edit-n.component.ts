@@ -89,7 +89,7 @@ export class EditNComponent {
                 if (result) {
                     const oldQuery = this.categoryService.getLocalstorageQuery();
                     this.router.navigateByUrl('/admin', { skipLocationChange: true }).then(() => {
-                        this.router.navigate(['/admin/brand'], { queryParams: oldQuery });
+                        this.router.navigate(['/admin/news'], { queryParams: oldQuery });
                     });
                 } else { }
             });

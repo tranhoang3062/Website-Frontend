@@ -71,7 +71,7 @@ export class CreateBComponent {
                 this.brandService.createBrand(formData, (result: boolean) => {
                     if (result) {
                         this.router.navigateByUrl('/admin', { skipLocationChange: true }).then(() => {
-                            this.router.navigate(['/admin/thuong-hieu']);
+                            this.router.navigate(['/admin/brand']);
                         });
                     } else { }
                 });

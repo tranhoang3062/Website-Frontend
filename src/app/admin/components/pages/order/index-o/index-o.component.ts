@@ -123,7 +123,7 @@ export class IndexOComponent {
                     if (result) {
                         this.orderService.deleteOrders(item.id, (result: boolean, data: any) => {
                             if (result) {
-                                this.dataDefault = this.dataDefault.splice(index, 1);
+                                this.dataDefault.splice(index, 1);
                                 this.dataOrder = this.dataDefault;
                                 Swal.fire({
                                     icon: 'success',

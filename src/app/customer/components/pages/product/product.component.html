@@ -65,7 +65,7 @@
 
             <div class="list-brand">
               <h5 class="text-uppercase">Chọn thương hiệu</h5>
-              <div *ngIf="filterBrands.length !== 0" class="box-choose py-3">
+              <div *ngIf="filterBrands.length !== 0" class="box-choose py-1">
                 <div class="d-flex justify-content-between">
                   <h5 class="text-info">Đang chọn</h5>
                   <small (click)="handleBrand(null, 'reset')" class="text-secondary">Xóa tất cả</small>
@@ -147,7 +147,7 @@
                       <img src="{{ item.resources[0] }}" class="w-100" alt="">
                     </a>
                   </span>
-                  <p class="pt-3 mb-2 styleText"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]" class="text-dark">{{ item.name }}</a></p>
+                  <p class="pt-3 mb-2 styleText"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]" class="text-dark ellipsis">{{ item.name }}</a></p>
                   <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
                   <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
                   <p class="">

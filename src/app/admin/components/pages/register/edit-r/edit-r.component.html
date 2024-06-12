@@ -53,11 +53,14 @@
           </div>
           <div class="form-group">
             <label for="password-inp"><b>Mật khẩu *</b></label>
-            <input type="password" name="password" id="password-inp" class="form-control rounded-0" placeholder="Mật khẩu" disabled>
+            <input type="password" name="password" formControlName="password" (change)="checkPassword()" class="form-control rounded-0 {{ isErrorPw || dataForm.value.password && dataForm.value.password.length < 6 ? 'is-invalid' : '' }}" placeholder="Mật khẩu">
+            <small style="color: red;" *ngIf="dataForm.value.password && dataForm.value.password.length < 6">Mật khẩu phải chứa ít nhất 6 kí tự!</small>
           </div>
           <div class="form-group">
             <label for="passwordComfirm-inp"><b>Xác nhận mật khẩu *</b></label>
-            <input type="password" name="passwordComfirm" id="passwordComfirm-inp" class="form-control rounded-0" placeholder="Xác nhận mật khẩu" disabled (ngModelChange)="passwordComfirmError = false">
+            <input type="password" name="passwordComfirm" formControlName="confirm_pw" (change)="checkPassword()" class="form-control rounded-0 {{ isErrorPw || dataForm.value.confirm_pw && dataForm.value.confirm_pw.length < 6 ? 'is-invalid' : '' }}" placeholder="Xác nhận mật khẩu" (ngModelChange)="passwordComfirmError = false">
+            <small style="color: red;" *ngIf="dataForm.value.confirm_pw && dataForm.value.confirm_pw.length < 6">Mật khẩu phải chứa ít nhất 6 kí tự!</small>
+            <small style="color: red;" *ngIf="isErrorPw">Mật khẩu không trùng khớp!</small>
           </div>
         </div>
         <div class="col-6">
@@ -70,7 +73,7 @@
           </div>
           <div class="form-group">
             <label for="birthday-inp"><b>Ngày sinh</b></label>
-            <input type="date" formControlName="birthday" value="{{ account.birthday | date:'dd/MM/YYYY' }}" id="birthday-inp" class="form-control rounded-0">
+            <input type="date" formControlName="birthday" id="birthday-inp" class="form-control rounded-0">
           </div>
           <div class="form-group">
             <label for="address-inp"><b>Địa chỉ</b></label>
@@ -85,8 +88,10 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-info rounded-0" *ngIf="dataForm.valid">Lưu</button>
-      <button type="submit" class="btn btn-info rounded-0" *ngIf="!dataForm.valid" disabled>Lưu</button>
+      <div class="text-center mt-4 mb-4">
+        <button type="submit" style="width: 100px;" class="btn btn-info rounded-0" *ngIf="dataForm.valid" [disabled]="disabledBtn() || isErrorPw">Lưu</button>
+        <button type="submit" style="width: 100px;" class="btn btn-info rounded-0" *ngIf="!dataForm.valid" disabled>Lưu</button>
+      </div>
     </form>
   </div>
 </div>

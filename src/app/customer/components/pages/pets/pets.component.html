@@ -27,7 +27,7 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
           <div class="box-pet">
-            <div class="row">
+            <div class="row" *ngIf="listPet?.length > 0">
               <div *ngFor="let item of listPet" class="item col-lg-3 col-md-4 col-sm-6">
                 <a [routerLink]="['/thu-cung/'+paramType+'/'+item.petlist.slug+'/'+item.slug]" class="text-center">
                   <span class="d-block">
@@ -36,6 +36,11 @@
                   <p class="text-uppercase p-2">{{ item.name }}</p>
                 </a>
               </div>
+            </div>
+            <div class="row" *ngIf="listPet?.length == 0">
+                <div class="col-12 text-center pt-5 pb-5">
+                    Không có dữ liệu
+                </div>
             </div>
           </div>
         </div>

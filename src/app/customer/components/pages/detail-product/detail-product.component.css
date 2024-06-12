@@ -218,3 +218,15 @@
 .box-images .carousel-inner>div img {
     object-fit: contain !important;
 }
+
+.input-quantity1 {
+    width: 80px;
+    border: none;
+    text-align: center;
+    border: 0px solid;
+    background: transparent;
+}
+
+.input-quantity1:focus {
+    outline: none;
+}

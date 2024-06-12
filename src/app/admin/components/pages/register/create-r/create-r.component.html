@@ -98,8 +98,10 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-info rounded-0" *ngIf="dataForm.valid">Đăng ký</button>
-      <button type="submit" class="btn btn-info rounded-0" *ngIf="!dataForm.valid" disabled>Đăng ký</button>
+      <div class="text-center mt-4 mb-4">
+        <button type="submit" class="btn btn-info rounded-0" *ngIf="dataForm.valid">Đăng ký</button>
+        <button type="submit" class="btn btn-info rounded-0" *ngIf="!dataForm.valid" disabled>Đăng ký</button>
+      </div>
     </form>
   </div>
 </div>

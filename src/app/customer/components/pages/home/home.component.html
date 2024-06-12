@@ -57,13 +57,13 @@
         <div class="bg-white">
           <owl-carousel-o [options]="customOptions" class="position-relative">
             <ng-template *ngFor="let item of dataProductOutstand" carouselSlide>
-              <div class="product-elem item m-3 p-2 position-relative bg-white cursor-pointer" style="height: 396px;">
+              <div class="product-elem item m-3 p-2 position-relative bg-white cursor-pointer">
                 <span class="d-block py-1">
                   <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
                     <img src="{{ item.resources[0] }}" class="w-100" alt="">
                   </a>
                 </span>
-                <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]" class="text-dark">{{ item.name }}</a></p>
+                <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]" class="text-dark ellipsis">{{ item.name }}</a></p>
                 <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
                 <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
                 <div class="list-icon position-absolute d-flex flex-column">
@@ -107,14 +107,14 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row">
-              <div *ngFor="let item of boxThreeDataProduct | paginate: { itemsPerPage: itemsPage, currentPage: p }" class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2" style="height: 437px !important;">
+              <div *ngFor="let item of boxThreeDataProduct | paginate: { itemsPerPage: itemsPage, currentPage: p }" class="col-lg-3 col-md-4 col-sm-6 m-0 p-0 p-2">
                 <div class="product-elem item p-2 position-relative bg-white cursor-pointer" style="height: 100%;">
                   <span class="d-block py-1">
                     <a [routerLink]="['/san-pham/'+item.cateSlug+'/'+item.cate1Slug+'/'+item.cate2Slug+'/'+item.slug]">
                       <img src="{{ item.resources[0] }}" class="w-100" alt="">
                     </a>
                   </span>
-                  <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/']" class="text-dark">{{ item.name }}</a></p>
+                  <p class="pt-3 styleText2"><a [routerLink]="['/san-pham/']" class="text-dark ellipsis">{{ item.name }}</a></p>
                   <p class="" *ngIf="item.sale_price == 0"><b class="text-danger mr-2">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b></p>
                   <p class="" *ngIf="item.sale_price !== 0"><b class="text-danger mr-2">{{ item.sale_price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></b><del class="text-secondary">{{ item.price |currency:' ':'code':'1.0-0' }}<sup>vnđ</sup></del></p>
                   <div class="list-icon position-absolute d-flex flex-column">

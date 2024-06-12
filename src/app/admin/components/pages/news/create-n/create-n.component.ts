@@ -78,7 +78,7 @@ export class CreateNComponent {
                 this.newsService.createNews(formData, (result: boolean) => {
                     if (result) {
                         this.router.navigateByUrl('/admin', { skipLocationChange: true }).then(() => {
-                            this.router.navigate(['/admin/brand']);
+                            this.router.navigate(['/admin/news']);
                         });
                     } else { }
                 });
